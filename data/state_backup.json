@@ -1,0 +1,13 @@
+{
+  "saved_at": "2026-04-28 17:37:25",
+  "zones": {
+    "A-1": {
+      "status": "occupied",
+      "plate": null,
+      "plate_status": "pending",
+      "park_status": "normal",
+      "linked_zone": null,
+      "entry_time": 1777364838.5478623
+    }
+  }
+}
