@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "event": "exit",
+    "zone": "A-1",
+    "plate": "789호1234",
+    "plate_status": "confirmed",
+    "entry_time": "2026-05-13 16:40:19",
+    "exit_time": "2026-05-13 16:44:00",
+    "park_status": "normal",
+    "car_image": null,
+    "queued_at": 1778658267.7739897
+  },
+  {
+    "event": "entry",
+    "zone": "A-1",
+    "plate": "789호1234",
+    "plate_status": "confirmed",
+    "entry_time": "2026-05-13 16:44:20",
+    "exit_time": null,
+    "park_status": "normal",
+    "car_image": "C:\\Users\\PC\\OneDrive\\Desktop\\pie\\pie\\data\\snapshots\\A-1_20260513_164420.jpg",
+    "queued_at": 1778658271.832319
+  }
+]

@@ -26,12 +26,11 @@ class C:
 
 
 KR_PLATE_PATTERNS = [
-    re.compile(r'^\d{2}[가-힣]\d{4}$'),
-    re.compile(r'^\d{3}[가-힣]\d{4}$'),
+    re.compile(r'^\d{2}[가-힣]\d{4}$'),    # 12가3456
+    re.compile(r'^\d{3}[가-힣]\d{4}$'),    # 123가4567
     re.compile(r'^[가-힣]{2}\d{4}[가-힣]$'),
-    re.compile(r'^\d{3}[가-힣]\d{3,4}$'),
-    # ★ 한글 자리에 영문이 섞인 경우도 허용 (나→u 오인식 대응)
-    re.compile(r'^\d{2,3}[A-Za-z가-힣]\d{3,4}$'),
+    re.compile(r'^\d{3}[가-힣]\d{3,4}$'),  # 789호1234
+    # 영문 허용 패턴 제거 (깨진 결과 투표 참여 방지)
 ]
 
 PLATE_UNREADABLE = "UNREADABLE"
@@ -63,7 +62,6 @@ class PlateReader:
             try:
                 results = self.reader.readtext(variant)
                 for (_, text, conf) in results:
-                    print(f"[OCR RAW] '{text}' conf: {conf:.2f}")
                     cleaned = self._clean(text)
                     if cleaned and conf > best_conf:
                         best_conf = conf
@@ -121,12 +119,32 @@ class PlateReader:
                 if text not in conf_votes or conf > conf_votes[text]:
                     conf_votes[text] = conf
 
+        # 전체 투표 결과 출력 (오인식 확인용)
+        print(f"\n{C.CYAN}[OCR 투표 원본] {zone_name}{C.RESET}")
+        all_counter = Counter(votes)
+        for text, count in all_counter.most_common():
+            is_valid = self._validate_plate_format(text)
+            mark = f"{C.GREEN}V 패턴OK{C.RESET}" if is_valid else f"{C.RED}X 패턴X{C.RESET}"
+            print(f"  {text:15s} {count}표  conf:{conf_votes.get(text,0):.2f}  {mark}")
+
+        # ★ 패턴 통과한 것만 투표 참여
         valid_votes = [v for v in votes if self._validate_plate_format(v)]
 
         if not valid_votes:
+            # 패턴 통과 없으면 전체 투표 중 confidence 1등으로 fallback
+            if votes:
+                all_counter = Counter(votes)
+                fallback = max(
+                    all_counter.keys(),
+                    key=lambda t: all_counter[t] * conf_votes.get(t, 0.5)
+                )
+                self._fail_count[zone_name] = 0
+                print(f"{C.YELLOW}[OCR] {zone_name} 패턴X → fallback: {fallback}{C.RESET}")
+                return fallback
+            print(f"{C.RED}[OCR] {zone_name} 패턴 통과 없음 → null{C.RESET}")
             return self._handle_fail(zone_name)
 
-        # confidence 가중 투표
+        # confidence 가중 투표 (패턴 통과한 것들만)
         counter    = Counter(valid_votes)
         winner     = None
         best_score = 0.0
@@ -139,7 +157,7 @@ class PlateReader:
         self._fail_count[zone_name] = 0
 
         print(f"{C.BOLD}{C.GREEN}"
-              f"[OCR] {zone_name} → {winner} "
+              f"[OCR 최종] {zone_name} → {winner} "
               f"(conf: {conf_votes.get(winner,0):.2f}, "
               f"{counter.get(winner,0)}/{len(valid_votes)}표)"
               f"{C.RESET}")
@@ -211,10 +229,8 @@ class PlateReader:
 
     @staticmethod
     def _clean(text: str) -> str | None:
-        # ★ 공백 제거 후 영문 대문자 + 한글 + 숫자만 남김
         text    = text.replace(' ', '').replace('\u00a0', '')
         cleaned = re.sub(r'[^가-힣A-Z0-9a-z]', '', text.upper())
-        # ★ 최소 5글자 이상 (노이즈 제거)
         return cleaned if len(cleaned) >= 5 else None
 
     def is_unreadable(self, zone_name: str) -> bool:

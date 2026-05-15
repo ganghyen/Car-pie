@@ -1,13 +1,13 @@
 {
-  "saved_at": "2026-04-28 17:37:25",
+  "saved_at": "2026-05-13 16:44:32",
   "zones": {
     "A-1": {
       "status": "occupied",
-      "plate": null,
-      "plate_status": "pending",
+      "plate": "789호1234",
+      "plate_status": "confirmed",
       "park_status": "normal",
       "linked_zone": null,
-      "entry_time": 1777364838.5478623
+      "entry_time": 1778658260.3014457
     }
   }
 }

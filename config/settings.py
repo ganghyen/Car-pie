@@ -27,7 +27,7 @@ CLASS_PLATE       = "plate"
 
 # ── 구역 상태 머신 ─────────────────────────────────────────
 STILL_PIXEL_THRESHOLD  = 8
-STILL_SECONDS_REQUIRED = 10.0
+STILL_SECONDS_REQUIRED = 3.0
 EXIT_TIMEOUT_SECONDS   = 8
 RECHECK_INTERVAL_SEC   = 90
 
@@ -46,10 +46,10 @@ MULTI_ZONE_OVERLAP_RATIO = 0.30
 # ── OCR ────────────────────────────────────────────────────
 OCR_SAMPLE_COUNT         = 5
 OCR_SAMPLE_INTERVAL      = 0.4
-OCR_CONF_THRESHOLD       = 0.6
+OCR_CONF_THRESHOLD       = 0.35  # 낮은 confidence 투표 참여 방지
 OCR_MIN_TEXT_LENGTH      = 4
 PLATE_PADDING            = 10
-PLATE_UPSCALE            = 4.0
+PLATE_UPSCALE            = 3.0
 OCR_MAX_THREADS          = 2
 OCR_FAIL_LIMIT           = 3
 OCR_UNREADABLE_RETRY_SEC = 60.0
@@ -93,7 +93,7 @@ REAL_HEIGHT_CM     = 40     # 세로 실제 거리 (cm)
 
 # 1cm 당 픽셀 수 (높을수록 가상지도 정밀도 높아짐)
 # 라즈베리파이 2GB 기준 16 권장 (너무 높으면 부하)
-CM_PER_PIXEL       = 20
+CM_PER_PIXEL       = 16
 
 # 가상지도 크기 자동 계산
 VIRTUAL_MAP_WIDTH  = REAL_WIDTH_CM  * CM_PER_PIXEL   # 50 × 16 = 800
