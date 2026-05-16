@@ -174,19 +174,21 @@ def main():
     last_check     = time.time()
 
     # ── 카메라 ───────────────────────────────────────────
-    cap = cv2.VideoCapture(CAMERA_INDEX, cv2.CAP_DSHOW)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH,  FRAME_WIDTH)
+    cap = cv2.VideoCapture(CAMERA_INDEX)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
-    cap.set(cv2.CAP_PROP_FPS,          TARGET_FPS)
+    cap.set(cv2.CAP_PROP_FPS, TARGET_FPS)
 
     # C920 자동 포커스 + 화질 설정
-    cap.set(cv2.CAP_PROP_AUTOFOCUS,     1)      # 자동 포커스 ON
-    cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.75)   # 자동 노출 ON
-    cap.set(cv2.CAP_PROP_BRIGHTNESS,    128)    # 밝기
-    cap.set(cv2.CAP_PROP_CONTRAST,      128)    # 대비
-    cap.set(cv2.CAP_PROP_SHARPNESS,     200)    # 선명도
-    cap.set(cv2.CAP_PROP_FOCUS,         0)      # 포커스 초기화
-    time.sleep(1.5)  # 포커스 잡힐 때까지 대기
+    cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)        # 자동 포커스 ON
+    cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25) # 자동 노출 OFF
+    cap.set(cv2.CAP_PROP_EXPOSURE, -3)        # 노출 수동설정
+    cap.set(cv2.CAP_PROP_BRIGHTNESS, 100)     # 밝기
+    cap.set(cv2.CAP_PROP_CONTRAST, 150)       # 대비
+    cap.set(cv2.CAP_PROP_SHARPNESS, 200)      # 선명도
+    # cap.set(cv2.CAP_PROP_FOCUS, 0)          # 포커스 초기화 (주석처리)
+
+    time.sleep(5.0) # 포커스 잡힐 때까지 대기
     logger.info("[Camera] C920 자동 포커스 설정 완료")
 
     if not cap.isOpened():
