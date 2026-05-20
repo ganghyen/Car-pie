@@ -1,205 +1,150 @@
 # ============================================================
-# [Phase 4] 서버/DB 전송
-#
-# DB 포맷이 바뀌면 _build_payload() 함수만 수정하면 됩니다.
-#
-# 전송 포맷:
-# {
-#   "event"       : "entry" | "exit" | "update",
-#   "zone"        : "A-1" | "A-1,A-2" | null (구역 미설정 시),
-#   "plate"       : "12가3456" | null,
-#   "plate_status": "confirmed" | "null" | "unreadable" | "pending",
-#   "entry_time"  : "2025-01-15 14:32:10",
-#   "exit_time"   : "2025-01-15 15:10:05" | null,
-#   "park_status" : "normal"|"double_park"|"multi_zone"|"aisle_block",
-#   "car_image"   : "data/snapshots/A-1_20250115_143210.jpg" | null
-# }
+# [통신] FastAPI 서버로 이벤트 전송
+# ⚠️ FastAPI /api/event 엔드포인트로 전송
 # ============================================================
 
 import requests
-import time
+import json
+import os
 from datetime import datetime
-from comm.queue import EventQueue
-from config.settings import SERVER_URL, REQUEST_TIMEOUT
+from config.settings import SERVER_URL, REQUEST_TIMEOUT, QUEUE_FILE_PATH
+from utils.logger import get_logger
 
-
-# 터미널 색상
-class C:
-    GREEN  = "\033[92m"
-    YELLOW = "\033[93m"
-    RED    = "\033[91m"
-    CYAN   = "\033[96m"
-    BLUE   = "\033[94m"
-    BOLD   = "\033[1m"
-    RESET  = "\033[0m"
+logger = get_logger("sender")
 
 
 class EventSender:
     def __init__(self):
-        self.queue        = EventQueue()
-        self._last_flush  = 0.0
-        self.FLUSH_INTERVAL = 10.0
+        self._pending = self._load_queue()
+        logger.info(f"[Sender] 초기화 | 서버: {SERVER_URL}")
+        if self._pending:
+            logger.info(f"[Sender] 미전송 {len(self._pending)}건 복구")
 
-    # ── 외부 호출 메인 함수 ───────────────────────────────
-    def send(self, event: dict) -> bool:
-        self._try_flush_queue()
+    def send(self, event: dict):
+        """
+        이벤트를 FastAPI 서버로 전송
+        event["type"] 에 따라 FastAPI로 전달
+        """
         payload = self._build_payload(event)
-
-        # ★ DB 전송 전 터미널 출력
-        _print_payload(payload)
-
-        success = self._post(payload)
-        if not success:
-            print(f"{C.YELLOW}[Sender] 전송 실패 → 큐 저장{C.RESET}")
-            self.queue.push(payload)
-        return success
-
-    # ── DB 포맷 변환 ──────────────────────────────────────
-    # ★ DB 스키마가 바뀌면 이 함수만 수정하면 됩니다 ★
-    def _build_payload(self, event: dict) -> dict:
-        event_type  = event.get("type", "")
-        zone        = event.get("zone", None)
-        plate       = event.get("plate", None)
-        plate_status = event.get("plate_status", "pending")
-        entry_ts    = event.get("entry_time", None)
-        park_status = event.get("park_status", "normal")
-        linked_zone = event.get("linked_zone", None)
-        car_image   = event.get("car_image", None)
-        now_ts      = event.get("timestamp", time.time())
-
-        # 구역 미설정 시 null
-        # 2칸 주차면 "A-1,A-2" 형태
-        if zone is None:
-            zone_str = None
-        elif linked_zone:
-            zone_str = f"{zone},{linked_zone}"
-        else:
-            zone_str = zone
-
-        def ts_to_str(ts):
-            if ts is None or ts == 0:
-                return None
-            return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
-
-        payload = {
-            "event":        _map_event_type(event_type),
-            "zone":         zone_str,           # null 허용
-            "plate":        plate,              # null 허용
-            "plate_status": plate_status,
-            "entry_time":   ts_to_str(entry_ts),
-            "exit_time":    ts_to_str(now_ts) if event_type == "exit" else None,
-            "park_status":  park_status,
-            "car_image":    car_image,
-        }
-        return payload
-
-    # ── 큐 재전송 ─────────────────────────────────────────
-    def _try_flush_queue(self):
-        now = time.time()
-        if self.queue.size() == 0:
+        if payload is None:
             return
-        if now - self._last_flush < self.FLUSH_INTERVAL:
-            return
-        self._last_flush = now
-        pending = self.queue.pop_all()
-        failed  = []
-        for ev in pending:
-            if not self._post(ev):
-                failed.append(ev)
-        for ev in failed:
-            self.queue.push(ev)
-        if pending:
-            sent = len(pending) - len(failed)
-            print(f"{C.CYAN}[Sender] Queue flush: "
-                  f"{sent}/{len(pending)} sent{C.RESET}")
 
-    # ── HTTP POST ─────────────────────────────────────────
-    def _post(self, payload: dict) -> bool:
+        # 미전송 큐 먼저 처리
+        if self._pending:
+            self._flush_pending()
+
         try:
-            resp = requests.post(
-                SERVER_URL, json=payload, timeout=REQUEST_TIMEOUT
+            response = requests.post(
+                SERVER_URL,
+                json=payload,
+                timeout=REQUEST_TIMEOUT,
             )
-            return resp.status_code == 200
-        except requests.exceptions.ConnectionError:
-            return False
-        except requests.exceptions.Timeout:
-            return False
+            if response.status_code == 200:
+                logger.info(
+                    f"[Sender] 전송 성공 | "
+                    f"event:{payload['event']} zone:{payload['zone']}"
+                )
+            else:
+                logger.warning(
+                    f"[Sender] 서버 응답 오류: {response.status_code}"
+                )
+                self._enqueue(payload)
+
         except Exception as e:
-            print(f"{C.RED}[Sender] Error: {e}{C.RESET}")
-            return False
+            logger.error(f"[Sender] 전송 실패: {e}")
+            self._enqueue(payload)
 
+    def _build_payload(self, event: dict) -> dict | None:
+        """
+        파이 내부 이벤트 → FastAPI 전송 형식으로 변환
 
-# ── 터미널 출력 ───────────────────────────────────────────
+        FastAPI /api/event 형식:
+        {
+            "event":       "entry" / "exit" / "update",
+            "zone":        "A-1",
+            "plate":       "12가1234" or null,
+            "park_type":   "normal" / "multi_zone" / "double_park",
+            "linked_zone": "A-2" or null,
+            "entry_time":  "2026-05-19 10:00:00",
+            "exit_time":   "2026-05-19 11:00:00",
+        }
+        """
+        event_type = event.get("type")
+        zone       = event.get("zone")
+        timestamp  = event.get("timestamp", 0)
+        dt_str     = datetime.fromtimestamp(timestamp).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        ) if timestamp else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-def _print_payload(payload: dict):
-    """
-    DB 전송 직전 payload 내용을 터미널에 보기 좋게 출력합니다.
-    구역 미설정 시 zone = null 로 표시됩니다.
-    """
-    event = payload.get("event", "")
+        # ── 입차 ──────────────────────────────────────────
+        if event_type == "entry":
+            return {
+                "event":       "entry",
+                "zone":        zone,
+                "plate":       event.get("plate"),
+                "park_type":   event.get("park_status", "normal"),
+                "linked_zone": event.get("linked_zone"),
+                "entry_time":  dt_str,
+            }
 
-    # 이벤트 타입별 색상
-    if event == "entry":
-        ev_color = C.GREEN
-        ev_label = "▶ ENTRY  (입차)"
-    elif event == "exit":
-        ev_color = C.RED
-        ev_label = "◀ EXIT   (출차)"
-    elif event == "update":
-        ev_color = C.CYAN
-        ev_label = "● UPDATE (정보갱신)"
-    else:
-        ev_color = C.YELLOW
-        ev_label = f"? {event}"
+        # ── 출차 ──────────────────────────────────────────
+        elif event_type == "exit":
+            return {
+                "event":     "exit",
+                "zone":      zone,
+                "exit_time": dt_str,
+            }
 
-    # plate_status 색상
-    ps = payload.get("plate_status", "")
-    if ps == "confirmed":
-        ps_color = C.GREEN
-    elif ps == "unreadable":
-        ps_color = C.RED
-    elif ps == "null":
-        ps_color = C.YELLOW
-    else:
-        ps_color = C.BLUE   # pending
+        # ── 번호판 업데이트 ───────────────────────────────
+        elif event_type in ("plate_update", "plate_changed"):
+            return {
+                "event": "update",
+                "zone":  zone,
+                "plate": event.get("plate"),
+            }
 
-    # park_status 색상
-    park = payload.get("park_status", "normal")
-    if park == "normal":
-        park_color = C.GREEN
-    elif park in ["double_park", "aisle_block"]:
-        park_color = C.RED
-    elif park == "multi_zone":
-        park_color = C.YELLOW
-    else:
-        park_color = C.RESET
+        else:
+            logger.warning(f"[Sender] 알 수 없는 이벤트: {event_type}")
+            return None
 
-    zone      = payload.get("zone")   or "null (구역 미설정)"
-    plate     = payload.get("plate")  or "null"
-    entry_t   = payload.get("entry_time")  or "null"
-    exit_t    = payload.get("exit_time")   or "null"
-    car_img   = payload.get("car_image")   or "null"
+    # ── 미전송 큐 관리 ────────────────────────────────────
+    def _enqueue(self, payload: dict):
+        self._pending.append(payload)
+        self._save_queue()
+        logger.warning(f"[Sender] 큐 저장 ({len(self._pending)}건)")
 
-    print(f"\n{C.BOLD}{'─'*52}{C.RESET}")
-    print(f"{C.BOLD}{ev_color}  {ev_label}{C.RESET}")
-    print(f"{'─'*52}")
-    print(f"  {'이벤트':<12}: {ev_color}{event}{C.RESET}")
-    print(f"  {'구역':<12}: {C.BOLD}{zone}{C.RESET}")
-    print(f"  {'번호판':<12}: {C.BOLD}{plate}{C.RESET}")
-    print(f"  {'번호판상태':<10}: {ps_color}{ps}{C.RESET}")
-    print(f"  {'주차형태':<11}: {park_color}{park}{C.RESET}")
-    print(f"  {'입차시간':<11}: {entry_t}")
-    print(f"  {'출차시간':<11}: {exit_t}")
-    print(f"  {'차량이미지':<10}: {car_img}")
-    print(f"{'─'*52}\n")
+    def _flush_pending(self):
+        success = []
+        for payload in self._pending:
+            try:
+                r = requests.post(
+                    SERVER_URL,
+                    json=payload,
+                    timeout=REQUEST_TIMEOUT,
+                )
+                if r.status_code == 200:
+                    success.append(payload)
+            except Exception:
+                break
+        for p in success:
+            self._pending.remove(p)
+        if success:
+            self._save_queue()
+            logger.info(f"[Sender] 미전송 {len(success)}건 재전송 완료")
 
+    def _save_queue(self):
+        try:
+            os.makedirs(os.path.dirname(QUEUE_FILE_PATH), exist_ok=True)
+            with open(QUEUE_FILE_PATH, "w", encoding="utf-8") as f:
+                json.dump(self._pending, f, ensure_ascii=False)
+        except Exception as e:
+            logger.error(f"[Sender] 큐 저장 실패: {e}")
 
-def _map_event_type(raw: str) -> str:
-    mapping = {
-        "entry":           "entry",
-        "exit":            "exit",
-        "plate_confirmed": "entry",
-        "plate_changed":   "update",
-        "plate_update":    "update",
-    }
-    return mapping.get(raw, raw)
+    def _load_queue(self) -> list:
+        if not os.path.exists(QUEUE_FILE_PATH):
+            return []
+        try:
+            with open(QUEUE_FILE_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []

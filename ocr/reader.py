@@ -1,5 +1,8 @@
 # ============================================================
-# [OCR] 번호판 인식 + 투표 + 형식 검증 + 오염 감지
+# [OCR] 번호판 인식 + 투표
+# ⚠️ 패턴 검증 제거
+# ⚠️ 인식된 결과 중 가장 많이 나온 것 선택
+# ⚠️ 유사도 보정은 FastAPI 서버에서 처리
 # ============================================================
 
 import re
@@ -24,14 +27,6 @@ class C:
     BOLD   = "\033[1m"
     RESET  = "\033[0m"
 
-
-KR_PLATE_PATTERNS = [
-    re.compile(r'^\d{2}[가-힣]\d{4}$'),    # 12가3456
-    re.compile(r'^\d{3}[가-힣]\d{4}$'),    # 123가4567
-    re.compile(r'^[가-힣]{2}\d{4}[가-힣]$'),
-    re.compile(r'^\d{3}[가-힣]\d{3,4}$'),  # 789호1234
-    # 영문 허용 패턴 제거 (깨진 결과 투표 참여 방지)
-]
 
 PLATE_UNREADABLE = "UNREADABLE"
 
@@ -119,47 +114,29 @@ class PlateReader:
                 if text not in conf_votes or conf > conf_votes[text]:
                     conf_votes[text] = conf
 
-        # 전체 투표 결과 출력 (오인식 확인용)
-        print(f"\n{C.CYAN}[OCR 투표 원본] {zone_name}{C.RESET}")
+        # 전체 투표 결과 출력
+        print(f"\n{C.CYAN}[OCR 투표 결과] {zone_name}{C.RESET}")
         all_counter = Counter(votes)
         for text, count in all_counter.most_common():
-            is_valid = self._validate_plate_format(text)
-            mark = f"{C.GREEN}V 패턴OK{C.RESET}" if is_valid else f"{C.RED}X 패턴X{C.RESET}"
-            print(f"  {text:15s} {count}표  conf:{conf_votes.get(text,0):.2f}  {mark}")
+            print(f"  {text:15s} {count}표  conf:{conf_votes.get(text,0):.2f}")
 
-        # ★ 패턴 통과한 것만 투표 참여
-        valid_votes = [v for v in votes if self._validate_plate_format(v)]
-
-        if not valid_votes:
-            # 패턴 통과 없으면 전체 투표 중 confidence 1등으로 fallback
-            if votes:
-                all_counter = Counter(votes)
-                fallback = max(
-                    all_counter.keys(),
-                    key=lambda t: all_counter[t] * conf_votes.get(t, 0.5)
-                )
-                self._fail_count[zone_name] = 0
-                print(f"{C.YELLOW}[OCR] {zone_name} 패턴X → fallback: {fallback}{C.RESET}")
-                return fallback
-            print(f"{C.RED}[OCR] {zone_name} 패턴 통과 없음 → null{C.RESET}")
+        if not votes:
+            print(f"{C.RED}[OCR] {zone_name} 인식 결과 없음 → null{C.RESET}")
             return self._handle_fail(zone_name)
 
-        # confidence 가중 투표 (패턴 통과한 것들만)
-        counter    = Counter(valid_votes)
-        winner     = None
-        best_score = 0.0
-        for text, count in counter.items():
-            score = count * conf_votes.get(text, 0.5)
-            if score > best_score:
-                best_score = score
-                winner     = text
+        # ★ 패턴 검증 없이 가장 많이 나온 것 선택
+        # (유사도 보정은 FastAPI 서버에서 처리)
+        winner = max(
+            all_counter.keys(),
+            key=lambda t: all_counter[t] * conf_votes.get(t, 0.5)
+        )
 
         self._fail_count[zone_name] = 0
 
         print(f"{C.BOLD}{C.GREEN}"
               f"[OCR 최종] {zone_name} → {winner} "
               f"(conf: {conf_votes.get(winner,0):.2f}, "
-              f"{counter.get(winner,0)}/{len(valid_votes)}표)"
+              f"{all_counter.get(winner,0)}/{len(votes)}표)"
               f"{C.RESET}")
 
         return winner
@@ -194,8 +171,8 @@ class PlateReader:
         new_plate, conf = self.read_once(
             plate_img, min_conf=OCR_CONF_THRESHOLD - 0.1
         )
-        if new_plate and not self._validate_plate_format(new_plate):
-            return None
+
+        # ★ 패턴 검증 제거 - 그대로 반환
         if new_plate and new_plate != prev_plate:
             print(f"{C.YELLOW}[OCR] Recheck {zone_name}: "
                   f"{prev_plate} → {new_plate} "
@@ -217,15 +194,6 @@ class PlateReader:
         print(f"{C.YELLOW}[OCR] {zone_name} FAIL "
               f"({fail_cnt}/{OCR_FAIL_LIMIT}){C.RESET}")
         return None
-
-    @staticmethod
-    def _validate_plate_format(text: str) -> bool:
-        if not text:
-            return False
-        for pattern in KR_PLATE_PATTERNS:
-            if pattern.match(text):
-                return True
-        return False
 
     @staticmethod
     def _clean(text: str) -> str | None:

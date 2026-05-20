@@ -46,7 +46,7 @@ MULTI_ZONE_OVERLAP_RATIO = 0.30
 # ── OCR ────────────────────────────────────────────────────
 OCR_SAMPLE_COUNT         = 5
 OCR_SAMPLE_INTERVAL      = 0.4
-OCR_CONF_THRESHOLD       = 0.35  # 낮은 confidence 투표 참여 방지
+OCR_CONF_THRESHOLD       = 0.35
 OCR_MIN_TEXT_LENGTH      = 4
 PLATE_PADDING            = 10
 PLATE_UPSCALE            = 3.0
@@ -55,24 +55,17 @@ OCR_FAIL_LIMIT           = 3
 OCR_UNREADABLE_RETRY_SEC = 60.0
 
 # ── 이물질 / 흐림 감지 ────────────────────────────────────
-# 카메라 렌즈 이물질 감지
-# Laplacian variance 로 프레임 선명도 측정
-# 값이 낮을수록 흐림 (100 이하 = 흐림)
-# 실내 조명 환경에서 정상 값은 보통 200~500 수준
-# 테스트 후 환경에 맞게 조정하세요
-BLUR_DETECT_THRESHOLD    = 80.0   # 이 값 이하면 흐림으로 판단
-BLUR_CHECK_INTERVAL      = 3.0    # 초마다 선명도 체크
-BLUR_CONFIRM_COUNT       = 3      # 연속 N회 흐림 감지 시 경고
-                                  # (일시적 흔들림 오판 방지)
-
-# 번호판 이물질 (기존 OCR 실패 로직과 연동)
-# OCR_FAIL_LIMIT 회 연속 실패 시 PLATE_UNREADABLE 처리
-# → 이미 reader.py 에 구현되어 있음
+BLUR_DETECT_THRESHOLD    = 80.0
+BLUR_CHECK_INTERVAL      = 3.0
+BLUR_CONFIRM_COUNT       = 3
 
 # ── 통신 ──────────────────────────────────────────────────
-SERVER_URL        = "http://localhost:3000/api/parking"
-REQUEST_TIMEOUT   = 3
-QUEUE_FILE_PATH   = os.path.join(BASE_DIR, "data", "pending_queue.json")
+# ⚠️ 수정 필요: FastAPI 서버 주소로 변경
+# 같은 와이파이면 노트북 IP 사용 (예: http://192.168.0.10:8000)
+# 예시: SERVER_URL = "http://192.168.0.10:8000/api/event"
+SERVER_URL      = "http://localhost:8000/api/event"
+REQUEST_TIMEOUT = 3
+QUEUE_FILE_PATH = os.path.join(BASE_DIR, "data", "pending_queue.json")
 
 # ── 스냅샷 자동 삭제 ───────────────────────────────────────
 SNAPSHOT_MAX_AGE_HOURS    = 12
@@ -84,20 +77,11 @@ CAMERA_SHAKE_CHECK_INTERVAL = 5.0
 
 # ── 매핑 ──────────────────────────────────────────────────
 ARUCO_DICT         = "DICT_4X4_50"
-# ── 실제 주차장 크기 (cm) ────────────────────────────────
-# 아루코 마커 안쪽 꼭짓점 기준 실제 거리
-# 마커0-마커1 가로: 50cm
-# 마커0-마커3 세로: 40cm
-REAL_WIDTH_CM      = 50     # 가로 실제 거리 (cm)
-REAL_HEIGHT_CM     = 40     # 세로 실제 거리 (cm)
-
-# 1cm 당 픽셀 수 (높을수록 가상지도 정밀도 높아짐)
-# 라즈베리파이 2GB 기준 16 권장 (너무 높으면 부하)
+REAL_WIDTH_CM      = 50
+REAL_HEIGHT_CM     = 40
 CM_PER_PIXEL       = 16
-
-# 가상지도 크기 자동 계산
-VIRTUAL_MAP_WIDTH  = REAL_WIDTH_CM  * CM_PER_PIXEL   # 50 × 16 = 800
-VIRTUAL_MAP_HEIGHT = REAL_HEIGHT_CM * CM_PER_PIXEL   # 40 × 16 = 640
+VIRTUAL_MAP_WIDTH  = REAL_WIDTH_CM  * CM_PER_PIXEL
+VIRTUAL_MAP_HEIGHT = REAL_HEIGHT_CM * CM_PER_PIXEL
 
 # ── 시각화 ─────────────────────────────────────────────────
 COLOR_EMPTY       = (100, 220, 100)
