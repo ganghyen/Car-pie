@@ -1,11 +1,9 @@
 # ============================================================
 # [메인] 스마트 주차 관리 시스템
 #
-# 멀티스레딩 구조:
-#   메인 루프   : 카메라 + YOLO + 상태 머신 (fps 유지)
-#   OCR Worker  : 입차 OCR 처리 → DB 전송 (백그라운드)
-#   Send Worker : 모든 DB 전송 담당 (백그라운드)
-#                 입차/출차 모두 send_queue 에 넣고 바로 복귀
+# 수정사항:
+#   1. send_queue → PriorityQueue (출차>입차>업데이트 순서 보장)
+#   2. 번호판 안 보여도 null 즉시 전송 안함 → OCR 시도 후 전송
 # ============================================================
 
 import cv2
@@ -48,6 +46,11 @@ logger = get_logger("parking")
 WIN_MAIN = "Smart Parking  |  M: Mapping   Q: Quit"
 WIN_VIRT = "Virtual Map  |  Click 4pts  S: Save  X: Delete  C: Cancel  E: Exit"
 
+# ── 우선순위 상수 ─────────────────────────────────────────
+PRIORITY_EXIT   = 1  # 출차 최우선
+PRIORITY_ENTRY  = 2  # 입차
+PRIORITY_UPDATE = 3  # 번호판 업데이트
+
 
 # ── OCR 작업 단위 ─────────────────────────────────────────
 class OcrTask:
@@ -63,14 +66,10 @@ class OcrTask:
 
 # ── OCR Worker ────────────────────────────────────────────
 def ocr_worker(ocr_queue: queue.Queue,
-               send_queue: queue.Queue,
+               send_queue: queue.PriorityQueue,
                ocr_reader: PlateReader,
                state_machine: ParkingStateMachine,
                stop_event: threading.Event):
-    """
-    입차 OCR 처리 → 결과를 send_queue 에 넣음
-    카메라 루프와 완전 독립
-    """
     logger.info("[OCR Worker] 시작")
 
     while not stop_event.is_set():
@@ -98,8 +97,8 @@ def ocr_worker(ocr_queue: queue.Queue,
             entry_event["plate"]        = zone.plate if zone else plate
             entry_event["plate_status"] = ps
 
-            # ★ send_queue 에 넣고 바로 복귀
-            send_queue.put_nowait(entry_event)
+            # ★ 입차는 우선순위 2로 전송
+            send_queue.put_nowait((PRIORITY_ENTRY, entry_event))
 
             if zone and zone.plate_status == PlateStatus.UNREADABLE:
                 logger.warning(f"[UNREADABLE] {zone_name} 번호판 인식 불가")
@@ -113,19 +112,15 @@ def ocr_worker(ocr_queue: queue.Queue,
 
 
 # ── Send Worker ───────────────────────────────────────────
-def send_worker(send_queue: queue.Queue,
+def send_worker(send_queue: queue.PriorityQueue,
                 sender: EventSender,
                 stop_event: threading.Event):
-    """
-    ★ 모든 DB 전송 담당 (입차/출차 모두)
-    메인 루프는 send_queue 에 넣기만 하고 바로 복귀
-    HTTP 요청이 블로킹해도 카메라 화면에 영향 없음
-    """
     logger.info("[Send Worker] 시작")
 
     while not stop_event.is_set():
         try:
-            event = send_queue.get(timeout=1.0)
+            # PriorityQueue에서 꺼낼 때 (우선순위, 이벤트) 형태
+            priority, event = send_queue.get(timeout=1.0)
         except queue.Empty:
             continue
 
@@ -147,7 +142,6 @@ def main():
     os.makedirs(SNAPSHOT_DIR, exist_ok=True)
     os.makedirs(os.path.dirname(STATE_BACKUP_PATH), exist_ok=True)
 
-    # ── 모듈 초기화 ───────────────────────────────────────
     homography   = HomographyTransformer()
     preprocessor = Preprocessor()
     detector     = VehicleDetector()
@@ -173,34 +167,30 @@ def main():
     CHECK_INTERVAL = 2.0
     last_check     = time.time()
 
-    # ── 카메라 ───────────────────────────────────────────
     cap = cv2.VideoCapture(CAMERA_INDEX)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
     cap.set(cv2.CAP_PROP_FPS, TARGET_FPS)
 
-    # C920 자동 포커스 + 화질 설정
-    cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)        # 자동 포커스 ON
-    cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25) # 자동 노출 OFF
-    cap.set(cv2.CAP_PROP_EXPOSURE, -3)        # 노출 수동설정
-    cap.set(cv2.CAP_PROP_BRIGHTNESS, 100)     # 밝기
-    cap.set(cv2.CAP_PROP_CONTRAST, 150)       # 대비
-    cap.set(cv2.CAP_PROP_SHARPNESS, 200)      # 선명도
-    # cap.set(cv2.CAP_PROP_FOCUS, 0)          # 포커스 초기화 (주석처리)
+    cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
+    cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
+    cap.set(cv2.CAP_PROP_EXPOSURE, -3)
+    cap.set(cv2.CAP_PROP_BRIGHTNESS, 100)
+    cap.set(cv2.CAP_PROP_CONTRAST, 150)
+    cap.set(cv2.CAP_PROP_SHARPNESS, 200)
 
-    time.sleep(5.0) # 포커스 잡힐 때까지 대기
+    time.sleep(5.0)
     logger.info("[Camera] C920 자동 포커스 설정 완료")
 
     if not cap.isOpened():
         logger.error(f"Camera {CAMERA_INDEX} open failed")
         sys.exit(1)
 
-    # ── Queue + Worker 스레드 시작 ────────────────────────
     ocr_queue  = queue.Queue(maxsize=20)
-    send_queue = queue.Queue(maxsize=50)
+    # ★ PriorityQueue로 변경 (출차>입차>업데이트 순서 보장)
+    send_queue = queue.PriorityQueue(maxsize=50)
     stop_event = threading.Event()
 
-    # OCR Worker
     ocr_workers = []
     for i in range(OCR_MAX_THREADS):
         t = threading.Thread(
@@ -213,7 +203,6 @@ def main():
         t.start()
         ocr_workers.append(t)
 
-    # Send Worker (1개로 충분, 순서 보장)
     send_thread = threading.Thread(
         target=send_worker,
         args=(send_queue, sender, stop_event),
@@ -227,7 +216,6 @@ def main():
     ocr_submitted: dict[str, bool] = {}
     pending_entry: dict[str, dict] = {}
 
-    # ── 타이머 관리 ───────────────────────────────────────
     last_shake_check  = time.time()
     last_snap_cleanup = time.time()
     last_state_backup = time.time()
@@ -237,7 +225,6 @@ def main():
     STATUS_DISPLAY_SEC = 3.0
 
     empty_snap_initialized = False
-
     mapping_mode  = False
     virt_win_open = False
 
@@ -245,7 +232,6 @@ def main():
     prev_time = time.time()
     logger.info("Camera started | M: mapping  Q/ESC: quit")
 
-    # ── 메인 루프 ────────────────────────────────────────
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -254,7 +240,6 @@ def main():
 
         now = time.time()
 
-        # ── 파일 변경 감지 ────────────────────────────────
         if not mapping_mode and now - last_check >= CHECK_INTERVAL:
             last_check = now
             new_mtime  = _get_mtime(ROI_COORDS_PATH)
@@ -268,41 +253,30 @@ def main():
                 empty_snap_initialized = False
                 logger.info(f"Mapping reloaded | zones: {new_keys}")
 
-        # ── 카메라 흔들림 감지 ────────────────────────────
         if (not mapping_mode and homography.is_ready()
                 and now - last_shake_check >= CAMERA_SHAKE_CHECK_INTERVAL):
             last_shake_check = now
             result = homography.check_and_auto_correct(frame)
             if result == "corrected":
-                shake_status_msg  = (
-                    f"Auto-corrected (x{homography.auto_fix_count})"
-                )
+                shake_status_msg  = f"Auto-corrected (x{homography.auto_fix_count})"
                 shake_status_time = now
             elif result in ["warning", "marker_lost"]:
-                shake_status_msg  = (
-                    "WARNING: Camera moved! Press M to re-map"
-                )
+                shake_status_msg  = "WARNING: Camera moved! Press M to re-map"
                 shake_status_time = now
 
-        # ── 스냅샷 자동 삭제 ──────────────────────────────
         if now - last_snap_cleanup >= SNAPSHOT_CLEANUP_INTERVAL:
             last_snap_cleanup = now
             deleted = _cleanup_snapshots()
             if deleted > 0:
                 logger.info(f"[Snapshot] {deleted} old files deleted")
 
-        # ── 상태 백업 ─────────────────────────────────────
         if now - last_state_backup >= STATE_BACKUP_INTERVAL:
             last_state_backup = now
             _backup_state(state_machine)
 
-        # ── 카메라 이물질 감지 ────────────────────────────
         if not mapping_mode:
             preprocessor.check_blur(frame)
 
-        # ════════════════════════════════════════════════
-        # 매핑 모드
-        # ════════════════════════════════════════════════
         if mapping_mode:
             cam_vis = mapper.render_camera(frame)
             cv2.putText(cam_vis, "[ MAPPING MODE ]  E: exit",
@@ -345,10 +319,6 @@ def main():
             mapper.handle_key(key, frame)
             continue
 
-        # ════════════════════════════════════════════════
-        # 일반 모드
-        # ════════════════════════════════════════════════
-
         enhanced         = preprocessor.apply(frame)
         detection_result = detector.detect(enhanced)
         cars             = detection_result["cars"]
@@ -361,7 +331,6 @@ def main():
                 (VIRTUAL_MAP_WIDTH, VIRTUAL_MAP_HEIGHT)
             )
 
-        # 빈 구역 스냅샷 초기화
         if not empty_snap_initialized and warped_frame is not None:
             all_done = True
             for zone_name, zone_pts in homography.zones.items():
@@ -420,52 +389,51 @@ def main():
                 logger.info(f"[EVENT] {event}")
 
                 if event["type"] == "entry":
-                    # 스냅샷 저장
                     snap_path = _save_snapshot(
                         frame, zone_name, event["timestamp"]
                     )
                     event["car_image"] = snap_path
 
-                    if not cars_in_zone or not plate_visible:
-                        # 번호판 안 보임 → send_queue 에 넣고 복귀
-                        event["plate"]        = None
-                        event["plate_status"] = PlateStatus.NULL.value
-                        logger.info(f"[ENTRY] {zone_name} plate=null")
-                        send_queue.put_nowait(event)
-
-                    elif not ocr_submitted.get(zone_name, False):
-                        # ★ 스냅샷 찰칵 → OCR Queue 에 던지고 즉시 복귀
+                    # ★ 번호판 안 보여도 null 즉시 전송 안함
+                    # → 항상 OCR Queue에 넣어서 처리 후 전송
+                    if not ocr_submitted.get(zone_name, False):
                         task = OcrTask(
                             zone_name   = zone_name,
                             snapshot    = frame.copy(),
-                            car_bbox    = cars_in_zone[0],
+                            car_bbox    = cars_in_zone[0] if cars_in_zone else None,
                             plate_bbox  = plate_bbox,
                             entry_event = event,
                         )
-                        try:
-                            ocr_queue.put_nowait(task)
-                            ocr_submitted[zone_name] = True
-                            pending_entry[zone_name] = event
-                            logger.info(
-                                f"[ENTRY] {zone_name} OCR Queue 제출 "
-                                f"(대기: {ocr_queue.qsize()})"
-                            )
-                        except queue.Full:
-                            logger.warning(
-                                f"[ENTRY] {zone_name} Queue 가득참 → null"
-                            )
+
+                        # 차량 없거나 번호판 안 보이면 null로 바로 OCR Worker 통해 전송
+                        if not cars_in_zone:
                             event["plate"]        = None
                             event["plate_status"] = PlateStatus.NULL.value
-                            send_queue.put_nowait(event)
+                            logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
+                            send_queue.put_nowait((PRIORITY_ENTRY, event))
+                        else:
+                            try:
+                                ocr_queue.put_nowait(task)
+                                ocr_submitted[zone_name] = True
+                                pending_entry[zone_name] = event
+                                logger.info(
+                                    f"[ENTRY] {zone_name} OCR Queue 제출 "
+                                    f"(대기: {ocr_queue.qsize()})"
+                                )
+                            except queue.Full:
+                                logger.warning(
+                                    f"[ENTRY] {zone_name} Queue 가득참 → null"
+                                )
+                                event["plate"]        = None
+                                event["plate_status"] = PlateStatus.NULL.value
+                                send_queue.put_nowait((PRIORITY_ENTRY, event))
 
                 elif event["type"] == "exit":
-                    # ★ 출차 스냅샷 찍기
                     exit_snap_path = _save_snapshot(
                         frame, f"{zone_name}_exit", event["timestamp"]
                     )
                     event["exit_image"] = exit_snap_path
 
-                    # OCR 완료 전 출차 대응
                     pending = pending_entry.pop(zone_name, None)
                     if pending:
                         logger.warning(
@@ -474,21 +442,18 @@ def main():
                         )
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
-                        send_queue.put_nowait(pending)
+                        send_queue.put_nowait((PRIORITY_ENTRY, pending))
 
                     ocr_submitted.pop(zone_name, None)
 
-                    # ★ send_queue 에 넣고 바로 복귀 (블로킹 없음)
+                    # ★ 출차는 최우선순위 1로 전송
                     try:
-                        send_queue.put_nowait(event)
+                        send_queue.put_nowait((PRIORITY_EXIT, event))
                     except queue.Full:
                         logger.warning(f"[EXIT] send_queue 가득참")
 
-                    logger.info(
-                        f"[EXIT] {zone_name} plate={event['plate']}"
-                    )
+                    logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
-            # Phase 4: 주기적 재검증
             if state_machine.needs_recheck(zone_name) and cars_in_zone:
                 cur = state_machine.zones[zone_name]
                 if not ocr_submitted.get(zone_name, False):
@@ -509,9 +474,9 @@ def main():
                             )
                             try:
                                 if cur.plate is None:
-                                    # null -> 번호판 인식됨: exit 없이 update
                                     state_machine.set_plate(zone_name, new_plate)
-                                    send_queue.put_nowait({
+                                    # ★ 업데이트는 우선순위 3
+                                    send_queue.put_nowait((PRIORITY_UPDATE, {
                                         "type":         "plate_update",
                                         "zone":         zone_name,
                                         "plate":        new_plate,
@@ -520,14 +485,14 @@ def main():
                                         "park_status":  cur.park_status.value,
                                         "linked_zone":  cur.linked_zone,
                                         "timestamp":    time.time(),
-                                    })
+                                    }))
                                     logger.info(
                                         f"[PLATE UPDATE] {zone_name} "
                                         f"null -> {new_plate}"
                                     )
                                 else:
-                                    # 차량 교체: exit + plate_changed
-                                    send_queue.put_nowait({
+                                    # ★ 출차는 최우선순위 1
+                                    send_queue.put_nowait((PRIORITY_EXIT, {
                                         "type":         "exit",
                                         "zone":         zone_name,
                                         "plate":        cur.plate,
@@ -536,9 +501,9 @@ def main():
                                         "park_status":  cur.park_status.value,
                                         "linked_zone":  cur.linked_zone,
                                         "timestamp":    time.time(),
-                                    })
+                                    }))
                                     state_machine.set_plate(zone_name, new_plate)
-                                    send_queue.put_nowait({
+                                    send_queue.put_nowait((PRIORITY_UPDATE, {
                                         "type":         "plate_changed",
                                         "zone":         zone_name,
                                         "plate":        new_plate,
@@ -547,15 +512,10 @@ def main():
                                         "park_status":  cur.park_status.value,
                                         "linked_zone":  cur.linked_zone,
                                         "timestamp":    time.time(),
-                                    })
-                                    logger.info(
-                                        f"[PLATE CHANGED] {zone_name} "
-                                        f"{cur.plate} -> {new_plate}"
-                                    )
+                                    }))
                             except queue.Full:
                                 pass
 
-        # ── 시각화 ────────────────────────────────────────
         fps       = 1.0 / max(now - prev_time, 1e-6)
         prev_time = now
 
@@ -575,7 +535,6 @@ def main():
                         (10, vis_frame.shape[0] - 15),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 100, 255), 2)
 
-        # Queue 상태 표시
         q_ocr  = ocr_queue.qsize()
         q_send = send_queue.qsize()
         if q_ocr > 0 or q_send > 0:
@@ -595,7 +554,6 @@ def main():
             shake_status_msg = ""
 
         if preprocessor.camera_blurry:
-            # ★ 우측 상단 작게 표시
             warn_txt = "! CAM DIRTY"
             (tw, th), _ = cv2.getTextSize(
                 warn_txt, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1
@@ -622,7 +580,6 @@ def main():
             mapping_mode = True
             mapper.load_existing()
 
-    # ── 종료 처리 ─────────────────────────────────────────
     logger.info("[Workers] 종료 대기 중...")
     stop_event.set()
     for t in ocr_workers:
@@ -671,8 +628,6 @@ def _restore_state(state_machine):
         print(f"[Restore] Failed: {e}")
 
 
-# ── 유틸 함수 ─────────────────────────────────────────────
-
 def _check_multi_zone(virtual_cars, zones, state_machine,
                       send_queue, logger):
     zone_names = list(zones.keys())
@@ -681,9 +636,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             za, zb  = zone_names[i], zone_names[j]
             state_a = state_machine.zones[za]
             state_b = state_machine.zones[zb]
-            # 두 구역 모두 OCCUPIED 여도
-            # 같은 차량으로 이미 linked 된 경우만 스킵
-            # 다른 차량이 새로 걸치는 경우는 판정
             if (state_a.status == ZoneStatus.OCCUPIED and
                     state_b.status == ZoneStatus.OCCUPIED and
                     state_a.linked_zone == zb and
@@ -703,7 +655,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                     for zn in [za, zb]:
                         z = state_machine.zones[zn]
                         try:
-                            send_queue.put_nowait({
+                            send_queue.put_nowait((PRIORITY_ENTRY, {
                                 "type":         "entry",
                                 "zone":         zn,
                                 "plate":        None,
@@ -712,7 +664,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                                 "park_status":  "multi_zone",
                                 "linked_zone":  z.linked_zone,
                                 "timestamp":    time.time(),
-                            })
+                            }))
                         except queue.Full:
                             pass
                 break
