@@ -63,7 +63,7 @@ BLUR_CONFIRM_COUNT       = 3
 # ⚠️ 수정 필요: FastAPI 서버 주소로 변경
 # 같은 와이파이면 노트북 IP 사용 (예: http://192.168.0.10:8000)
 # 예시: SERVER_URL = "http://192.168.0.10:8000/api/event"
-SERVER_URL      = "http://localhost:8000/api/event"
+SERVER_URL      = "http://172.20.10.12:8000/api/event"
 REQUEST_TIMEOUT = 3
 QUEUE_FILE_PATH = os.path.join(BASE_DIR, "data", "pending_queue.json")
 

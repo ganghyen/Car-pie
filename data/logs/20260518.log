@@ -1,0 +1,173 @@
+[13:47:06][INFO] ==================================================
+[13:47:06][INFO] Smart Parking System Start
+[13:47:06][INFO] ==================================================
+[13:47:13][INFO] [Sender] 초기화 | 서버: http://localhost:8000/api/event
+[13:47:13][INFO] [Sender] 미전송 2건 복구
+[13:47:13][INFO] Mapping loaded | zones: ['A-1']
+[13:47:18][INFO] [Camera] C920 자동 포커스 설정 완료
+[13:47:18][ERROR] Camera 0 open failed
+[13:47:28][INFO] ==================================================
+[13:47:28][INFO] Smart Parking System Start
+[13:47:28][INFO] ==================================================
+[13:47:34][INFO] [Sender] 초기화 | 서버: http://localhost:8000/api/event
+[13:47:34][INFO] [Sender] 미전송 2건 복구
+[13:47:34][INFO] Mapping loaded | zones: ['A-1']
+[13:47:39][INFO] [Camera] C920 자동 포커스 설정 완료
+[13:47:39][INFO] [OCR Worker] 시작
+[13:47:39][INFO] [OCR Worker] 시작
+[13:47:39][INFO] [Send Worker] 시작
+[13:47:39][INFO] [Workers] OCR x2, Send x1 시작
+[13:47:42][INFO] Camera started | M: mapping  Q/ESC: quit
+[13:47:43][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[13:52:25][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779079945.047334, 'park_status': 'normal', 'timestamp': 1779079945.047334}
+[13:52:25][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[13:52:37][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779079945.047334, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779079957.369612}
+[13:52:37][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[13:52:37][INFO] [EXIT] A-1 plate=None
+[13:52:37][WARNING] [Sender] 서버 응답 오류: 500
+[13:52:37][WARNING] [Sender] 큐 저장 (3건)
+[13:52:37][WARNING] [Sender] 서버 응답 오류: 500
+[13:52:37][WARNING] [Sender] 큐 저장 (4건)
+[13:52:48][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779079968.8643632, 'park_status': 'normal', 'timestamp': 1779079968.8643632}
+[13:52:48][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[13:52:54][INFO] [OCR Worker] A-1 완료: None (pending)
+[13:52:54][WARNING] [Sender] 서버 응답 오류: 500
+[13:52:54][WARNING] [Sender] 큐 저장 (5건)
+[13:52:57][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779079968.8643632, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779079977.7809336}
+[13:52:57][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[13:52:57][INFO] [EXIT] A-1 plate=None
+[13:52:58][WARNING] [Sender] 서버 응답 오류: 500
+[13:52:58][WARNING] [Sender] 큐 저장 (6건)
+[13:52:58][WARNING] [Sender] 서버 응답 오류: 500
+[13:52:58][WARNING] [Sender] 큐 저장 (7건)
+[13:53:06][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779079986.491551, 'park_status': 'normal', 'timestamp': 1779079986.491551}
+[13:53:06][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[13:53:21][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779079986.491551, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779080001.2603788}
+[13:53:21][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[13:53:21][INFO] [EXIT] A-1 plate=None
+[13:53:21][WARNING] [Sender] 서버 응답 오류: 500
+[13:53:21][WARNING] [Sender] 큐 저장 (8건)
+[13:53:22][WARNING] [Sender] 서버 응답 오류: 500
+[13:53:22][WARNING] [Sender] 큐 저장 (9건)
+[13:53:24][INFO] [OCR Worker] A-1 완료: None (pending)
+[13:53:24][WARNING] [Sender] 서버 응답 오류: 500
+[13:53:24][WARNING] [Sender] 큐 저장 (10건)
+[13:53:40][INFO] [OCR Worker] A-1 완료: UNREADABLE (pending)
+[13:53:41][WARNING] [Sender] 서버 응답 오류: 500
+[13:53:41][WARNING] [Sender] 큐 저장 (11건)
+[13:53:52][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779080032.2758648, 'park_status': 'normal', 'timestamp': 1779080032.2758648}
+[13:53:52][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[13:53:52][INFO] [OCR Worker] A-1 완료: UNREADABLE (unreadable)
+[13:53:52][WARNING] [UNREADABLE] A-1 번호판 인식 불가
+[13:53:52][WARNING] [Sender] 서버 응답 오류: 500
+[13:53:52][WARNING] [Sender] 큐 저장 (12건)
+[13:54:18][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'unreadable', 'entry_time': 1779080032.2758648, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779080058.2962768}
+[13:54:18][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[13:54:18][INFO] [EXIT] A-1 plate=None
+[13:54:18][WARNING] [Sender] 서버 응답 오류: 500
+[13:54:18][WARNING] [Sender] 큐 저장 (13건)
+[13:54:18][WARNING] [Sender] 서버 응답 오류: 500
+[13:54:18][WARNING] [Sender] 큐 저장 (14건)
+[13:54:40][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779080080.206021, 'park_status': 'normal', 'timestamp': 1779080080.206021}
+[13:54:40][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[13:54:40][INFO] [OCR Worker] A-1 완료: UNREADABLE (unreadable)
+[13:54:40][WARNING] [UNREADABLE] A-1 번호판 인식 불가
+[13:54:40][WARNING] [Sender] 서버 응답 오류: 500
+[13:54:40][WARNING] [Sender] 큐 저장 (15건)
+[13:55:09][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'unreadable', 'entry_time': 1779080080.206021, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779080109.451103}
+[13:55:09][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[13:55:09][INFO] [EXIT] A-1 plate=None
+[13:55:09][WARNING] [Sender] 서버 응답 오류: 500
+[13:55:09][WARNING] [Sender] 큐 저장 (16건)
+[13:55:10][WARNING] [Sender] 서버 응답 오류: 500
+[13:55:10][WARNING] [Sender] 큐 저장 (17건)
+[13:55:19][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779080119.114518, 'park_status': 'normal', 'timestamp': 1779080119.114518}
+[13:55:19][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[13:55:42][INFO] [OCR Worker] A-1 완료: None (pending)
+[13:55:43][WARNING] [Sender] 서버 응답 오류: 500
+[13:55:43][WARNING] [Sender] 큐 저장 (18건)
+[13:56:17][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779080119.114518, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779080177.7685719}
+[13:56:17][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[13:56:17][INFO] [EXIT] A-1 plate=None
+[13:56:18][WARNING] [Sender] 서버 응답 오류: 500
+[13:56:18][WARNING] [Sender] 큐 저장 (19건)
+[13:56:18][WARNING] [Sender] 서버 응답 오류: 500
+[13:56:18][WARNING] [Sender] 큐 저장 (20건)
+[14:18:28][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779081508.4817555, 'park_status': 'normal', 'timestamp': 1779081508.4817555}
+[14:18:28][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[14:19:29][INFO] [OCR Worker] A-1 완료: None (null)
+[14:19:30][WARNING] [Sender] 서버 응답 오류: 500
+[14:19:30][WARNING] [Sender] 큐 저장 (21건)
+[14:56:18][INFO] Quit
+[14:56:18][INFO] [Workers] 종료 대기 중...
+[14:56:19][INFO] [OCR Worker] 종료
+[14:56:19][INFO] [OCR Worker] 종료
+[14:56:19][INFO] [Send Worker] 종료
+[14:56:19][INFO] System stopped
+[14:57:19][INFO] ==================================================
+[14:57:19][INFO] Smart Parking System Start
+[14:57:19][INFO] ==================================================
+[14:57:26][INFO] [Sender] 초기화 | 서버: http://170.20.10.12:8000/api/event
+[14:57:26][INFO] [Sender] 미전송 21건 복구
+[14:57:26][INFO] Mapping loaded | zones: ['A-1']
+[14:57:31][INFO] [Camera] C920 자동 포커스 설정 완료
+[14:57:31][INFO] [OCR Worker] 시작
+[14:57:31][INFO] [OCR Worker] 시작
+[14:57:31][INFO] [Send Worker] 시작
+[14:57:31][INFO] [Workers] OCR x2, Send x1 시작
+[14:57:34][INFO] Camera started | M: mapping  Q/ESC: quit
+[14:57:35][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[14:57:43][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1779081508.4817555, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779083863.754858}
+[14:57:43][INFO] [EXIT] A-1 plate=None
+[14:57:49][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='170.20.10.12', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='170.20.10.12', port=8000) at 0x7ffe9e6c74d0>, 'Connection to 170.20.10.12 timed out. (connect timeout=3)'))
+[14:57:49][WARNING] [Sender] 큐 저장 (22건)
+[14:59:51][INFO] Quit
+[14:59:51][INFO] [Workers] 종료 대기 중...
+[14:59:51][INFO] [OCR Worker] 종료
+[14:59:51][INFO] [OCR Worker] 종료
+[14:59:51][INFO] [Send Worker] 종료
+[14:59:51][INFO] System stopped
+[15:00:02][INFO] ==================================================
+[15:00:02][INFO] Smart Parking System Start
+[15:00:02][INFO] ==================================================
+[15:00:08][INFO] [Sender] 초기화 | 서버: http://170.20.10.12:8000/api/event
+[15:00:08][INFO] [Sender] 미전송 22건 복구
+[15:00:09][INFO] Mapping loaded | zones: ['A-1']
+[15:00:14][INFO] [Camera] C920 자동 포커스 설정 완료
+[15:00:14][INFO] [OCR Worker] 시작
+[15:00:14][INFO] [OCR Worker] 시작
+[15:00:14][INFO] [Send Worker] 시작
+[15:00:14][INFO] [Workers] OCR x2, Send x1 시작
+[15:00:15][INFO] Camera started | M: mapping  Q/ESC: quit
+[15:00:16][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[15:00:49][INFO] Quit
+[15:00:49][INFO] [Workers] 종료 대기 중...
+[15:00:50][INFO] [OCR Worker] 종료
+[15:00:50][INFO] [OCR Worker] 종료
+[15:00:50][INFO] [Send Worker] 종료
+[15:00:50][INFO] System stopped
+[15:20:07][INFO] ==================================================
+[15:20:07][INFO] Smart Parking System Start
+[15:20:07][INFO] ==================================================
+[15:20:14][INFO] [Sender] 초기화 | 서버: http://170.20.10.12:8000/api/event
+[15:20:14][INFO] [Sender] 미전송 22건 복구
+[15:20:15][INFO] Mapping loaded | zones: ['A-1']
+[15:20:20][INFO] [Camera] C920 자동 포커스 설정 완료
+[15:20:20][INFO] [OCR Worker] 시작
+[15:20:20][INFO] [OCR Worker] 시작
+[15:20:20][INFO] [Send Worker] 시작
+[15:20:20][INFO] [Workers] OCR x2, Send x1 시작
+[15:20:22][INFO] Camera started | M: mapping  Q/ESC: quit
+[15:20:24][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[10:24:54][INFO] [Snapshot] 17 old files deleted
+[10:26:29][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779758789.454145, 'park_status': 'normal', 'timestamp': 1779758789.454145}
+[10:26:29][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[10:28:00][INFO] [OCR Worker] A-1 완료: 789호1234 (confirmed)
+[10:28:06][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='170.20.10.12', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='170.20.10.12', port=8000) at 0x7fff0a513390>, 'Connection to 170.20.10.12 timed out. (connect timeout=3)'))
+[10:28:06][WARNING] [Sender] 큐 저장 (23건)
+[10:31:15][INFO] Quit
+[10:31:15][INFO] [Workers] 종료 대기 중...
+[10:31:16][INFO] [OCR Worker] 종료
+[10:31:16][INFO] [Send Worker] 종료
+[10:31:16][INFO] [OCR Worker] 종료
+[10:31:17][INFO] System stopped
