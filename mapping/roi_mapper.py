@@ -381,7 +381,7 @@ class ROIMapper:
         elif key in [ord('s'), ord('S')]:
             if len(self.current_pts) == 4:
                 self.input_mode = "save"
-                self.input_text = f"A-{self.zone_counter}"
+                self.input_text = f"a-b1-{self.zone_counter:03d}"
                 print(f"[ROIMapper] Enter zone name to save "
                       f"(default: A-{self.zone_counter})")
             else:

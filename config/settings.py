@@ -41,7 +41,8 @@ PIXEL_LIGHTING_CHANGE_THRESHOLD = 20
 PIXEL_LIGHTING_UPDATE_INTERVAL  = 30.0
 
 # ── 2칸 주차 판정 ──────────────────────────────────────────
-MULTI_ZONE_OVERLAP_RATIO = 0.30
+# ⚠️ 15%로 변경 (0.30 → 0.15)
+MULTI_ZONE_OVERLAP_RATIO = 0.15
 
 # ── OCR ────────────────────────────────────────────────────
 OCR_SAMPLE_COUNT         = 5
@@ -61,8 +62,6 @@ BLUR_CONFIRM_COUNT       = 3
 
 # ── 통신 ──────────────────────────────────────────────────
 # ⚠️ 수정 필요: FastAPI 서버 주소로 변경
-# 같은 와이파이면 노트북 IP 사용 (예: http://192.168.0.10:8000)
-# 예시: SERVER_URL = "http://192.168.0.10:8000/api/event"
 SERVER_URL      = "http://172.20.10.12:8000/api/event"
 REQUEST_TIMEOUT = 3
 QUEUE_FILE_PATH = os.path.join(BASE_DIR, "data", "pending_queue.json")

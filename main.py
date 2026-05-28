@@ -630,45 +630,94 @@ def _restore_state(state_machine):
 
 def _check_multi_zone(virtual_cars, zones, state_machine,
                       send_queue, logger):
-    zone_names = list(zones.keys())
-    for i in range(len(zone_names)):
-        for j in range(i + 1, len(zone_names)):
-            za, zb  = zone_names[i], zone_names[j]
-            state_a = state_machine.zones[za]
-            state_b = state_machine.zones[zb]
-            if (state_a.status == ZoneStatus.OCCUPIED and
-                    state_b.status == ZoneStatus.OCCUPIED and
-                    state_a.linked_zone == zb and
-                    state_b.linked_zone == za):
-                continue
-            for car in virtual_cars:
-                in_a = point_in_zone((car["vx"], car["vy"]), zones[za])
-                in_b = point_in_zone((car["vx"], car["vy"]), zones[zb])
-                if not (in_a and in_b):
-                    continue
-                ov_a = _calc_bbox_zone_overlap(car, zones[za])
-                ov_b = _calc_bbox_zone_overlap(car, zones[zb])
-                if (ov_a >= MULTI_ZONE_OVERLAP_RATIO and
-                        ov_b >= MULTI_ZONE_OVERLAP_RATIO):
-                    logger.info(f"[MULTI-ZONE] CONFIRMED: {za} and {zb}")
-                    state_machine.set_multi_zone(za, zb, None)
-                    for zn in [za, zb]:
-                        z = state_machine.zones[zn]
-                        try:
-                            send_queue.put_nowait((PRIORITY_ENTRY, {
-                                "type":         "entry",
-                                "zone":         zn,
-                                "plate":        None,
-                                "plate_status": "null",
-                                "entry_time":   z.entry_time,
-                                "park_status":  "multi_zone",
-                                "linked_zone":  z.linked_zone,
-                                "timestamp":    time.time(),
-                            }))
-                        except queue.Full:
-                            pass
-                break
+    """
+    2칸 주차 판정 + 겹침 구역 소유권 결정
 
+    차 2대가 A-1, A-2, A-3에 각각 주차할 때:
+    - 차1이 A-1, A-2에 걸침
+    - 차2가 A-2, A-3에 걸침
+    - A-2는 겹침 비율이 더 높은 차가 가져감
+    """
+    zone_names = list(zones.keys())
+
+    # ── 1. 각 구역별로 가장 많이 걸친 차 결정 ──────────────
+    # zone_best_car[zone_name] = (car, overlap_ratio)
+    zone_best_car = {}
+    for zone_name, zone_pts in zones.items():
+        best_car   = None
+        best_ratio = 0.0
+        for car in virtual_cars:
+            if not point_in_zone((car["vx"], car["vy"]), zone_pts):
+                continue
+            ratio = _calc_bbox_zone_overlap(car, zone_pts)
+            if ratio > best_ratio:
+                best_ratio = ratio
+                best_car   = car
+        if best_car is not None and best_ratio >= MULTI_ZONE_OVERLAP_RATIO:
+            zone_best_car[zone_name] = (best_car, best_ratio)
+
+    # ── 2. 차량별로 어느 구역에 걸쳐있는지 계산 ──────────
+    # car_zones[car_id] = [(zone_name, overlap_ratio), ...]
+    car_zones = {}
+    for zone_name, (car, ratio) in zone_best_car.items():
+        car_id = id(car)
+        if car_id not in car_zones:
+            car_zones[car_id] = {"car": car, "zones": []}
+        car_zones[car_id]["zones"].append((zone_name, ratio))
+
+    # ── 3. 2개 이상 구역에 걸친 차 → 2칸 주차 처리 ───────
+    for car_id, info in car_zones.items():
+        car        = info["car"]
+        car_zone_list = info["zones"]
+
+        if len(car_zone_list) < 2:
+            continue
+
+        # 가장 많이 걸친 2개 구역 선택
+        car_zone_list.sort(key=lambda x: x[1], reverse=True)
+        za = car_zone_list[0][0]
+        zb = car_zone_list[1][0]
+
+        state_a = state_machine.zones.get(za)
+        state_b = state_machine.zones.get(zb)
+
+        if state_a is None or state_b is None:
+            continue
+
+        # 이미 같은 차량으로 linked 된 경우 스킵
+        if (state_a.status == ZoneStatus.OCCUPIED and
+                state_b.status == ZoneStatus.OCCUPIED and
+                state_a.linked_zone == zb and
+                state_b.linked_zone == za):
+            continue
+
+        # 둘 다 비어있거나 한쪽만 비어있을 때만 처리
+        if (state_a.status == ZoneStatus.OCCUPIED and
+                state_b.status == ZoneStatus.OCCUPIED):
+            continue
+
+        logger.info(f"[MULTI-ZONE] CONFIRMED: {za}({car_zone_list[0][1]:.2f}) "
+                    f"and {zb}({car_zone_list[1][1]:.2f})")
+
+        state_machine.set_multi_zone(za, zb, None)
+
+        for zn in [za, zb]:
+            z = state_machine.zones.get(zn)
+            if z is None:
+                continue
+            try:
+                send_queue.put_nowait((PRIORITY_ENTRY, {
+                    "type":         "entry",
+                    "zone":         zn,
+                    "plate":        None,
+                    "plate_status": "null",
+                    "entry_time":   z.entry_time,
+                    "park_status":  "multi_zone",
+                    "linked_zone":  z.linked_zone,
+                    "timestamp":    time.time(),
+                }))
+            except queue.Full:
+                pass
 
 def _calc_bbox_zone_overlap(car, zone_pts) -> float:
     try:
