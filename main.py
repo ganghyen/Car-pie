@@ -1,9 +1,10 @@
 # ============================================================
 # [메인] 스마트 주차 관리 시스템
-#
 # 수정사항:
 #   1. send_queue → PriorityQueue (출차>입차>업데이트 순서 보장)
 #   2. 번호판 안 보여도 null 즉시 전송 안함 → OCR 시도 후 전송
+#   3. 입차 스냅샷 image_path 추가 전송
+#   4. OCR null/unreadable 시 ocr_error 플래그 설정
 # ============================================================
 
 import cv2
@@ -46,14 +47,13 @@ logger = get_logger("parking")
 WIN_MAIN = "Smart Parking  |  M: Mapping   Q: Quit"
 WIN_VIRT = "Virtual Map  |  Click 4pts  S: Save  X: Delete  C: Cancel  E: Exit"
 
-# ── 우선순위 상수 ─────────────────────────────────────────
-PRIORITY_EXIT   = 1  # 출차 최우선
-PRIORITY_ENTRY  = 2  # 입차
-PRIORITY_UPDATE = 3  # 번호판 업데이트
+PRIORITY_EXIT   = 1
+PRIORITY_ENTRY  = 2
+PRIORITY_UPDATE = 3
 
 
-# ── OCR 작업 단위 ─────────────────────────────────────────
 class OcrTask:
+    """OCR 작업 단위: 구역명, 스냅샷, bbox 정보, 원본 입차 이벤트 묶음."""
     def __init__(self, zone_name, snapshot, car_bbox,
                  plate_bbox, entry_event):
         self.zone_name   = zone_name
@@ -64,12 +64,16 @@ class OcrTask:
         self.queued_at   = time.time()
 
 
-# ── OCR Worker ────────────────────────────────────────────
 def ocr_worker(ocr_queue: queue.Queue,
                send_queue: queue.PriorityQueue,
                ocr_reader: PlateReader,
                state_machine: ParkingStateMachine,
                stop_event: threading.Event):
+    """
+    OCR 전담 스레드.
+    ocr_queue에서 작업을 꺼내 번호판 인식 후
+    결과를 entry 이벤트에 붙여서 send_queue에 넣음.
+    """
     logger.info("[OCR Worker] 시작")
 
     while not stop_event.is_set():
@@ -80,6 +84,8 @@ def ocr_worker(ocr_queue: queue.Queue,
 
         try:
             zone_name = task.zone_name
+
+            # 스냅샷에서 번호판 인식 (다수결 투표)
             plate = ocr_reader.vote_from_snapshot(
                 snapshot_frame=task.snapshot,
                 bbox=task.car_bbox,
@@ -87,17 +93,32 @@ def ocr_worker(ocr_queue: queue.Queue,
                 plate_bbox=task.plate_bbox,
             )
 
+            # 인식 결과를 구역 상태에 반영
             state_machine.set_plate(zone_name, plate)
             zone = state_machine.zones.get(zone_name)
             ps   = zone.plate_status.value if zone else "null"
 
             logger.info(f"[OCR Worker] {zone_name} 완료: {plate} ({ps})")
 
+            # 입차 이벤트에 번호판 정보 추가
             entry_event                 = task.entry_event
             entry_event["plate"]        = zone.plate if zone else plate
             entry_event["plate_status"] = ps
 
-            # ★ 입차는 우선순위 2로 전송
+            # ✅ 추가: OCR 완료 후 null/unreadable이면 오류 플래그 설정
+            # null: OCR 시도했지만 결과 없음
+            # unreadable: OCR 3회 연속 실패
+            # 둘 다 관리자 알림 전송
+            if ps in ("null", "unreadable"):
+                entry_event["ocr_error"] = True
+                logger.warning(
+                    f"[OCR ERROR] {zone_name} 번호판 인식 불가 ({ps}) "
+                    f"→ 알림 전송 예정"
+                )
+            else:
+                entry_event["ocr_error"] = False
+
+            # 입차 이벤트를 우선순위 2로 send_queue에 등록
             send_queue.put_nowait((PRIORITY_ENTRY, entry_event))
 
             if zone and zone.plate_status == PlateStatus.UNREADABLE:
@@ -111,15 +132,18 @@ def ocr_worker(ocr_queue: queue.Queue,
     logger.info("[OCR Worker] 종료")
 
 
-# ── Send Worker ───────────────────────────────────────────
 def send_worker(send_queue: queue.PriorityQueue,
                 sender: EventSender,
                 stop_event: threading.Event):
+    """
+    전송 전담 스레드.
+    PriorityQueue에서 우선순위 순으로 꺼내 FastAPI 서버로 전송.
+    출차(1) > 입차(2) > 업데이트(3) 순서 보장.
+    """
     logger.info("[Send Worker] 시작")
 
     while not stop_event.is_set():
         try:
-            # PriorityQueue에서 꺼낼 때 (우선순위, 이벤트) 형태
             priority, event = send_queue.get(timeout=1.0)
         except queue.Empty:
             continue
@@ -168,16 +192,15 @@ def main():
     last_check     = time.time()
 
     cap = cv2.VideoCapture(CAMERA_INDEX)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH,  FRAME_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT)
-    cap.set(cv2.CAP_PROP_FPS, TARGET_FPS)
-
-    cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
+    cap.set(cv2.CAP_PROP_FPS,          TARGET_FPS)
+    cap.set(cv2.CAP_PROP_AUTOFOCUS,     1)
     cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
-    cap.set(cv2.CAP_PROP_EXPOSURE, -3)
-    cap.set(cv2.CAP_PROP_BRIGHTNESS, 120)
-    cap.set(cv2.CAP_PROP_CONTRAST, 150)
-    cap.set(cv2.CAP_PROP_SHARPNESS, 200)
+    cap.set(cv2.CAP_PROP_EXPOSURE,      -3)
+    cap.set(cv2.CAP_PROP_BRIGHTNESS,    100)
+    cap.set(cv2.CAP_PROP_CONTRAST,      150)
+    cap.set(cv2.CAP_PROP_SHARPNESS,     200)
 
     time.sleep(5.0)
     logger.info("[Camera] C920 자동 포커스 설정 완료")
@@ -187,7 +210,6 @@ def main():
         sys.exit(1)
 
     ocr_queue  = queue.Queue(maxsize=20)
-    # ★ PriorityQueue로 변경 (출차>입차>업데이트 순서 보장)
     send_queue = queue.PriorityQueue(maxsize=50)
     stop_event = threading.Event()
 
@@ -240,6 +262,7 @@ def main():
 
         now = time.time()
 
+        # 매핑 파일 변경 감지
         if not mapping_mode and now - last_check >= CHECK_INTERVAL:
             last_check = now
             new_mtime  = _get_mtime(ROI_COORDS_PATH)
@@ -253,6 +276,7 @@ def main():
                 empty_snap_initialized = False
                 logger.info(f"Mapping reloaded | zones: {new_keys}")
 
+        # 카메라 흔들림 감지 + 자동 보정
         if (not mapping_mode and homography.is_ready()
                 and now - last_shake_check >= CAMERA_SHAKE_CHECK_INTERVAL):
             last_shake_check = now
@@ -264,12 +288,14 @@ def main():
                 shake_status_msg  = "WARNING: Camera moved! Press M to re-map"
                 shake_status_time = now
 
+        # 오래된 스냅샷 파일 정리
         if now - last_snap_cleanup >= SNAPSHOT_CLEANUP_INTERVAL:
             last_snap_cleanup = now
             deleted = _cleanup_snapshots()
             if deleted > 0:
                 logger.info(f"[Snapshot] {deleted} old files deleted")
 
+        # 주기적 상태 백업
         if now - last_state_backup >= STATE_BACKUP_INTERVAL:
             last_state_backup = now
             _backup_state(state_machine)
@@ -277,6 +303,9 @@ def main():
         if not mapping_mode:
             preprocessor.check_blur(frame)
 
+        # ══════════════════════════════════════════════════
+        # 매핑 모드
+        # ══════════════════════════════════════════════════
         if mapping_mode:
             cam_vis = mapper.render_camera(frame)
             cv2.putText(cam_vis, "[ MAPPING MODE ]  E: exit",
@@ -319,6 +348,10 @@ def main():
             mapper.handle_key(key, frame)
             continue
 
+        # ══════════════════════════════════════════════════
+        # 일반 모드: YOLO 탐지 + 상태 머신 업데이트
+        # ══════════════════════════════════════════════════
+
         enhanced         = preprocessor.apply(frame)
         detection_result = detector.detect(enhanced)
         cars             = detection_result["cars"]
@@ -331,6 +364,7 @@ def main():
                 (VIRTUAL_MAP_WIDTH, VIRTUAL_MAP_HEIGHT)
             )
 
+        # 빈 구역 스냅샷 초기화 (최초 1회)
         if not empty_snap_initialized and warped_frame is not None:
             all_done = True
             for zone_name, zone_pts in homography.zones.items():
@@ -345,6 +379,7 @@ def main():
                 empty_snap_initialized = True
                 logger.info("[PixelCheck] 빈 구역 스냅샷 초기화 완료")
 
+        # 차량 좌표를 가상 평면으로 변환
         virtual_cars = []
         if homography.is_ready():
             for car in cars:
@@ -353,11 +388,13 @@ def main():
                 )
                 virtual_cars.append({**car, "vx": vx, "vy": vy})
 
+        # 2칸 주차 판정
         _check_multi_zone(
             virtual_cars, homography.zones,
             state_machine, send_queue, logger
         )
 
+        # 구역별 상태 업데이트
         for zone_name, zone_pts in homography.zones.items():
             cars_in_zone = [
                 c for c in virtual_cars
@@ -388,14 +425,37 @@ def main():
             if event:
                 logger.info(f"[EVENT] {event}")
 
+                # ── 입차 이벤트 처리 ──────────────────────────
                 if event["type"] == "entry":
+                    # 입차 시점 스냅샷 저장
                     snap_path = _save_snapshot(
                         frame, zone_name, event["timestamp"]
                     )
-                    event["car_image"] = snap_path
+                    # 기존: car_image 경로 저장
+                    event["car_image"]  = snap_path
 
-                    # ★ 번호판 안 보여도 null 즉시 전송 안함
-                    # → 항상 OCR Queue에 넣어서 처리 후 전송
+                    # ✅ 추가: image_path 키로도 경로 저장
+                    # FastAPI parking.py에서 Spring Boot로 전달할 때 사용
+                    # Spring Boot가 parking_history에 image_path 저장 → 웹에서 조회 가능
+                    event["image_path"] = snap_path
+
+                    # ✅ 추가: OCR 상태 기반 오류 플래그 초기 설정
+                    # OCR 완료 전 시점이라 PENDING일 가능성 높음
+                    # 최종 판단은 ocr_worker에서 덮어씀
+                    zone_obj = state_machine.zones.get(zone_name)
+                    if zone_obj and zone_obj.plate_status in (
+                        PlateStatus.UNREADABLE, PlateStatus.NULL
+                    ):
+                        # UNREADABLE: OCR 3회 연속 실패
+                        # NULL: OCR 시도했지만 결과 없음
+                        event["ocr_error"] = True
+                        logger.warning(
+                            f"[OCR ERROR] {zone_name} "
+                            f"번호판 인식 불가 ({zone_obj.plate_status.value})"
+                        )
+                    else:
+                        event["ocr_error"] = False
+
                     if not ocr_submitted.get(zone_name, False):
                         task = OcrTask(
                             zone_name   = zone_name,
@@ -405,10 +465,12 @@ def main():
                             entry_event = event,
                         )
 
-                        # 차량 없거나 번호판 안 보이면 null로 바로 OCR Worker 통해 전송
                         if not cars_in_zone:
+                            # 차량 bbox가 없으면 null로 즉시 전송
                             event["plate"]        = None
                             event["plate_status"] = PlateStatus.NULL.value
+                            # 차량 없으면 ocr_error True
+                            event["ocr_error"]    = True
                             logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
                             send_queue.put_nowait((PRIORITY_ENTRY, event))
                         else:
@@ -426,8 +488,10 @@ def main():
                                 )
                                 event["plate"]        = None
                                 event["plate_status"] = PlateStatus.NULL.value
+                                event["ocr_error"]    = True
                                 send_queue.put_nowait((PRIORITY_ENTRY, event))
 
+                # ── 출차 이벤트 처리 ──────────────────────────
                 elif event["type"] == "exit":
                     exit_snap_path = _save_snapshot(
                         frame, f"{zone_name}_exit", event["timestamp"]
@@ -442,11 +506,11 @@ def main():
                         )
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
+                        pending["ocr_error"]    = True
                         send_queue.put_nowait((PRIORITY_ENTRY, pending))
 
                     ocr_submitted.pop(zone_name, None)
 
-                    # ★ 출차는 최우선순위 1로 전송
                     try:
                         send_queue.put_nowait((PRIORITY_EXIT, event))
                     except queue.Full:
@@ -454,6 +518,7 @@ def main():
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
+            # 번호판 재인식
             if state_machine.needs_recheck(zone_name) and cars_in_zone:
                 cur = state_machine.zones[zone_name]
                 if not ocr_submitted.get(zone_name, False):
@@ -467,6 +532,7 @@ def main():
                             prev_plate=cur.plate,
                         )
                         state_machine.mark_rechecked(zone_name)
+
                         if new_plate:
                             logger.info(
                                 f"[RECHECK] {zone_name}: "
@@ -475,7 +541,6 @@ def main():
                             try:
                                 if cur.plate is None:
                                     state_machine.set_plate(zone_name, new_plate)
-                                    # ★ 업데이트는 우선순위 3
                                     send_queue.put_nowait((PRIORITY_UPDATE, {
                                         "type":         "plate_update",
                                         "zone":         zone_name,
@@ -491,7 +556,6 @@ def main():
                                         f"null -> {new_plate}"
                                     )
                                 else:
-                                    # ★ 출차는 최우선순위 1
                                     send_queue.put_nowait((PRIORITY_EXIT, {
                                         "type":         "exit",
                                         "zone":         zone_name,
@@ -592,8 +656,6 @@ def main():
     logger.info("System stopped")
 
 
-# ── 상태 백업 / 복구 ──────────────────────────────────────
-
 def _backup_state(state_machine):
     try:
         data = {
@@ -630,18 +692,6 @@ def _restore_state(state_machine):
 
 def _check_multi_zone(virtual_cars, zones, state_machine,
                       send_queue, logger):
-    """
-    2칸 주차 판정 + 겹침 구역 소유권 결정
-
-    차 2대가 A-1, A-2, A-3에 각각 주차할 때:
-    - 차1이 A-1, A-2에 걸침
-    - 차2가 A-2, A-3에 걸침
-    - A-2는 겹침 비율이 더 높은 차가 가져감
-    """
-    zone_names = list(zones.keys())
-
-    # ── 1. 각 구역별로 가장 많이 걸친 차 결정 ──────────────
-    # zone_best_car[zone_name] = (car, overlap_ratio)
     zone_best_car = {}
     for zone_name, zone_pts in zones.items():
         best_car   = None
@@ -656,8 +706,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         if best_car is not None and best_ratio >= MULTI_ZONE_OVERLAP_RATIO:
             zone_best_car[zone_name] = (best_car, best_ratio)
 
-    # ── 2. 차량별로 어느 구역에 걸쳐있는지 계산 ──────────
-    # car_zones[car_id] = [(zone_name, overlap_ratio), ...]
     car_zones = {}
     for zone_name, (car, ratio) in zone_best_car.items():
         car_id = id(car)
@@ -665,15 +713,13 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             car_zones[car_id] = {"car": car, "zones": []}
         car_zones[car_id]["zones"].append((zone_name, ratio))
 
-    # ── 3. 2개 이상 구역에 걸친 차 → 2칸 주차 처리 ───────
     for car_id, info in car_zones.items():
-        car        = info["car"]
+        car           = info["car"]
         car_zone_list = info["zones"]
 
         if len(car_zone_list) < 2:
             continue
 
-        # 가장 많이 걸친 2개 구역 선택
         car_zone_list.sort(key=lambda x: x[1], reverse=True)
         za = car_zone_list[0][0]
         zb = car_zone_list[1][0]
@@ -684,14 +730,12 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         if state_a is None or state_b is None:
             continue
 
-        # 이미 같은 차량으로 linked 된 경우 스킵
         if (state_a.status == ZoneStatus.OCCUPIED and
                 state_b.status == ZoneStatus.OCCUPIED and
                 state_a.linked_zone == zb and
                 state_b.linked_zone == za):
             continue
 
-        # 둘 다 비어있거나 한쪽만 비어있을 때만 처리
         if (state_a.status == ZoneStatus.OCCUPIED and
                 state_b.status == ZoneStatus.OCCUPIED):
             continue
@@ -718,6 +762,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                 }))
             except queue.Full:
                 pass
+
 
 def _calc_bbox_zone_overlap(car, zone_pts) -> float:
     try:
@@ -769,6 +814,7 @@ def _polygon_intersection_area(poly1, poly2) -> float:
     clipped = clip(poly1, poly2)
     if len(clipped) < 3:
         return 0.0
+
     n = len(clipped)
     area = 0.0
     for i in range(n):
