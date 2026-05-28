@@ -1,0 +1,226 @@
+[18:24:55][INFO] ==================================================
+[18:24:55][INFO] Smart Parking System Start
+[18:24:55][INFO] ==================================================
+[18:25:02][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:25:02][INFO] [Sender] 미전송 33건 복구
+[18:25:02][INFO] Mapping loaded | zones: ['A-1', 'a-b1-002', 'a-b1-003', 'a-b1-004']
+[18:25:07][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:25:07][INFO] [OCR Worker] 시작
+[18:25:07][INFO] [OCR Worker] 시작
+[18:25:07][INFO] [Send Worker] 시작
+[18:25:07][INFO] [Workers] OCR x2, Send x1 시작
+[18:25:09][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:25:11][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:25:29][INFO] Enter mapping mode
+[18:28:12][INFO] [Workers] 종료 대기 중...
+[18:28:12][INFO] [OCR Worker] 종료
+[18:28:12][INFO] [Send Worker] 종료
+[18:28:12][INFO] [OCR Worker] 종료
+[18:28:12][INFO] System stopped
+[18:35:15][INFO] ==================================================
+[18:35:15][INFO] Smart Parking System Start
+[18:35:15][INFO] ==================================================
+[18:35:20][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:35:20][INFO] [Sender] 미전송 33건 복구
+[18:35:20][WARNING] No mapping - Press M to enter mapping mode
+[18:35:26][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:35:26][INFO] [OCR Worker] 시작
+[18:35:26][INFO] [OCR Worker] 시작
+[18:35:26][INFO] [Send Worker] 시작
+[18:35:26][INFO] [Workers] OCR x2, Send x1 시작
+[18:35:27][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:35:34][INFO] Enter mapping mode
+[18:46:53][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006']
+[18:46:53][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:47:05][INFO] Enter mapping mode
+[18:48:09][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:48:10][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:48:44][INFO] Quit
+[18:48:44][INFO] [Workers] 종료 대기 중...
+[18:48:45][INFO] [OCR Worker] 종료
+[18:48:45][INFO] [Send Worker] 종료
+[18:48:45][INFO] [OCR Worker] 종료
+[18:48:45][INFO] System stopped
+[18:49:11][INFO] ==================================================
+[18:49:11][INFO] Smart Parking System Start
+[18:49:11][INFO] ==================================================
+[18:49:17][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:49:17][INFO] [Sender] 미전송 33건 복구
+[18:49:17][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:49:22][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:49:22][INFO] [OCR Worker] 시작
+[18:49:22][INFO] [OCR Worker] 시작
+[18:49:22][INFO] [Send Worker] 시작
+[18:49:22][INFO] [Workers] OCR x2, Send x1 시작
+[18:49:23][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:49:24][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:51:27][INFO] Quit
+[18:51:27][INFO] [Workers] 종료 대기 중...
+[18:51:28][INFO] [Send Worker] 종료
+[18:51:28][INFO] [OCR Worker] 종료
+[18:51:28][INFO] [OCR Worker] 종료
+[18:51:29][INFO] System stopped
+[18:51:42][INFO] ==================================================
+[18:51:42][INFO] Smart Parking System Start
+[18:51:42][INFO] ==================================================
+[18:51:46][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:51:46][INFO] [Sender] 미전송 33건 복구
+[18:51:46][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:51:51][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:51:51][INFO] [OCR Worker] 시작
+[18:51:51][INFO] [OCR Worker] 시작
+[18:51:51][INFO] [Send Worker] 시작
+[18:51:51][INFO] [Workers] OCR x2, Send x1 시작
+[18:51:52][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:51:53][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:52:52][INFO] Quit
+[18:52:52][INFO] [Workers] 종료 대기 중...
+[18:52:52][INFO] [Send Worker] 종료
+[18:52:52][INFO] [OCR Worker] 종료
+[18:52:52][INFO] [OCR Worker] 종료
+[18:52:53][INFO] System stopped
+[18:53:07][INFO] ==================================================
+[18:53:07][INFO] Smart Parking System Start
+[18:53:07][INFO] ==================================================
+[18:53:12][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:53:12][INFO] [Sender] 미전송 33건 복구
+[18:53:12][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:53:17][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:53:17][INFO] [OCR Worker] 시작
+[18:53:17][INFO] [OCR Worker] 시작
+[18:53:17][INFO] [Send Worker] 시작
+[18:53:17][INFO] [Workers] OCR x2, Send x1 시작
+[18:53:17][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:53:18][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:54:01][INFO] Quit
+[18:54:01][INFO] [Workers] 종료 대기 중...
+[18:54:01][INFO] [Send Worker] 종료
+[18:54:01][INFO] [OCR Worker] 종료
+[18:54:01][INFO] [OCR Worker] 종료
+[18:54:01][INFO] System stopped
+[18:54:06][INFO] ==================================================
+[18:54:06][INFO] Smart Parking System Start
+[18:54:06][INFO] ==================================================
+[18:54:10][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:54:10][INFO] [Sender] 미전송 33건 복구
+[18:54:10][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:54:15][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:54:15][INFO] [OCR Worker] 시작
+[18:54:15][INFO] [OCR Worker] 시작
+[18:54:15][INFO] [Send Worker] 시작
+[18:54:15][INFO] [Workers] OCR x2, Send x1 시작
+[18:54:16][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:54:17][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:56:10][INFO] Enter mapping mode
+[18:56:47][INFO] [Workers] 종료 대기 중...
+[18:56:47][INFO] [OCR Worker] 종료
+[18:56:47][INFO] [OCR Worker] 종료
+[18:56:47][INFO] [Send Worker] 종료
+[18:56:48][INFO] System stopped
+[18:57:03][INFO] ==================================================
+[18:57:03][INFO] Smart Parking System Start
+[18:57:03][INFO] ==================================================
+[18:57:07][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:57:07][INFO] [Sender] 미전송 33건 복구
+[18:57:07][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:57:12][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:57:12][INFO] [OCR Worker] 시작
+[18:57:12][INFO] [OCR Worker] 시작
+[18:57:12][INFO] [Send Worker] 시작
+[18:57:12][INFO] [Workers] OCR x2, Send x1 시작
+[18:57:13][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:57:14][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:57:19][INFO] Enter mapping mode
+[18:59:23][INFO] [Workers] 종료 대기 중...
+[18:59:23][INFO] [OCR Worker] 종료
+[18:59:23][INFO] [OCR Worker] 종료
+[18:59:23][INFO] [Send Worker] 종료
+[18:59:24][INFO] System stopped
+[18:59:30][INFO] ==================================================
+[18:59:30][INFO] Smart Parking System Start
+[18:59:30][INFO] ==================================================
+[18:59:34][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[18:59:34][INFO] [Sender] 미전송 33건 복구
+[18:59:34][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:59:39][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:59:39][INFO] [OCR Worker] 시작
+[18:59:39][INFO] [OCR Worker] 시작
+[18:59:39][INFO] [Send Worker] 시작
+[18:59:39][INFO] [Workers] OCR x2, Send x1 시작
+[18:59:40][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:59:41][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:01:28][INFO] Enter mapping mode
+[19:04:55][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006']
+[19:04:56][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:06:01][INFO] Quit
+[19:06:01][INFO] [Workers] 종료 대기 중...
+[19:06:01][INFO] [Send Worker] 종료
+[19:06:01][INFO] [OCR Worker] 종료
+[19:06:01][INFO] [OCR Worker] 종료
+[19:06:02][INFO] System stopped
+[19:06:07][INFO] ==================================================
+[19:06:07][INFO] Smart Parking System Start
+[19:06:07][INFO] ==================================================
+[19:06:12][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[19:06:12][INFO] [Sender] 미전송 33건 복구
+[19:06:12][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006']
+[19:06:17][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:06:17][INFO] [OCR Worker] 시작
+[19:06:17][INFO] [OCR Worker] 시작
+[19:06:17][INFO] [Send Worker] 시작
+[19:06:17][INFO] [Workers] OCR x2, Send x1 시작
+[19:06:17][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:06:18][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:07:34][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-006', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779962854.4529605, 'park_status': 'normal', 'timestamp': 1779962854.4529605}
+[19:07:34][INFO] [ENTRY] a-b1-006 OCR Queue 제출 (대기: 1)
+[19:07:54][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779962874.4323812, 'park_status': 'normal', 'timestamp': 1779962874.4323812}
+[19:07:54][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 1)
+[19:08:39][INFO] [OCR Worker] a-b1-006 완료: 70021234 (confirmed)
+[19:08:44][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-006
+[19:09:06][INFO] [OCR Worker] a-b1-005 완료: 3745209 (confirmed)
+[19:09:12][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.69.39.129', port=8000): Read timed out. (read timeout=3)
+[19:09:12][WARNING] [Sender] 큐 저장 (34건)
+[19:10:43][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-005', 'plate': '3745209', 'plate_status': 'confirmed', 'entry_time': 1779962874.4323812, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779963043.6573696}
+[19:10:43][WARNING] [EXIT] a-b1-005 OCR 완료 전 출차 → entry null 전송
+[19:10:43][INFO] [EXIT] a-b1-005 plate=3745209
+[19:10:48][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-005
+[19:10:54][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.69.39.129', port=8000): Read timed out. (read timeout=3)
+[19:10:54][WARNING] [Sender] 큐 저장 (35건)
+[19:13:17][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779963197.7092862, 'park_status': 'normal', 'timestamp': 1779963197.7092862}
+[19:13:17][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 1)
+[19:13:30][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1779963197.7092862, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779963210.140357}
+[19:13:30][WARNING] [EXIT] a-b1-005 OCR 완료 전 출차 → entry null 전송
+[19:13:30][INFO] [EXIT] a-b1-005 plate=None
+[19:13:34][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-005
+[19:13:40][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-005
+[19:14:20][INFO] [OCR Worker] a-b1-005 완료: None (pending)
+[19:14:26][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.69.39.129', port=8000): Read timed out. (read timeout=3)
+[19:14:26][WARNING] [Sender] 큐 저장 (36건)
+[19:27:02][INFO] Quit
+[19:27:02][INFO] [Workers] 종료 대기 중...
+[19:27:02][INFO] [OCR Worker] 종료
+[19:27:03][INFO] [Send Worker] 종료
+[19:27:03][INFO] [OCR Worker] 종료
+[19:27:03][INFO] System stopped
+[19:29:04][INFO] ==================================================
+[19:29:04][INFO] Smart Parking System Start
+[19:29:04][INFO] ==================================================
+[19:29:11][INFO] [Sender] 초기화 | 서버: http://10.69.39.129:8000/api/event
+[19:29:11][INFO] [Sender] 미전송 36건 복구
+[19:29:11][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006']
+[19:29:16][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:29:16][INFO] [OCR Worker] 시작
+[19:29:16][INFO] [OCR Worker] 시작
+[19:29:16][INFO] [Send Worker] 시작
+[19:29:16][INFO] [Workers] OCR x2, Send x1 시작
+[19:29:20][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:29:21][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:29:30][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-006', 'plate': '70021234', 'plate_status': 'confirmed', 'entry_time': 1779962854.4529605, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1779964170.418653}
+[19:29:30][INFO] [EXIT] a-b1-006 plate=70021234
+[19:29:34][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-006
+[19:39:35][INFO] Quit
+[19:39:35][INFO] [Workers] 종료 대기 중...
+[19:39:35][INFO] [OCR Worker] 종료
+[19:39:35][INFO] [Send Worker] 종료
+[19:39:35][INFO] [OCR Worker] 종료
+[19:39:36][INFO] System stopped

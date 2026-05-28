@@ -19,11 +19,11 @@ FRAME_WIDTH       = 1280
 FRAME_HEIGHT      = 720
 TARGET_FPS        = 15
 
-# ── YOLO 탐지 ──────────────────────────────────────────────
-YOLO_CONF         = 0.45
-YOLO_IOU          = 0.4
+# ── YOLO 탐지 ──────────────────────────────────────────────OLO_CONF         = 0.45OLO_IOU          = 0.4
 CLASS_CAR         = "car"
 CLASS_PLATE       = "plate"
+YOLO_CONF = 0.2
+YOLO_IOU = 0.5
 
 # ── 구역 상태 머신 ─────────────────────────────────────────
 STILL_PIXEL_THRESHOLD  = 8
@@ -62,7 +62,7 @@ BLUR_CONFIRM_COUNT       = 3
 
 # ── 통신 ──────────────────────────────────────────────────
 # ⚠️ 수정 필요: FastAPI 서버 주소로 변경
-SERVER_URL      = "http://172.20.10.12:8000/api/event"
+SERVER_URL = "http://10.69.39.129:8000/api/event"
 REQUEST_TIMEOUT = 3
 QUEUE_FILE_PATH = os.path.join(BASE_DIR, "data", "pending_queue.json")
 

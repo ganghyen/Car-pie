@@ -175,7 +175,7 @@ def main():
     cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
     cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
     cap.set(cv2.CAP_PROP_EXPOSURE, -3)
-    cap.set(cv2.CAP_PROP_BRIGHTNESS, 100)
+    cap.set(cv2.CAP_PROP_BRIGHTNESS, 120)
     cap.set(cv2.CAP_PROP_CONTRAST, 150)
     cap.set(cv2.CAP_PROP_SHARPNESS, 200)
 

@@ -1,3 +1,4 @@
+# state/zone_state.py
 # ============================================================
 # [Phase 3] 구역 상태 머신
 #
@@ -89,16 +90,6 @@ class ParkingStateMachine:
 
     # ── 빈 구역 스냅샷 저장 ───────────────────────────────
     def save_empty_snap(self, zone_name: str, zone_crop: np.ndarray):
-        """
-        ★ 핵심: 빈 구역일 때 스냅샷 저장
-        저장 시점:
-          1) 매핑 직후 main.py 에서 호출
-          2) 출차 확정 후 자동 호출 (_reset_zone)
-
-        이 이미지를 기준으로 픽셀 비교:
-          변화 큼  → 차가 있음
-          변화 작음 → 비어있음
-        """
         zone = self.zones.get(zone_name)
         if zone:
             zone.empty_snap           = zone_crop.copy()
@@ -128,20 +119,17 @@ class ParkingStateMachine:
                 len(all_cars_in_zone) >= 2 or not plate_visible
             )
 
-        # 조명 변화 감지 → 빈 스냅샷 업데이트
-        # EMPTY 상태일 때만 업데이트 (차 없을 때 기준이어야 하므로)
+        # 조명 변화 감지 (EMPTY 상태에서만)
         if (zone.status == ZoneStatus.EMPTY
                 and zone_crop is not None
                 and zone.empty_snap is not None):
             self._update_snap_if_lighting_changed(zone, zone_crop, now)
 
-        # YOLO 탐지 여부
-        yolo_found    = virtual_foot is not None
+        yolo_found = virtual_foot is not None
 
-        # ★ 픽셀 비교: YOLO 실패 시 빈 스냅샷과 비교
-        # 변화가 크면 차가 있는 것
+        # ✅ 수정: OCCUPIED + TIMEOUT 둘 다 pixel_check 실행
         pixel_has_car = False
-        if not yolo_found and zone.status == ZoneStatus.OCCUPIED:
+        if not yolo_found and zone.status in (ZoneStatus.OCCUPIED, ZoneStatus.TIMEOUT):
             pixel_has_car = self._pixel_check(zone, zone_crop)
 
         car_present = yolo_found or pixel_has_car
@@ -157,48 +145,56 @@ class ParkingStateMachine:
                 zone.timeout_start = 0.0
                 return None
             else:
+                # 차 처음 사라짐 → TIMEOUT 진입
                 zone.status        = ZoneStatus.TIMEOUT
                 zone.timeout_start = now
+                print(f"[STATE] {zone_name} OCCUPIED→TIMEOUT plate={zone.plate}")
                 return None
 
         # ── TIMEOUT ────────────────────────────────────────
         elif zone.status == ZoneStatus.TIMEOUT:
             if car_present:
+                # 차 다시 감지 → OCCUPIED 복귀
                 zone.status        = ZoneStatus.OCCUPIED
                 zone.timeout_start = 0.0
+                print(f"[STATE] {zone_name} TIMEOUT→OCCUPIED (재감지)")
                 return None
+
+            # ✅ timeout_start가 0이면 비정상 → 지금 시각으로 보정
+            if zone.timeout_start == 0.0:
+                zone.timeout_start = now
+                print(f"[WARN] {zone_name} timeout_start=0 보정")
+                return None
+
+            elapsed = now - zone.timeout_start
+            if elapsed >= EXIT_TIMEOUT_SECONDS:
+                old_plate        = zone.plate
+                old_plate_status = zone.plate_status
+                old_entry_time   = zone.entry_time
+                old_status       = zone.park_status
+                old_linked       = zone.linked_zone
+                self._reset_zone(zone, zone_crop)
+                print(f"[EVENT] exit | zone={zone_name} "
+                      f"plate={old_plate} elapsed={elapsed:.1f}s")
+                return {
+                    "type":         "exit",
+                    "zone":         zone_name,
+                    "plate":        old_plate,
+                    "plate_status": old_plate_status.value,
+                    "entry_time":   old_entry_time,
+                    "park_status":  old_status.value,
+                    "linked_zone":  old_linked,
+                    "timestamp":    now,
+                }
             else:
-                if now - zone.timeout_start >= EXIT_TIMEOUT_SECONDS:
-                    old_plate        = zone.plate
-                    old_plate_status = zone.plate_status
-                    old_entry_time   = zone.entry_time
-                    old_status       = zone.park_status
-                    old_linked       = zone.linked_zone
-                    self._reset_zone(zone, zone_crop)  # 출차 후 빈 스냅샷 갱신
-                    return {
-                        "type":         "exit",
-                        "zone":         zone_name,
-                        "plate":        old_plate,
-                        "plate_status": old_plate_status.value,
-                        "entry_time":   old_entry_time,
-                        "park_status":  old_status.value,
-                        "linked_zone":  old_linked,
-                        "timestamp":    now,
-                    }
+                print(f"[STATE] {zone_name} TIMEOUT 대기 "
+                      f"{elapsed:.1f}/{EXIT_TIMEOUT_SECONDS}s")
+
         return None
 
     # ── 픽셀 비교 ─────────────────────────────────────────
     def _pixel_check(self, zone: ZoneState,
                      zone_crop: np.ndarray | None) -> bool:
-        """
-        ★ 빈 구역 스냅샷과 현재 이미지 비교
-
-        차가 있으면 → 픽셀 변화 큼 → True (차 있음)
-        차가 없으면 → 픽셀 변화 작음 → False (비어있음)
-
-        이중주차로 원래 차가 가려져도:
-        B차가 위에서 찍히므로 빈 구역 스냅샷과 다름 → True (차 있음) ✓
-        """
         if zone.empty_snap is None or zone_crop is None:
             return False
 
@@ -215,7 +211,6 @@ class ParkingStateMachine:
             diff          = cv2.absdiff(snap_gray, curr_gray)
             changed_ratio = np.sum(diff > PIXEL_DIFF_THRESHOLD) / diff.size
 
-            # 변화가 크면 차가 있는 것
             return changed_ratio > PIXEL_CHECK_OCCUPIED
 
         except Exception:
@@ -223,10 +218,6 @@ class ParkingStateMachine:
 
     # ── 조명 변화 감지 → 빈 스냅샷 업데이트 ─────────────
     def _update_snap_if_lighting_changed(self, zone, zone_crop, now):
-        """
-        EMPTY 상태에서만 호출됨 (차 없을 때 기준 유지)
-        조명이 크게 바뀌면 빈 구역 스냅샷을 현재 이미지로 교체
-        """
         if now - zone.last_lighting_check < PIXEL_LIGHTING_UPDATE_INTERVAL:
             return
         zone.last_lighting_check = now
@@ -292,8 +283,6 @@ class ParkingStateMachine:
             zone.plate        = None
             zone.plate_status = PlateStatus.UNREADABLE
         elif plate is None:
-        # ★ None 이면 기존 번호판 덮어쓰지 않음
-        # FAIL 로 None 반환돼도 이전 번호판 유지
             zone.plate_status = PlateStatus.NULL
         else:
             zone.plate        = plate
@@ -333,11 +322,6 @@ class ParkingStateMachine:
     # ── 리셋 (출차 후) ────────────────────────────────────
     def _reset_zone(self, zone: ZoneState,
                     zone_crop: np.ndarray | None = None):
-        """
-        출차 확정 후 구역 리셋.
-        zone_crop 이 있으면 현재 이미지를 새 빈 스냅샷으로 저장.
-        """
-        # ★ 출차 후 현재 빈 구역 이미지를 스냅샷으로 저장
         if zone_crop is not None:
             zone.empty_snap           = zone_crop.copy()
             zone.last_mean_brightness = float(
