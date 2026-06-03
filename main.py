@@ -456,13 +456,64 @@ def main():
             if event:
                 logger.info(f"[EVENT] {event}")
 
-                # ── 입차 이벤트 처리 ──────────────────────────
+               # ── 입차 이벤트 처리 ──────────────────────────
                 if event["type"] == "entry":
                     # 입차 시점 스냅샷 저장
                     snap_path = _save_snapshot(
                         frame, zone_name, event["timestamp"]
                     )
-                    event["car_image"] = snap_path
+                    # 기존: car_image 경로 저장
+                    event["car_image"]  = snap_path
+
+                    # ✅ 추가 1: image_path 키로도 경로 저장
+                    # FastAPI parking.py에서 Spring Boot로 전달할 때 사용
+                    # Spring Boot가 parking_history에 image_path 저장 → 웹에서 조회 가능
+                    event["image_path"] = snap_path
+
+                    # ✅ 추가 2: OCR UNREADABLE 판정 여부 플래그
+                    # FastAPI에서 이 값이 True면 관리자 알림으로 오류 이미지 전송
+                    zone_obj = state_machine.zones.get(zone_name)
+                    if zone_obj and zone_obj.plate_status == PlateStatus.UNREADABLE:
+                        # OCR 3회 연속 실패한 구역이면 오류 플래그 True
+                        event["ocr_error"] = True
+                        logger.warning(f"[OCR ERROR] {zone_name} UNREADABLE 플래그 설정")
+                    else:
+                        # 정상이면 False
+                        event["ocr_error"] = False
+
+                    if not ocr_submitted.get(zone_name, False):
+                        task = OcrTask(
+                            zone_name   = zone_name,
+                            snapshot    = frame.copy(),
+                            car_bbox    = cars_in_zone[0] if cars_in_zone else None,
+                            plate_bbox  = plate_bbox,
+                            entry_event = event,
+                        )
+
+                        if not cars_in_zone:
+                            # 차량 bbox가 없으면 null로 즉시 전송
+                            event["plate"]        = None
+                            event["plate_status"] = PlateStatus.NULL.value
+                            logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
+                            send_queue.put_nowait((PRIORITY_ENTRY, event))
+                        else:
+                            try:
+                                # OCR 큐에 등록 (OCR Worker가 처리 후 전송)
+                                ocr_queue.put_nowait(task)
+                                ocr_submitted[zone_name] = True
+                                pending_entry[zone_name] = event
+                                logger.info(
+                                    f"[ENTRY] {zone_name} OCR Queue 제출 "
+                                    f"(대기: {ocr_queue.qsize()})"
+                                )
+                            except queue.Full:
+                                # OCR 큐가 가득 찬 경우 null로 바로 전송
+                                logger.warning(
+                                    f"[ENTRY] {zone_name} Queue 가득참 → null"
+                                )
+                                event["plate"]        = None
+                                event["plate_status"] = PlateStatus.NULL.value
+                                send_queue.put_nowait((PRIORITY_ENTRY, event))
 
                     if not ocr_submitted.get(zone_name, False):
                         task = OcrTask(
