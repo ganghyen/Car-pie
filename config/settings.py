@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ── 경로 ──────────────────────────────────────────────────
 # YOLO 모델 파일 경로
-MODEL_PATH        = os.path.join(BASE_DIR, "data", "models", "minicar_yolo.pt")
+MODEL_PATH        = os.path.join(BASE_DIR, "data", "models", "mini_yolo.pt")
 # ROI 구역 좌표 및 호모그래피 행렬 저장 파일
 ROI_COORDS_PATH   = os.path.join(BASE_DIR, "data", "roi_coords.json")
 # 입출차 스냅샷 이미지 저장 폴더
