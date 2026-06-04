@@ -9,7 +9,12 @@ import requests
 import json
 import os
 from datetime import datetime
-from config.settings import SERVER_URL, REQUEST_TIMEOUT, QUEUE_FILE_PATH
+from config.settings import (
+    SERVER_URL,
+    REQUEST_TIMEOUT,
+    QUEUE_FILE_PATH,
+    APARTMENT_NO,
+)
 from utils.logger import get_logger
 
 logger = get_logger("sender")
@@ -80,6 +85,8 @@ class EventSender:
                 "park_type":   event.get("park_status", "normal"),
                 "linked_zone": event.get("linked_zone"),
                 "entry_time":  dt_str,
+                # Spring Boot가 어느 아파트 정책/알림으로 처리할지 구분
+                "apartment_no": event.get("apartment_no") or APARTMENT_NO,
                 # ✅ 추가: image_path 전달
                 # car_image와 image_path 둘 다 확인 (기존 큐 데이터 호환)
                 "image_path":  event.get("image_path") or event.get("car_image"),
