@@ -99,7 +99,7 @@ BLUR_CONFIRM_COUNT       = 3
 
 # ── 통신 ──────────────────────────────────────────────────
 # FastAPI 서버 이벤트 수신 엔드포인트 주소
-SERVER_URL      = "http://172.20.10.12:8000/api/event"
+SERVER_URL      = "http://10.69.39.129:8000/api/event"
 # HTTP 요청 타임아웃 (초)
 REQUEST_TIMEOUT = 3
 # 전송 실패 시 로컬에 임시 저장하는 큐 파일 경로
