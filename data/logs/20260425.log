@@ -1,0 +1,623 @@
+[00:06:34][INFO] ==================================================
+[00:06:34][INFO] Smart Parking System Start
+[00:06:34][INFO] ==================================================
+[00:06:37][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[00:06:38][INFO] Camera started | M: mapping  Q/ESC: quit
+[00:11:08][INFO] Quit
+[00:11:08][INFO] System stopped
+[17:26:42][INFO] ==================================================
+[17:26:42][INFO] Smart Parking System Start
+[17:26:42][INFO] ==================================================
+[17:26:45][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:26:45][INFO] Camera started | M: mapping  Q/ESC: quit
+[17:27:02][INFO] Quit
+[17:27:02][INFO] System stopped
+[17:33:42][INFO] ==================================================
+[17:33:42][INFO] Smart Parking System Start
+[17:33:42][INFO] ==================================================
+[17:33:44][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:33:44][ERROR] Camera 1 open failed
+[17:34:18][INFO] ==================================================
+[17:34:18][INFO] Smart Parking System Start
+[17:34:18][INFO] ==================================================
+[17:34:20][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:34:20][ERROR] Camera 2 open failed
+[17:34:44][INFO] ==================================================
+[17:34:44][INFO] Smart Parking System Start
+[17:34:44][INFO] ==================================================
+[17:34:46][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:34:47][INFO] Camera started | M: mapping  Q/ESC: quit
+[17:34:54][INFO] Quit
+[17:34:55][INFO] System stopped
+[17:38:19][INFO] ==================================================
+[17:38:19][INFO] Smart Parking System Start
+[17:38:19][INFO] ==================================================
+[17:38:21][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:39:26][INFO] ==================================================
+[17:39:26][INFO] Smart Parking System Start
+[17:39:26][INFO] ==================================================
+[17:39:28][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:40:42][INFO] ==================================================
+[17:40:42][INFO] Smart Parking System Start
+[17:40:42][INFO] ==================================================
+[17:40:44][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:41:55][INFO] ==================================================
+[17:41:55][INFO] Smart Parking System Start
+[17:41:55][INFO] ==================================================
+[17:41:56][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:41:58][INFO] Camera started | M: mapping  Q/ESC: quit
+[17:43:43][INFO] Enter mapping mode
+[17:44:25][INFO] Mapping exit | zones: ['A-1', 'A-2', 'B-1']
+[17:44:28][INFO] Quit
+[17:44:28][INFO] System stopped
+[17:50:44][INFO] ==================================================
+[17:50:44][INFO] Smart Parking System Start
+[17:50:44][INFO] ==================================================
+[17:50:45][INFO] Mapping loaded | zones: ['A-1', 'A-2', 'B-1']
+[17:50:47][INFO] Camera started | M: mapping  Q/ESC: quit
+[17:50:59][INFO] Enter mapping mode
+[17:51:49][INFO] Mapping exit | zones: []
+[18:04:59][INFO] Quit
+[18:05:00][INFO] System stopped
+[18:08:18][INFO] ==================================================
+[18:08:18][INFO] Smart Parking System Start
+[18:08:18][INFO] ==================================================
+[18:08:20][INFO] Mapping loaded | zones: []
+[18:08:22][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:10:23][INFO] Quit
+[18:10:23][INFO] System stopped
+[18:16:44][INFO] ==================================================
+[18:16:44][INFO] Smart Parking System Start
+[18:16:44][INFO] ==================================================
+[18:16:46][INFO] Mapping loaded | zones: []
+[18:16:47][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:17:08][INFO] Quit
+[18:17:09][INFO] System stopped
+[18:26:02][INFO] ==================================================
+[18:26:02][INFO] Smart Parking System Start
+[18:26:02][INFO] ==================================================
+[18:26:04][INFO] Mapping loaded | zones: []
+[18:26:06][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:26:10][INFO] Quit
+[18:26:10][INFO] System stopped
+[18:26:10][INFO] ==================================================
+[18:26:10][INFO] Smart Parking System Start
+[18:26:10][INFO] ==================================================
+[18:26:12][INFO] Mapping loaded | zones: []
+[18:26:14][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:26:17][INFO] Quit
+[18:26:17][INFO] System stopped
+[18:26:33][INFO] ==================================================
+[18:26:33][INFO] Smart Parking System Start
+[18:26:33][INFO] ==================================================
+[18:26:35][INFO] Mapping loaded | zones: []
+[18:26:37][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:27:25][INFO] Quit
+[18:27:25][INFO] System stopped
+[18:27:25][INFO] ==================================================
+[18:27:25][INFO] Smart Parking System Start
+[18:27:25][INFO] ==================================================
+[18:27:27][INFO] Mapping loaded | zones: []
+[18:27:29][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:27:31][INFO] Quit
+[18:27:32][INFO] System stopped
+[18:31:58][INFO] ==================================================
+[18:31:58][INFO] Smart Parking System Start
+[18:31:58][INFO] ==================================================
+[18:31:59][INFO] Mapping loaded | zones: []
+[18:32:01][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:32:44][INFO] Quit
+[18:32:44][INFO] System stopped
+[18:32:44][INFO] ==================================================
+[18:32:44][INFO] Smart Parking System Start
+[18:32:44][INFO] ==================================================
+[18:32:46][INFO] Mapping loaded | zones: []
+[18:32:48][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:32:49][INFO] Quit
+[18:32:50][INFO] System stopped
+[18:34:05][INFO] ==================================================
+[18:34:05][INFO] Smart Parking System Start
+[18:34:05][INFO] ==================================================
+[18:34:07][INFO] Mapping loaded | zones: []
+[18:34:09][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:34:11][INFO] Enter mapping mode
+[18:35:00][INFO] Mapping exit | zones: ['A-1']
+[18:35:07][INFO] Enter mapping mode
+[18:35:26][INFO] Mapping exit | zones: ['A-1']
+[18:35:36][WARNING] [Camera] warning
+[18:35:41][WARNING] [Camera] marker_lost
+[18:35:46][WARNING] [Camera] warning
+[18:36:16][INFO] Quit
+[18:36:16][INFO] System stopped
+[18:36:16][INFO] ==================================================
+[18:36:16][INFO] Smart Parking System Start
+[18:36:16][INFO] ==================================================
+[18:36:18][INFO] Mapping loaded | zones: ['A-1']
+[18:36:20][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:36:22][INFO] Quit
+[18:36:22][INFO] System stopped
+[18:37:49][INFO] ==================================================
+[18:37:49][INFO] Smart Parking System Start
+[18:37:49][INFO] ==================================================
+[18:37:51][INFO] Mapping loaded | zones: ['A-1']
+[18:37:52][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:40:26][INFO] Quit
+[18:40:27][INFO] System stopped
+[18:40:27][INFO] ==================================================
+[18:40:27][INFO] Smart Parking System Start
+[18:40:27][INFO] ==================================================
+[18:40:28][INFO] Mapping loaded | zones: ['A-1']
+[18:40:30][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:40:32][INFO] Quit
+[18:40:32][INFO] System stopped
+[18:43:29][INFO] ==================================================
+[18:43:29][INFO] Smart Parking System Start
+[18:43:29][INFO] ==================================================
+[18:43:31][INFO] Mapping loaded | zones: ['A-1']
+[18:43:33][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:44:02][INFO] Quit
+[18:44:03][INFO] System stopped
+[18:45:23][INFO] ==================================================
+[18:45:23][INFO] Smart Parking System Start
+[18:45:23][INFO] ==================================================
+[18:45:24][INFO] Mapping loaded | zones: ['A-1']
+[18:45:26][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:46:13][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777110373.0508115, 'park_status': 'normal', 'timestamp': 1777110373.0508115}
+[18:46:21][INFO] Quit
+[18:46:21][INFO] System stopped
+[18:46:26][INFO] [OCR] A-1 plate: 85바4589 (confirmed)
+[18:47:42][INFO] ==================================================
+[18:47:42][INFO] Smart Parking System Start
+[18:47:42][INFO] ==================================================
+[18:47:43][INFO] Mapping loaded | zones: ['A-1']
+[18:47:45][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:48:01][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777110373.0508115, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777110481.326489}
+[18:48:13][INFO] [EXIT] A-1 plate=None (pending)
+[18:48:28][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777110508.637907, 'park_status': 'normal', 'timestamp': 1777110508.637907}
+[18:48:52][INFO] [OCR] A-1 plate: None (null)
+[18:49:14][INFO] Quit
+[18:49:15][INFO] System stopped
+[18:49:30][INFO] ==================================================
+[18:49:30][INFO] Smart Parking System Start
+[18:49:30][INFO] ==================================================
+[18:49:31][INFO] Mapping loaded | zones: ['A-1']
+[18:49:33][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:49:42][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777110508.637907, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777110582.3738804}
+[18:50:06][INFO] [EXIT] A-1 plate=None (null)
+[18:50:27][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777110627.5998697, 'park_status': 'normal', 'timestamp': 1777110627.5998697}
+[18:51:03][INFO] [OCR] A-1 plate: None (null)
+[18:51:35][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777110627.5998697, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777110695.6752448}
+[18:52:08][INFO] [EXIT] A-1 plate=None (null)
+[18:52:08][INFO] Quit
+[18:52:08][INFO] System stopped
+[18:52:14][INFO] ==================================================
+[18:52:14][INFO] Smart Parking System Start
+[18:52:14][INFO] ==================================================
+[18:52:15][INFO] Mapping loaded | zones: ['A-1']
+[18:52:17][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:52:35][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777110755.51697, 'park_status': 'normal', 'timestamp': 1777110755.51697}
+[18:53:18][INFO] [OCR] A-1 plate: None (null)
+[18:54:40][INFO] Quit
+[18:54:41][INFO] System stopped
+[18:54:46][INFO] ==================================================
+[18:54:46][INFO] Smart Parking System Start
+[18:54:46][INFO] ==================================================
+[18:54:47][INFO] Mapping loaded | zones: ['A-1']
+[18:54:49][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:55:07][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777110755.51697, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777110907.5849533}
+[18:55:56][INFO] [EXIT] A-1 plate=None (null)
+[18:56:11][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777110971.9841568, 'park_status': 'normal', 'timestamp': 1777110971.9841568}
+[18:57:11][INFO] [OCR] A-1 plate: None (null)
+[18:57:29][INFO] Quit
+[18:57:30][INFO] System stopped
+[19:00:49][INFO] ==================================================
+[19:00:49][INFO] Smart Parking System Start
+[19:00:49][INFO] ==================================================
+[19:00:51][INFO] Mapping loaded | zones: ['A-1']
+[19:00:52][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:01:14][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777110971.9841568, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777111274.7801926}
+[19:02:16][INFO] [EXIT] A-1 plate=None (null)
+[19:06:05][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777111565.0795183, 'park_status': 'normal', 'timestamp': 1777111565.0795183}
+[19:07:18][INFO] [OCR] A-1 plate: None (null)
+[19:07:28][INFO] Quit
+[19:07:28][INFO] System stopped
+[21:39:04][INFO] ==================================================
+[21:39:04][INFO] Smart Parking System Start
+[21:39:04][INFO] ==================================================
+[21:39:05][INFO] Mapping loaded | zones: ['A-1']
+[21:39:05][ERROR] Camera 1 open failed
+[21:39:30][INFO] ==================================================
+[21:39:30][INFO] Smart Parking System Start
+[21:39:30][INFO] ==================================================
+[21:39:31][INFO] Mapping loaded | zones: ['A-1']
+[21:41:58][INFO] ==================================================
+[21:41:58][INFO] Smart Parking System Start
+[21:41:58][INFO] ==================================================
+[21:41:59][INFO] Mapping loaded | zones: ['A-1']
+[21:42:03][INFO] Camera started | M: mapping  Q/ESC: quit
+[21:43:18][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777120998.2679877, 'park_status': 'normal', 'timestamp': 1777120998.2679877}
+[21:44:39][INFO] [OCR] A-1 plate: None (null)
+[21:45:46][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777120998.2679877, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777121146.5654707}
+[21:45:50][INFO] [EXIT] A-1 plate=None (null)
+[21:46:29][INFO] Enter mapping mode
+[21:46:57][INFO] Mapping exit | zones: ['A-1']
+[21:47:00][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777121220.659103, 'park_status': 'normal', 'timestamp': 1777121220.659103}
+[21:48:33][INFO] ==================================================
+[21:48:33][INFO] Smart Parking System Start
+[21:48:33][INFO] ==================================================
+[21:48:34][INFO] Mapping loaded | zones: ['A-1']
+[21:48:37][INFO] Camera started | M: mapping  Q/ESC: quit
+[21:48:38][INFO] Enter mapping mode
+[21:48:46][INFO] Mapping exit | zones: []
+[21:51:03][WARNING] [Camera] warning
+[21:51:08][WARNING] [Camera] marker_lost
+[21:51:13][WARNING] [Camera] marker_lost
+[21:51:18][WARNING] [Camera] warning
+[21:51:23][WARNING] [Camera] warning
+[21:51:28][WARNING] [Camera] warning
+[21:51:34][WARNING] [Camera] warning
+[21:51:39][WARNING] [Camera] warning
+[21:51:42][INFO] Enter mapping mode
+[21:51:57][INFO] Mapping exit | zones: ['A-1']
+[21:52:00][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777121520.871874, 'park_status': 'normal', 'timestamp': 1777121520.871874}
+[21:53:33][INFO] [OCR] A-1 plate: 789호1234 (confirmed)
+[21:54:39][INFO] Quit
+[21:54:40][INFO] System stopped
+[21:56:27][INFO] ==================================================
+[21:56:27][INFO] Smart Parking System Start
+[21:56:27][INFO] ==================================================
+[21:56:28][INFO] Mapping loaded | zones: ['A-1']
+[21:56:30][INFO] Camera started | M: mapping  Q/ESC: quit
+[21:56:34][INFO] Enter mapping mode
+[21:56:41][INFO] Mapping exit | zones: []
+[21:58:16][INFO] Quit
+[21:58:16][INFO] System stopped
+[21:59:00][INFO] ==================================================
+[21:59:00][INFO] Smart Parking System Start
+[21:59:00][INFO] ==================================================
+[21:59:01][INFO] Mapping loaded | zones: []
+[21:59:03][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:00:40][INFO] Quit
+[22:00:40][INFO] System stopped
+[22:10:50][INFO] ==================================================
+[22:10:50][INFO] Smart Parking System Start
+[22:10:50][INFO] ==================================================
+[22:10:52][INFO] Mapping loaded | zones: []
+[22:10:56][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:12:23][INFO] Quit
+[22:12:23][INFO] System stopped
+[22:45:55][INFO] ==================================================
+[22:45:55][INFO] Smart Parking System Start
+[22:45:55][INFO] ==================================================
+[22:45:56][INFO] Mapping loaded | zones: []
+[22:46:01][INFO] [OCR Worker] 시작
+[22:46:01][INFO] [OCR Worker] 시작
+[22:46:01][INFO] [OCR] Worker 2개 시작
+[22:46:01][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:46:02][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:46:15][INFO] Enter mapping mode
+[22:48:11][INFO] Mapping exit | zones: ['A-1']
+[22:48:11][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:48:14][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777124894.6082354, 'park_status': 'normal', 'timestamp': 1777124894.6082354}
+[22:48:14][INFO] [ENTRY] A-1 OCR Queue 제출 완료 (대기: 1)
+[22:48:14][INFO] [OCR Worker] A-1 처리 시작 (대기: 0.0s)
+[22:48:18][INFO] [OCR Worker] A-1 완료: None (null)
+[22:50:15][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777124894.6082354, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777125015.5102444}
+[22:50:15][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[22:53:36][INFO] [EXIT] A-1 plate=None
+[22:53:40][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777125220.0122886, 'park_status': 'normal', 'timestamp': 1777125220.0122886}
+[22:53:40][INFO] [ENTRY] A-1 OCR Queue 제출 완료 (대기: 1)
+[22:53:40][INFO] [OCR Worker] A-1 처리 시작 (대기: 0.0s)
+[22:53:45][INFO] [OCR Worker] A-1 완료: None (null)
+[22:54:28][INFO] Quit
+[22:54:28][INFO] [OCR] 남은 작업 완료 대기 중...
+[22:54:29][INFO] [OCR Worker] 종료
+[22:54:34][INFO] System stopped
+[22:57:26][INFO] ==================================================
+[22:57:26][INFO] Smart Parking System Start
+[22:57:26][INFO] ==================================================
+[22:57:27][INFO] Mapping loaded | zones: ['A-1']
+[22:57:29][INFO] [OCR Worker] 시작
+[22:57:29][INFO] [OCR Worker] 시작
+[22:57:29][INFO] [OCR] Worker 2개 시작
+[22:57:29][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:57:30][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:59:26][INFO] Quit
+[22:59:26][INFO] [OCR] 남은 작업 완료 대기 중...
+[22:59:27][INFO] [OCR Worker] 종료
+[22:59:27][INFO] [OCR Worker] 종료
+[22:59:28][INFO] System stopped
+[22:59:34][INFO] ==================================================
+[22:59:34][INFO] Smart Parking System Start
+[22:59:34][INFO] ==================================================
+[22:59:36][INFO] Mapping loaded | zones: ['A-1']
+[22:59:38][INFO] [OCR Worker] 시작
+[22:59:38][INFO] [OCR Worker] 시작
+[22:59:38][INFO] [OCR] Worker 2개 시작
+[22:59:38][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:59:38][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:59:40][INFO] [RECHECK] A-1: None -> 709호1234
+[23:02:43][INFO] [RECHECK] A-1: 709호1234 -> 700도1234
+[23:04:18][INFO] Quit
+[23:04:18][INFO] [OCR] 남은 작업 완료 대기 중...
+[23:04:19][INFO] [OCR Worker] 종료
+[23:04:19][INFO] [OCR Worker] 종료
+[23:04:19][INFO] System stopped
+[23:05:43][INFO] ==================================================
+[23:05:43][INFO] Smart Parking System Start
+[23:05:43][INFO] ==================================================
+[23:05:44][INFO] Mapping loaded | zones: ['A-1']
+[23:05:47][INFO] [OCR Worker] 시작
+[23:05:47][INFO] [OCR Worker] 시작
+[23:05:47][INFO] [OCR] Worker 2개 시작
+[23:05:47][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:05:47][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:07:02][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '700도1234', 'plate_status': 'confirmed', 'entry_time': 1777125220.0122886, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777126022.6885736}
+[23:07:23][INFO] [EXIT] A-1 plate=700도1234
+[23:07:37][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777126057.8861253, 'park_status': 'normal', 'timestamp': 1777126057.8861253}
+[23:07:37][INFO] [ENTRY] A-1 OCR Queue 제출 완료 (대기: 1)
+[23:07:37][INFO] [OCR Worker] A-1 처리 시작 (대기: 0.0s)
+[23:07:43][INFO] [OCR Worker] A-1 완료: None (null)
+[23:08:43][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777126057.8861253, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777126123.2785115}
+[23:08:43][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[23:10:02][INFO] ==================================================
+[23:10:02][INFO] Smart Parking System Start
+[23:10:02][INFO] ==================================================
+[23:10:03][INFO] Mapping loaded | zones: ['A-1']
+[23:10:05][INFO] [OCR Worker] 시작
+[23:10:05][INFO] [OCR Worker] 시작
+[23:10:05][INFO] [Send Worker] 시작
+[23:10:05][INFO] [Workers] OCR x2, Send x1 시작
+[23:10:05][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:10:06][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:10:14][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777126057.8861253, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777126214.457672}
+[23:10:14][INFO] [EXIT] A-1 plate=None
+[23:10:24][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777126224.8568082, 'park_status': 'normal', 'timestamp': 1777126224.8568082}
+[23:10:24][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:10:29][INFO] [OCR Worker] A-1 완료: None (null)
+[23:11:08][INFO] Quit
+[23:11:08][INFO] [Workers] 종료 대기 중...
+[23:11:09][INFO] [OCR Worker] 종료
+[23:11:09][INFO] [OCR Worker] 종료
+[23:11:09][INFO] [Send Worker] 종료
+[23:11:09][INFO] System stopped
+[23:11:30][INFO] ==================================================
+[23:11:30][INFO] Smart Parking System Start
+[23:11:30][INFO] ==================================================
+[23:11:31][INFO] Mapping loaded | zones: ['A-1']
+[23:11:33][INFO] [OCR Worker] 시작
+[23:11:33][INFO] [OCR Worker] 시작
+[23:11:33][INFO] [Send Worker] 시작
+[23:11:33][INFO] [Workers] OCR x2, Send x1 시작
+[23:11:33][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:11:34][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:11:35][INFO] [RECHECK] A-1: None -> 789모1234
+[23:11:35][INFO] [PLATE UPDATE] A-1 null -> 789모1234
+[23:13:04][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '789모1234', 'plate_status': 'confirmed', 'entry_time': 1777126224.8568082, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777126384.9303021}
+[23:13:04][INFO] [EXIT] A-1 plate=789모1234
+[23:14:18][INFO] Quit
+[23:14:18][INFO] [Workers] 종료 대기 중...
+[23:14:18][INFO] [OCR Worker] 종료
+[23:14:18][INFO] [OCR Worker] 종료
+[23:14:18][INFO] [Send Worker] 종료
+[23:14:19][INFO] System stopped
+[23:14:30][INFO] ==================================================
+[23:14:30][INFO] Smart Parking System Start
+[23:14:30][INFO] ==================================================
+[23:14:31][INFO] Mapping loaded | zones: ['A-1']
+[23:14:33][INFO] [OCR Worker] 시작
+[23:14:33][INFO] [OCR Worker] 시작
+[23:14:33][INFO] [Send Worker] 시작
+[23:14:33][INFO] [Workers] OCR x2, Send x1 시작
+[23:14:33][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:14:34][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:14:43][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777126483.6234798, 'park_status': 'normal', 'timestamp': 1777126483.6234798}
+[23:14:43][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:14:55][INFO] [OCR Worker] A-1 완료: 700모1234 (confirmed)
+[23:15:30][INFO] Quit
+[23:15:30][INFO] [Workers] 종료 대기 중...
+[23:15:30][INFO] [Send Worker] 종료
+[23:15:30][INFO] [OCR Worker] 종료
+[23:15:31][INFO] [OCR Worker] 종료
+[23:15:31][INFO] System stopped
+[23:15:37][INFO] ==================================================
+[23:15:37][INFO] Smart Parking System Start
+[23:15:37][INFO] ==================================================
+[23:15:39][INFO] Mapping loaded | zones: ['A-1']
+[23:15:41][INFO] [OCR Worker] 시작
+[23:15:41][INFO] [OCR Worker] 시작
+[23:15:41][INFO] [Send Worker] 시작
+[23:15:41][INFO] [Workers] OCR x2, Send x1 시작
+[23:15:41][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:15:41][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:15:42][INFO] [RECHECK] A-1: 700모1234 -> 780호1234
+[23:15:42][INFO] [PLATE CHANGED] A-1 780호1234 -> 780호1234
+[23:17:01][INFO] Quit
+[23:17:01][INFO] [Workers] 종료 대기 중...
+[23:17:02][INFO] [Send Worker] 종료
+[23:17:02][INFO] [OCR Worker] 종료
+[23:17:02][INFO] [OCR Worker] 종료
+[23:17:02][INFO] System stopped
+[23:17:11][INFO] ==================================================
+[23:17:11][INFO] Smart Parking System Start
+[23:17:11][INFO] ==================================================
+[23:17:13][INFO] Mapping loaded | zones: ['A-1']
+[23:17:15][INFO] [OCR Worker] 시작
+[23:17:15][INFO] [OCR Worker] 시작
+[23:17:15][INFO] [Send Worker] 시작
+[23:17:15][INFO] [Workers] OCR x2, Send x1 시작
+[23:17:15][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:17:15][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:18:01][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '780호1234', 'plate_status': 'confirmed', 'entry_time': 1777126483.6234798, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777126681.156685}
+[23:18:01][INFO] [EXIT] A-1 plate=780호1234
+[23:18:22][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777126702.05106, 'park_status': 'normal', 'timestamp': 1777126702.05106}
+[23:18:22][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:18:32][INFO] [OCR Worker] A-1 완료: None (null)
+[23:21:23][INFO] Quit
+[23:21:23][INFO] [Workers] 종료 대기 중...
+[23:21:23][INFO] [OCR Worker] 종료
+[23:21:23][INFO] [Send Worker] 종료
+[23:21:24][INFO] [OCR Worker] 종료
+[23:21:24][INFO] System stopped
+[23:21:30][INFO] ==================================================
+[23:21:30][INFO] Smart Parking System Start
+[23:21:30][INFO] ==================================================
+[23:21:31][INFO] Mapping loaded | zones: ['A-1']
+[23:21:33][INFO] [OCR Worker] 시작
+[23:21:33][INFO] [OCR Worker] 시작
+[23:21:33][INFO] [Send Worker] 시작
+[23:21:33][INFO] [Workers] OCR x2, Send x1 시작
+[23:21:33][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:21:34][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:24:37][INFO] [RECHECK] A-1: None -> 700보1234
+[23:24:37][INFO] [PLATE UPDATE] A-1 null -> 700보1234
+[23:26:08][INFO] [RECHECK] A-1: 700보1234 -> 709오1234
+[23:26:08][INFO] [PLATE CHANGED] A-1 709오1234 -> 709오1234
+[23:27:08][INFO] Quit
+[23:27:08][INFO] [Workers] 종료 대기 중...
+[23:27:09][INFO] [OCR Worker] 종료
+[23:27:09][INFO] [OCR Worker] 종료
+[23:27:14][INFO] System stopped
+[23:27:23][INFO] ==================================================
+[23:27:23][INFO] Smart Parking System Start
+[23:27:23][INFO] ==================================================
+[23:27:25][INFO] Mapping loaded | zones: ['A-1']
+[23:27:27][INFO] [OCR Worker] 시작
+[23:27:27][INFO] [OCR Worker] 시작
+[23:27:27][INFO] [Send Worker] 시작
+[23:27:27][INFO] [Workers] OCR x2, Send x1 시작
+[23:27:27][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:27:27][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:28:33][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '709오1234', 'plate_status': 'confirmed', 'entry_time': 1777126702.05106, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777127313.6892893}
+[23:28:33][INFO] [EXIT] A-1 plate=709오1234
+[23:28:41][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777127321.9908452, 'park_status': 'normal', 'timestamp': 1777127321.9908452}
+[23:28:41][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:28:47][INFO] [OCR Worker] A-1 완료: 789모1234 (confirmed)
+[23:31:38][INFO] Quit
+[23:31:38][INFO] [Workers] 종료 대기 중...
+[23:31:39][INFO] [OCR Worker] 종료
+[23:31:39][INFO] [OCR Worker] 종료
+[23:31:39][INFO] [Send Worker] 종료
+[23:31:40][INFO] System stopped
+[23:32:05][INFO] ==================================================
+[23:32:05][INFO] Smart Parking System Start
+[23:32:05][INFO] ==================================================
+[23:32:06][INFO] Mapping loaded | zones: ['A-1']
+[23:32:08][INFO] [OCR Worker] 시작
+[23:32:08][INFO] [OCR Worker] 시작
+[23:32:08][INFO] [Send Worker] 시작
+[23:32:08][INFO] [Workers] OCR x2, Send x1 시작
+[23:32:09][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:32:09][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:33:09][INFO] Quit
+[23:33:09][INFO] [Workers] 종료 대기 중...
+[23:33:09][INFO] [OCR Worker] 종료
+[23:33:09][INFO] [Send Worker] 종료
+[23:33:09][INFO] [OCR Worker] 종료
+[23:33:09][INFO] System stopped
+[23:33:16][INFO] ==================================================
+[23:33:16][INFO] Smart Parking System Start
+[23:33:16][INFO] ==================================================
+[23:33:17][INFO] Mapping loaded | zones: ['A-1']
+[23:33:19][INFO] [OCR Worker] 시작
+[23:33:19][INFO] [OCR Worker] 시작
+[23:33:19][INFO] [Send Worker] 시작
+[23:33:19][INFO] [Workers] OCR x2, Send x1 시작
+[23:33:20][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:33:20][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:33:28][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '789모1234', 'plate_status': 'confirmed', 'entry_time': 1777127321.9908452, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777127608.5614111}
+[23:33:28][INFO] [EXIT] A-1 plate=789모1234
+[23:33:37][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777127617.3616354, 'park_status': 'normal', 'timestamp': 1777127617.3616354}
+[23:33:37][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:33:50][INFO] [OCR Worker] A-1 완료: 789호1234 (confirmed)
+[23:34:19][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '789호1234', 'plate_status': 'confirmed', 'entry_time': 1777127617.3616354, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777127659.6700072}
+[23:34:19][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[23:34:19][INFO] [EXIT] A-1 plate=789호1234
+[23:34:33][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777127673.4775872, 'park_status': 'normal', 'timestamp': 1777127673.4775872}
+[23:34:33][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:34:46][INFO] [OCR Worker] A-1 완료: 789호1234 (confirmed)
+[23:42:20][INFO] Quit
+[23:42:20][INFO] [Workers] 종료 대기 중...
+[23:42:20][INFO] [OCR Worker] 종료
+[23:42:20][INFO] [OCR Worker] 종료
+[23:42:21][INFO] [Send Worker] 종료
+[23:42:21][INFO] System stopped
+[23:42:34][INFO] ==================================================
+[23:42:34][INFO] Smart Parking System Start
+[23:42:34][INFO] ==================================================
+[23:42:36][INFO] Mapping loaded | zones: ['A-1']
+[23:42:38][INFO] [OCR Worker] 시작
+[23:42:38][INFO] [OCR Worker] 시작
+[23:42:38][INFO] [Send Worker] 시작
+[23:42:38][INFO] [Workers] OCR x2, Send x1 시작
+[23:42:38][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:42:39][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:43:47][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '789호1234', 'plate_status': 'confirmed', 'entry_time': 1777127673.4775872, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777128227.443396}
+[23:43:47][INFO] [EXIT] A-1 plate=789호1234
+[23:44:00][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777128240.9467182, 'park_status': 'normal', 'timestamp': 1777128240.9467182}
+[23:44:00][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:44:11][INFO] [OCR Worker] A-1 완료: None (null)
+[23:47:02][INFO] Quit
+[23:47:02][INFO] [Workers] 종료 대기 중...
+[23:47:02][INFO] [Send Worker] 종료
+[23:47:03][INFO] [OCR Worker] 종료
+[23:47:03][INFO] [OCR Worker] 종료
+[23:47:03][INFO] System stopped
+[23:50:01][INFO] ==================================================
+[23:50:01][INFO] Smart Parking System Start
+[23:50:01][INFO] ==================================================
+[23:50:03][INFO] Mapping loaded | zones: ['A-1']
+[23:50:05][INFO] [OCR Worker] 시작
+[23:50:05][INFO] [Send Worker] 시작
+[23:50:05][INFO] [Workers] OCR x2, Send x1 시작
+[23:50:05][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:50:05][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:50:13][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777128240.9467182, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777128613.9802144}
+[23:50:13][INFO] [EXIT] A-1 plate=None
+[23:50:43][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777128643.2940662, 'park_status': 'normal', 'timestamp': 1777128643.2940662}
+[23:50:43][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:50:55][INFO] [OCR Worker] A-1 완료: None (null)
+[23:52:53][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1777128643.2940662, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777128773.9918025}
+[23:52:53][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[23:52:53][INFO] [EXIT] A-1 plate=None
+[23:53:38][INFO] Quit
+[23:53:38][INFO] [Workers] 종료 대기 중...
+[23:53:39][INFO] [OCR Worker] 종료
+[23:53:43][INFO] [Send Worker] 종료
+[23:53:43][INFO] System stopped
+[23:54:02][INFO] ==================================================
+[23:54:02][INFO] Smart Parking System Start
+[23:54:02][INFO] ==================================================
+[23:54:04][INFO] Mapping loaded | zones: ['A-1']
+[23:54:06][INFO] [OCR Worker] 시작
+[23:54:06][INFO] [Send Worker] 시작
+[23:54:06][INFO] [Workers] OCR x2, Send x1 시작
+[23:54:06][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:54:06][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:54:36][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777128876.8326035, 'park_status': 'normal', 'timestamp': 1777128876.8326035}
+[23:54:36][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:54:49][INFO] [OCR Worker] A-1 완료: 45U0901 (confirmed)
+[23:56:43][INFO] Quit
+[23:56:43][INFO] [Workers] 종료 대기 중...
+[23:56:43][INFO] [OCR Worker] 종료
+[23:56:43][INFO] [Send Worker] 종료
+[23:56:44][INFO] System stopped
+[23:56:51][INFO] ==================================================
+[23:56:51][INFO] Smart Parking System Start
+[23:56:51][INFO] ==================================================
+[23:56:52][INFO] Mapping loaded | zones: ['A-1']
+[23:56:55][INFO] [OCR Worker] 시작
+[23:56:55][INFO] [Send Worker] 시작
+[23:56:55][INFO] [Workers] OCR x2, Send x1 시작
+[23:56:55][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:56:55][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:57:03][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '45U0901', 'plate_status': 'confirmed', 'entry_time': 1777128876.8326035, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1777129023.6539664}
+[23:57:03][INFO] [EXIT] A-1 plate=45U0901
+[23:57:43][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1777129063.1425338, 'park_status': 'normal', 'timestamp': 1777129063.1425338}
+[23:57:43][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[23:57:54][INFO] [OCR Worker] A-1 완료: None (null)
+[23:59:56][INFO] Quit
+[23:59:56][INFO] [Workers] 종료 대기 중...
+[23:59:56][INFO] [Send Worker] 종료
+[23:59:56][INFO] [OCR Worker] 종료
+[23:59:57][INFO] System stopped

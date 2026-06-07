@@ -1,0 +1,188 @@
+[13:56:02][INFO] ==================================================
+[13:56:02][INFO] Smart Parking System Start
+[13:56:02][INFO] ==================================================
+[13:56:03][INFO] Mapping loaded | zones: ['A-1']
+[13:56:05][INFO] [Camera] C920 자동 포커스 설정 완료
+[13:56:05][ERROR] Camera 0 open failed
+[16:23:57][INFO] ==================================================
+[16:23:57][INFO] Smart Parking System Start
+[16:23:57][INFO] ==================================================
+[16:23:58][INFO] Mapping loaded | zones: ['A-1']
+[16:24:04][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:24:04][INFO] [OCR Worker] 시작
+[16:24:04][INFO] [OCR Worker] 시작
+[16:24:04][INFO] [Send Worker] 시작
+[16:24:04][INFO] [Workers] OCR x2, Send x1 시작
+[16:24:04][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:24:04][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:24:47][INFO] Quit
+[16:24:47][INFO] [Workers] 종료 대기 중...
+[16:24:48][INFO] [OCR Worker] 종료
+[16:24:48][INFO] [OCR Worker] 종료
+[16:24:48][INFO] [Send Worker] 종료
+[16:24:48][INFO] System stopped
+[16:25:05][INFO] ==================================================
+[16:25:05][INFO] Smart Parking System Start
+[16:25:05][INFO] ==================================================
+[16:25:06][INFO] Mapping loaded | zones: ['A-1']
+[16:25:10][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:25:10][INFO] [OCR Worker] 시작
+[16:25:10][INFO] [OCR Worker] 시작
+[16:25:10][INFO] [Send Worker] 시작
+[16:25:10][INFO] [Workers] OCR x2, Send x1 시작
+[16:25:10][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:25:10][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:25:15][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657115.115568, 'park_status': 'normal', 'timestamp': 1778657115.115568}
+[16:25:15][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:25:18][INFO] [OCR Worker] A-1 완료: None (null)
+[16:27:26][INFO] Quit
+[16:27:26][INFO] [Workers] 종료 대기 중...
+[16:27:26][INFO] [OCR Worker] 종료
+[16:27:26][INFO] [Send Worker] 종료
+[16:27:26][INFO] [OCR Worker] 종료
+[16:27:27][INFO] System stopped
+[16:27:52][INFO] ==================================================
+[16:27:52][INFO] Smart Parking System Start
+[16:27:52][INFO] ==================================================
+[16:27:53][INFO] Mapping loaded | zones: ['A-1']
+[16:27:58][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:27:58][INFO] [OCR Worker] 시작
+[16:27:58][INFO] [OCR Worker] 시작
+[16:27:58][INFO] [Send Worker] 시작
+[16:27:58][INFO] [Workers] OCR x2, Send x1 시작
+[16:27:58][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:27:59][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:28:07][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1778657115.115568, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657287.1981585}
+[16:28:07][INFO] [EXIT] A-1 plate=None
+[16:28:45][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657325.0996265, 'park_status': 'normal', 'timestamp': 1778657325.0996265}
+[16:28:45][INFO] [ENTRY] A-1 plate=null
+[16:29:59][INFO] Enter mapping mode
+[16:30:03][INFO] [Workers] 종료 대기 중...
+[16:30:03][INFO] [OCR Worker] 종료
+[16:30:03][INFO] [OCR Worker] 종료
+[16:30:04][INFO] [Send Worker] 종료
+[16:30:04][INFO] System stopped
+[16:30:10][INFO] ==================================================
+[16:30:10][INFO] Smart Parking System Start
+[16:30:10][INFO] ==================================================
+[16:30:11][INFO] Mapping loaded | zones: ['A-1']
+[16:30:15][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:30:15][INFO] [OCR Worker] 시작
+[16:30:15][INFO] [OCR Worker] 시작
+[16:30:15][INFO] [Send Worker] 시작
+[16:30:15][INFO] [Workers] OCR x2, Send x1 시작
+[16:30:15][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:30:15][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:30:23][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657325.0996265, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657423.7911704}
+[16:30:23][INFO] [EXIT] A-1 plate=None
+[16:30:50][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657450.506818, 'park_status': 'normal', 'timestamp': 1778657450.506818}
+[16:30:50][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:30:56][INFO] [OCR Worker] A-1 완료: None (pending)
+[16:32:18][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657450.506818, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657538.6082423}
+[16:32:18][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:32:18][INFO] [EXIT] A-1 plate=None
+[16:32:29][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657549.6001902, 'park_status': 'normal', 'timestamp': 1778657549.6001902}
+[16:32:29][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:32:35][INFO] [OCR Worker] A-1 완료: 789호1234 (pending)
+[16:33:19][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657549.6001902, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657599.799354}
+[16:33:19][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:33:19][INFO] [EXIT] A-1 plate=None
+[16:33:26][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657606.8026483, 'park_status': 'normal', 'timestamp': 1778657606.8026483}
+[16:33:26][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:33:32][INFO] [OCR Worker] A-1 완료: None (null)
+[16:33:41][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1778657606.8026483, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657621.8930109}
+[16:33:41][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:33:41][INFO] [EXIT] A-1 plate=None
+[16:33:58][INFO] Quit
+[16:33:58][INFO] [Workers] 종료 대기 중...
+[16:33:58][INFO] [OCR Worker] 종료
+[16:33:58][INFO] [OCR Worker] 종료
+[16:34:04][INFO] System stopped
+[16:34:40][INFO] ==================================================
+[16:34:40][INFO] Smart Parking System Start
+[16:34:40][INFO] ==================================================
+[16:34:41][INFO] Mapping loaded | zones: ['A-1']
+[16:34:47][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:34:47][INFO] [OCR Worker] 시작
+[16:34:47][INFO] [OCR Worker] 시작
+[16:34:47][INFO] [Send Worker] 시작
+[16:34:47][INFO] [Workers] OCR x2, Send x1 시작
+[16:34:47][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:34:47][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:34:52][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657692.4732113, 'park_status': 'normal', 'timestamp': 1778657692.4732113}
+[16:34:52][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:34:57][INFO] [OCR Worker] A-1 완료: 789호1234 (confirmed)
+[16:35:23][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '789호1234', 'plate_status': 'confirmed', 'entry_time': 1778657692.4732113, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657723.6616824}
+[16:35:23][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:35:23][INFO] [EXIT] A-1 plate=789호1234
+[16:35:35][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657735.658414, 'park_status': 'normal', 'timestamp': 1778657735.658414}
+[16:35:35][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:35:38][INFO] [OCR Worker] A-1 완료: 17809 (confirmed)
+[16:36:08][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '17809', 'plate_status': 'confirmed', 'entry_time': 1778657735.658414, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657768.5827377}
+[16:36:08][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:36:08][INFO] [EXIT] A-1 plate=17809
+[16:36:24][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657784.7509317, 'park_status': 'normal', 'timestamp': 1778657784.7509317}
+[16:36:24][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:36:28][INFO] [OCR Worker] A-1 완료: 12344 (confirmed)
+[16:36:47][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '12344', 'plate_status': 'confirmed', 'entry_time': 1778657784.7509317, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657807.6626308}
+[16:36:47][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:36:47][INFO] [EXIT] A-1 plate=12344
+[16:37:05][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657825.6632156, 'park_status': 'normal', 'timestamp': 1778657825.6632156}
+[16:37:05][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:37:10][INFO] [OCR Worker] A-1 완료: None (null)
+[16:39:01][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1778657825.6632156, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778657941.8601153}
+[16:39:01][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:39:01][INFO] [EXIT] A-1 plate=None
+[16:39:12][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778657952.6596997, 'park_status': 'normal', 'timestamp': 1778657952.6596997}
+[16:39:12][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:39:16][INFO] [OCR Worker] A-1 완료: None (null)
+[16:40:12][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': None, 'plate_status': 'null', 'entry_time': 1778657952.6596997, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778658012.4534981}
+[16:40:12][WARNING] [EXIT] A-1 OCR 완료 전 출차 → entry null 전송
+[16:40:12][INFO] [EXIT] A-1 plate=None
+[16:40:19][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778658019.7613986, 'park_status': 'normal', 'timestamp': 1778658019.7613986}
+[16:40:19][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:40:23][INFO] [OCR Worker] A-1 완료: 789호1234 (confirmed)
+[16:41:45][INFO] Quit
+[16:41:45][INFO] [Workers] 종료 대기 중...
+[16:41:46][INFO] [OCR Worker] 종료
+[16:41:46][INFO] [OCR Worker] 종료
+[16:41:51][INFO] System stopped
+[16:42:14][INFO] ==================================================
+[16:42:14][INFO] Smart Parking System Start
+[16:42:14][INFO] ==================================================
+[16:42:15][INFO] Mapping loaded | zones: ['A-1']
+[16:42:19][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:42:19][INFO] [OCR Worker] 시작
+[16:42:19][INFO] [OCR Worker] 시작
+[16:42:19][INFO] [Send Worker] 시작
+[16:42:19][INFO] [Workers] OCR x2, Send x1 시작
+[16:42:19][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:42:19][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:43:35][INFO] Quit
+[16:43:35][INFO] [Workers] 종료 대기 중...
+[16:43:36][INFO] [OCR Worker] 종료
+[16:43:36][INFO] [OCR Worker] 종료
+[16:43:36][INFO] [Send Worker] 종료
+[16:43:36][INFO] System stopped
+[16:43:47][INFO] ==================================================
+[16:43:47][INFO] Smart Parking System Start
+[16:43:47][INFO] ==================================================
+[16:43:48][INFO] Mapping loaded | zones: ['A-1']
+[16:43:52][INFO] [Camera] C920 자동 포커스 설정 완료
+[16:43:52][INFO] [OCR Worker] 시작
+[16:43:52][INFO] [OCR Worker] 시작
+[16:43:52][INFO] [Send Worker] 시작
+[16:43:52][INFO] [Workers] OCR x2, Send x1 시작
+[16:43:52][INFO] Camera started | M: mapping  Q/ESC: quit
+[16:43:52][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[16:44:00][INFO] [EVENT] {'type': 'exit', 'zone': 'A-1', 'plate': '789호1234', 'plate_status': 'confirmed', 'entry_time': 1778658019.7613986, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1778658240.3971143}
+[16:44:00][INFO] [EXIT] A-1 plate=789호1234
+[16:44:20][INFO] [EVENT] {'type': 'entry', 'zone': 'A-1', 'plate': None, 'plate_status': 'pending', 'entry_time': 1778658260.3014457, 'park_status': 'normal', 'timestamp': 1778658260.3014457}
+[16:44:20][INFO] [ENTRY] A-1 OCR Queue 제출 (대기: 1)
+[16:44:23][INFO] [OCR Worker] A-1 완료: 789호1234 (confirmed)
+[16:44:31][INFO] Quit
+[16:44:31][INFO] [Workers] 종료 대기 중...
+[16:44:31][INFO] [OCR Worker] 종료
+[16:44:31][INFO] [Send Worker] 종료
+[16:44:32][INFO] [OCR Worker] 종료
+[16:44:32][INFO] System stopped
