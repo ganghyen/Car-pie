@@ -89,7 +89,7 @@ class EventSender:
                 "linked_zone":  event.get("linked_zone"),
                 "entry_time":   dt_str,
                 "apartment_no": event.get("apartment_no") or APARTMENT_NO,
-                "image_path":   event.get("image_path") or event.get("car_image"),
+                "image_base64":   event.get("image_base64"),
                 "ocr_error":    event.get("ocr_error", False),
             }
 

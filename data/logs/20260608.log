@@ -412,3 +412,11 @@
 [21:06:57][INFO] [OCR Worker] 종료
 [21:06:57][INFO] [Send Worker] 종료
 [21:06:57][INFO] System stopped
+[21:38:23][INFO] ==================================================
+[21:38:23][INFO] Smart Parking System Start
+[21:38:23][INFO] ==================================================
+[21:38:30][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[21:38:30][INFO] [Sender] 미전송 66건 복구
+[21:38:30][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[21:38:35][INFO] [Camera] C920 자동 포커스 설정 완료
+[21:38:35][ERROR] Camera 0 open failed
