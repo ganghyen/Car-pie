@@ -358,3 +358,57 @@
 [20:51:52][INFO] [OCR Worker] 종료
 [20:51:52][INFO] [Send Worker] 종료
 [20:51:52][INFO] System stopped
+[20:53:28][INFO] ==================================================
+[20:53:28][INFO] Smart Parking System Start
+[20:53:28][INFO] ==================================================
+[20:53:35][INFO] [Sender] 초기화 | 서버: http://172.20.10.12:8000/api/event
+[20:53:35][INFO] [Sender] 미전송 63건 복구
+[20:53:35][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[20:53:40][INFO] [Camera] C920 자동 포커스 설정 완료
+[20:53:40][INFO] [OCR Worker] 시작
+[20:53:40][INFO] [OCR Worker] 시작
+[20:53:40][INFO] [Send Worker] 시작
+[20:53:40][INFO] [Workers] OCR x2, Send x1 시작
+[20:53:41][INFO] Camera started | M: mapping  Q/ESC: quit
+[20:53:43][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[20:57:16][INFO] Quit
+[20:57:16][INFO] [Workers] 종료 대기 중...
+[20:57:16][INFO] [Send Worker] 종료
+[20:57:16][INFO] [OCR Worker] 종료
+[20:57:16][INFO] [OCR Worker] 종료
+[20:57:16][INFO] System stopped
+[20:57:32][INFO] ==================================================
+[20:57:32][INFO] Smart Parking System Start
+[20:57:32][INFO] ==================================================
+[20:57:38][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[20:57:38][INFO] [Sender] 미전송 63건 복구
+[20:57:38][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[20:57:43][INFO] [Camera] C920 자동 포커스 설정 완료
+[20:57:43][INFO] [OCR Worker] 시작
+[20:57:43][INFO] [OCR Worker] 시작
+[20:57:43][INFO] [Send Worker] 시작
+[20:57:43][INFO] [Workers] OCR x2, Send x1 시작
+[20:57:44][INFO] Camera started | M: mapping  Q/ESC: quit
+[20:57:46][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[20:58:32][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-001', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780919912.6173801, 'park_status': 'normal', 'timestamp': 1780919912.6173801}
+[20:58:32][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[20:59:23][INFO] [OCR Worker] a-b1-001 완료: 78931234 (confirmed)
+[20:59:29][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Read timed out. (read timeout=3)
+[20:59:29][WARNING] [Sender] 큐 저장 (64건)
+[21:01:19][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-002', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780920079.5977664, 'park_status': 'normal', 'timestamp': 1780920079.5977664}
+[21:01:19][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 1)
+[21:02:09][INFO] [OCR Worker] a-b1-002 완료: 123가4567 (confirmed)
+[21:02:15][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Read timed out. (read timeout=3)
+[21:02:15][WARNING] [Sender] 큐 저장 (65건)
+[21:02:58][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780920178.656542, 'park_status': 'normal', 'timestamp': 1780920178.656542}
+[21:02:58][INFO] [ENTRY] a-b1-009 OCR Queue 제출 (대기: 1)
+[21:04:45][INFO] [OCR Worker] a-b1-009 완료: None (null)
+[21:04:45][WARNING] [OCR ERROR] a-b1-009 번호판 인식 불가 (null) → 알림 전송 예정
+[21:04:51][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Read timed out. (read timeout=3)
+[21:04:51][WARNING] [Sender] 큐 저장 (66건)
+[21:06:57][INFO] Quit
+[21:06:57][INFO] [Workers] 종료 대기 중...
+[21:06:57][INFO] [OCR Worker] 종료
+[21:06:57][INFO] [OCR Worker] 종료
+[21:06:57][INFO] [Send Worker] 종료
+[21:06:57][INFO] System stopped
