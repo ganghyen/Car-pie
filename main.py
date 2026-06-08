@@ -1,11 +1,13 @@
 # ============================================================
-# [메인] 스마트 주차 관리 시스템 6
+# [메인] 스마트 주차 관리 시스템 7
 # 수정사항:
 #   1. send_queue → PriorityQueue (출차>입차>업데이트 순서 보장)
 #   2. 번호판 안 보여도 null 즉시 전송 안함 → OCR 시도 후 전송
-#   3. 입차 스냅샷 image_path 추가 전송
+#   3. 2칸주차/통로주차일 때만 스냅샷 찍어서 base64로 전송
+#      일반 주차는 스냅샷 없음
 #   4. OCR null/unreadable 시 ocr_error 플래그 설정
-#   5. ✅ 멀티존 겹침 계산 → bbox_overlap_ratio (호모그래피 실제 변환) 으로 교체
+#   5. 멀티존 겹침 계산 → bbox_overlap_ratio (호모그래피 실제 변환) 으로 교체
+#   6. 출차 후 DB 확인/재전송은 FastAPI가 전담
 # ============================================================
 
 import cv2
@@ -13,6 +15,7 @@ import time
 import sys
 import os
 import json
+import base64
 import threading
 import queue
 import numpy as np
@@ -37,7 +40,7 @@ from core.preprocessor import Preprocessor
 from core.detector import VehicleDetector
 from state.overlap import point_in_zone, bbox_overlap_ratio
 from state.zone_state import (
-    ParkingStateMachine, ZoneStatus, PlateStatus
+    ParkingStateMachine, ZoneStatus, PlateStatus, ParkStatus
 )
 from ocr.reader import PlateReader, PLATE_UNREADABLE
 from comm.sender import EventSender
@@ -53,6 +56,19 @@ PRIORITY_EXIT   = 1
 PRIORITY_ENTRY  = 2
 PRIORITY_UPDATE = 3
 _counter = itertools.count()
+
+
+def _frame_to_base64(frame) -> str | None:
+    """
+    프레임을 JPEG base64 문자열로 변환.
+    2칸주차/통로주차 스냅샷 전송에 사용.
+    """
+    try:
+        _, buf = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 85])
+        return base64.b64encode(buf).decode("utf-8")
+    except Exception as e:
+        logger.error(f"[Snapshot] base64 변환 실패: {e}")
+        return None
 
 
 class OcrTask:
@@ -247,7 +263,6 @@ def main():
 
         now = time.time()
 
-        # 매핑 파일 변경 감지
         if not mapping_mode and now - last_check >= CHECK_INTERVAL:
             last_check = now
             new_mtime  = _get_mtime(ROI_COORDS_PATH)
@@ -261,7 +276,6 @@ def main():
                 empty_snap_initialized = False
                 logger.info(f"Mapping reloaded | zones: {new_keys}")
 
-        # 카메라 흔들림 감지 + 자동 보정
         if (not mapping_mode and homography.is_ready()
                 and now - last_shake_check >= CAMERA_SHAKE_CHECK_INTERVAL):
             last_shake_check = now
@@ -273,14 +287,12 @@ def main():
                 shake_status_msg  = "WARNING: Camera moved! Press M to re-map"
                 shake_status_time = now
 
-        # 오래된 스냅샷 파일 정리
         if now - last_snap_cleanup >= SNAPSHOT_CLEANUP_INTERVAL:
             last_snap_cleanup = now
             deleted = _cleanup_snapshots()
             if deleted > 0:
                 logger.info(f"[Snapshot] {deleted} old files deleted")
 
-        # 주기적 상태 백업
         if now - last_state_backup >= STATE_BACKUP_INTERVAL:
             last_state_backup = now
             _backup_state(state_machine)
@@ -334,7 +346,7 @@ def main():
             continue
 
         # ══════════════════════════════════════════════════
-        # 일반 모드: YOLO 탐지 + 상태 머신 업데이트
+        # 일반 모드
         # ══════════════════════════════════════════════════
 
         enhanced         = preprocessor.apply(frame)
@@ -349,7 +361,6 @@ def main():
                 (VIRTUAL_MAP_WIDTH, VIRTUAL_MAP_HEIGHT)
             )
 
-        # 빈 구역 스냅샷 초기화 (최초 1회)
         if not empty_snap_initialized and warped_frame is not None:
             all_done = True
             for zone_name, zone_pts in homography.zones.items():
@@ -364,7 +375,6 @@ def main():
                 empty_snap_initialized = True
                 logger.info("[PixelCheck] 빈 구역 스냅샷 초기화 완료")
 
-        # 차량 좌표를 가상 평면으로 변환
         virtual_cars = []
         if homography.is_ready():
             for car in cars:
@@ -373,7 +383,6 @@ def main():
                 )
                 virtual_cars.append({**car, "vx": vx, "vy": vy})
 
-        # ✅ 수정: homography.matrix, map_w, map_h 전달
         _check_multi_zone(
             virtual_cars, homography.zones,
             state_machine, send_queue, logger,
@@ -382,7 +391,6 @@ def main():
             map_h=VIRTUAL_MAP_HEIGHT,
         )
 
-        # 구역별 상태 업데이트
         for zone_name, zone_pts in homography.zones.items():
             cars_in_zone = [
                 c for c in virtual_cars
@@ -413,17 +421,25 @@ def main():
             if event:
                 logger.info(f"[EVENT] {event}")
 
-                # ── 입차 이벤트 처리 ──────────────────────────
                 if event["type"] == "entry":
-                    snap_path = _save_snapshot(
-                        frame, zone_name, event["timestamp"]
-                    )
+                    park_status = event.get("park_status", "normal")
+
+                    # ✅ 2칸주차 / 통로주차일 때만 스냅샷 base64 전송
+                    # 일반 주차는 스냅샷 없음
+                    image_b64 = None
+                    if park_status in ("multi_zone", "aisle_block"):
+                        image_b64 = _frame_to_base64(frame)
+                        if image_b64:
+                            logger.info(
+                                f"[Snapshot] {zone_name} {park_status} "
+                                f"→ base64 스냅샷 생성"
+                            )
 
                     quick_event = {
                         "type":        "entry_quick",
                         "zone":        zone_name,
                         "plate":       None,
-                        "park_status": event.get("park_status", "normal"),
+                        "park_status": park_status,
                         "linked_zone": event.get("linked_zone"),
                         "entry_time":  event.get("entry_time"),
                         "timestamp":   event["timestamp"],
@@ -434,8 +450,8 @@ def main():
                     except queue.Full:
                         logger.warning(f"[ENTRY QUICK] {zone_name} send_queue 가득참")
 
-                    event["car_image"]  = snap_path
-                    event["image_path"] = snap_path
+                    # image_path 대신 image_base64로 전달
+                    event["image_base64"] = image_b64
 
                     zone_obj = state_machine.zones.get(zone_name)
                     if zone_obj and zone_obj.plate_status in (
@@ -482,7 +498,6 @@ def main():
                                 event["ocr_error"]    = True
                                 send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
 
-                # ── 출차 이벤트 처리 ──────────────────────────
                 elif event["type"] == "exit":
                     exit_snap_path = _save_snapshot(
                         frame, f"{zone_name}_exit", event["timestamp"]
@@ -509,7 +524,6 @@ def main():
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
-            # 번호판 재인식
             if state_machine.needs_recheck(zone_name) and cars_in_zone:
                 cur = state_machine.zones[zone_name]
                 if not ocr_submitted.get(zone_name, False):
@@ -681,9 +695,6 @@ def _restore_state(state_machine):
         print(f"[Restore] Failed: {e}")
 
 
-# ✅ 수정: homography_matrix, map_w, map_h 파라미터 추가
-#          _calc_bbox_zone_overlap 대신 bbox_overlap_ratio 사용
-#          → 호모그래피로 실제 변환된 bbox 기준 겹침 계산 (원근 왜곡 보정)
 def _check_multi_zone(virtual_cars, zones, state_machine,
                       send_queue, logger,
                       homography_matrix=None,
@@ -696,7 +707,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         for car in virtual_cars:
             if not point_in_zone((car["vx"], car["vy"]), zone_pts):
                 continue
-            # ✅ 호모그래피 실제 변환 기반 겹침 계산
             ratio = bbox_overlap_ratio(
                 bbox=car,
                 zone_polygon=zone_pts,
