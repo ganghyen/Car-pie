@@ -53,3 +53,29 @@
 [17:24:17][INFO] [OCR Worker] 종료
 [17:24:17][INFO] [Send Worker] 종료
 [17:24:17][INFO] System stopped
+[18:44:21][INFO] ==================================================
+[18:44:21][INFO] Smart Parking System Start
+[18:44:21][INFO] ==================================================
+[18:44:28][INFO] [Sender] 초기화 | 서버: http://172.20.10.12:8000/api/event
+[18:44:28][INFO] [Sender] 미전송 37건 복구
+[18:44:28][INFO] Mapping loaded | zones: ['a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-001', 'a-b1-002']
+[18:44:33][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:44:33][INFO] [OCR Worker] 시작
+[18:44:33][INFO] [OCR Worker] 시작
+[18:44:33][INFO] [Send Worker] 시작
+[18:44:33][INFO] [Workers] OCR x2, Send x1 시작
+[18:44:36][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:44:37][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:49:27][INFO] Enter mapping mode
+[18:52:45][INFO] [Snapshot] 37 old files deleted
+[18:54:31][INFO] Mapping exit | zones: ['a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-001', 'a-b1-002']
+[18:54:31][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:54:33][INFO] Enter mapping mode
+[18:58:12][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:58:13][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:59:21][INFO] Quit
+[18:59:21][INFO] [Workers] 종료 대기 중...
+[18:59:22][INFO] [OCR Worker] 종료
+[18:59:22][INFO] [OCR Worker] 종료
+[18:59:22][INFO] [Send Worker] 종료
+[18:59:22][INFO] System stopped

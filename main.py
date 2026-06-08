@@ -15,6 +15,7 @@ import json
 import threading
 import queue
 import numpy as np
+import itertools
 from datetime import datetime, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -50,6 +51,7 @@ WIN_VIRT = "Virtual Map  |  Click 4pts  S: Save  X: Delete  C: Cancel  E: Exit"
 PRIORITY_EXIT   = 1
 PRIORITY_ENTRY  = 2
 PRIORITY_UPDATE = 3
+_counter = itertools.count()
 
 
 class OcrTask:
@@ -119,7 +121,7 @@ def ocr_worker(ocr_queue: queue.Queue,
                 entry_event["ocr_error"] = False
 
             # 입차 이벤트를 우선순위 2로 send_queue에 등록
-            send_queue.put_nowait((PRIORITY_ENTRY, entry_event))
+            send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), entry_event))
 
             if zone and zone.plate_status == PlateStatus.UNREADABLE:
                 logger.warning(f"[UNREADABLE] {zone_name} 번호판 인식 불가")
@@ -144,7 +146,7 @@ def send_worker(send_queue: queue.PriorityQueue,
 
     while not stop_event.is_set():
         try:
-            priority, event = send_queue.get(timeout=1.0)
+            priority, _, event = send_queue.get(timeout=1.0)
         except queue.Empty:
             continue
 
@@ -472,7 +474,7 @@ def main():
                             # 차량 없으면 ocr_error True
                             event["ocr_error"]    = True
                             logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
-                            send_queue.put_nowait((PRIORITY_ENTRY, event))
+                            send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
                         else:
                             try:
                                 ocr_queue.put_nowait(task)
@@ -489,7 +491,7 @@ def main():
                                 event["plate"]        = None
                                 event["plate_status"] = PlateStatus.NULL.value
                                 event["ocr_error"]    = True
-                                send_queue.put_nowait((PRIORITY_ENTRY, event))
+                                send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
 
                 # ── 출차 이벤트 처리 ──────────────────────────
                 elif event["type"] == "exit":
@@ -512,7 +514,7 @@ def main():
                     ocr_submitted.pop(zone_name, None)
 
                     try:
-                        send_queue.put_nowait((PRIORITY_EXIT, event))
+                        send_queue.put_nowait((PRIORITY_EXIT, next(_counter), event))
                     except queue.Full:
                         logger.warning(f"[EXIT] send_queue 가득참")
 
@@ -541,7 +543,7 @@ def main():
                             try:
                                 if cur.plate is None:
                                     state_machine.set_plate(zone_name, new_plate)
-                                    send_queue.put_nowait((PRIORITY_UPDATE, {
+                                    send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
                                         "type":         "plate_update",
                                         "zone":         zone_name,
                                         "plate":        new_plate,
@@ -556,7 +558,7 @@ def main():
                                         f"null -> {new_plate}"
                                     )
                                 else:
-                                    send_queue.put_nowait((PRIORITY_EXIT, {
+                                    send_queue.put_nowait((PRIORITY_EXIT, next(_counter), {
                                         "type":         "exit",
                                         "zone":         zone_name,
                                         "plate":        cur.plate,
@@ -567,7 +569,7 @@ def main():
                                         "timestamp":    time.time(),
                                     }))
                                     state_machine.set_plate(zone_name, new_plate)
-                                    send_queue.put_nowait((PRIORITY_UPDATE, {
+                                    send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
                                         "type":         "plate_changed",
                                         "zone":         zone_name,
                                         "plate":        new_plate,
@@ -750,7 +752,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             if z is None:
                 continue
             try:
-                send_queue.put_nowait((PRIORITY_ENTRY, {
+                send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), {
                     "type":         "entry",
                     "zone":         zn,
                     "plate":        None,
