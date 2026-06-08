@@ -3,6 +3,7 @@
 # 수정사항:
 #   1. image_path, ocr_error 필드 추가
 #   2. car_image와 image_path 호환 처리
+#   3. ✅ 추가: entry_quick 이벤트 (번호판 없이 PARKED 상태만 먼저 전송)
 # ============================================================
 
 import requests
@@ -28,11 +29,6 @@ class EventSender:
             logger.info(f"[Sender] 미전송 {len(self._pending)}건 복구")
 
     def send(self, event: dict):
-        """
-        이벤트를 FastAPI 서버로 전송.
-        전송 실패 시 로컬 큐에 저장해두고 다음 전송 시 재시도.
-        ✅ 수정: HTTP 200이 아니면 실패로 판단해서 재전송 큐에 저장
-        """
         payload = self._build_payload(event)
         if payload is None:
             return
@@ -52,7 +48,6 @@ class EventSender:
                     f"event:{payload['event']} zone:{payload['zone']}"
                 )
             else:
-                # ✅ 수정: 200 이외 응답은 모두 실패로 처리 → 큐에 저장
                 logger.warning(
                     f"[Sender] 서버 응답 오류: {response.status_code} "
                     f"→ 재전송 큐 저장"
@@ -64,11 +59,6 @@ class EventSender:
             self._enqueue(payload)
 
     def _build_payload(self, event: dict) -> dict | None:
-        """
-        파이 내부 이벤트 딕셔너리를 FastAPI 전송 형식으로 변환.
-        ✅ 수정: image_path, ocr_error 필드 추가
-        car_image와 image_path 둘 다 확인해서 호환 처리
-        """
         event_type = event.get("type")
         zone       = event.get("zone")
         timestamp  = event.get("timestamp", 0)
@@ -76,22 +66,31 @@ class EventSender:
             "%Y-%m-%d %H:%M:%S"
         ) if timestamp else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # ── 입차 이벤트 ───────────────────────────────────
+        # ✅ 추가: entry_quick - 번호판 없이 PARKED 상태만 먼저 전송
+        # 입차 판정 즉시 DB에 주차중 상태로 먼저 업데이트
+        if event_type == "entry_quick":
+            return {
+                "event":        "entry_quick",
+                "zone":         zone,
+                "plate":        None,
+                "park_type":    event.get("park_status", "normal"),
+                "linked_zone":  event.get("linked_zone"),
+                "entry_time":   dt_str,
+                "apartment_no": event.get("apartment_no") or APARTMENT_NO,
+            }
+
+        # ── 입차 이벤트 (OCR 완료 후 번호판 포함해서 전송) ──
         if event_type == "entry":
             return {
-                "event":       "entry",
-                "zone":        zone,
-                "plate":       event.get("plate"),
-                "park_type":   event.get("park_status", "normal"),
-                "linked_zone": event.get("linked_zone"),
-                "entry_time":  dt_str,
-                # Spring Boot가 어느 아파트 정책/알림으로 처리할지 구분
+                "event":        "entry",
+                "zone":         zone,
+                "plate":        event.get("plate"),
+                "park_type":    event.get("park_status", "normal"),
+                "linked_zone":  event.get("linked_zone"),
+                "entry_time":   dt_str,
                 "apartment_no": event.get("apartment_no") or APARTMENT_NO,
-                # ✅ 추가: image_path 전달
-                # car_image와 image_path 둘 다 확인 (기존 큐 데이터 호환)
-                "image_path":  event.get("image_path") or event.get("car_image"),
-                # ✅ 추가: OCR 인식 불가 여부 전달
-                "ocr_error":   event.get("ocr_error", False),
+                "image_path":   event.get("image_path") or event.get("car_image"),
+                "ocr_error":    event.get("ocr_error", False),
             }
 
         # ── 출차 이벤트 ───────────────────────────────────

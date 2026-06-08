@@ -1,10 +1,11 @@
 # ============================================================
-# [메인] 스마트 주차 관리 시스템 5
+# [메인] 스마트 주차 관리 시스템 6
 # 수정사항:
 #   1. send_queue → PriorityQueue (출차>입차>업데이트 순서 보장)
 #   2. 번호판 안 보여도 null 즉시 전송 안함 → OCR 시도 후 전송
 #   3. 입차 스냅샷 image_path 추가 전송
 #   4. OCR null/unreadable 시 ocr_error 플래그 설정
+#   5. ✅ 멀티존 겹침 계산 → bbox_overlap_ratio (호모그래피 실제 변환) 으로 교체
 # ============================================================
 
 import cv2
@@ -34,7 +35,7 @@ from mapping.homography import HomographyTransformer
 from mapping.roi_mapper import ROIMapper
 from core.preprocessor import Preprocessor
 from core.detector import VehicleDetector
-from state.overlap import point_in_zone
+from state.overlap import point_in_zone, bbox_overlap_ratio
 from state.zone_state import (
     ParkingStateMachine, ZoneStatus, PlateStatus
 )
@@ -71,11 +72,6 @@ def ocr_worker(ocr_queue: queue.Queue,
                ocr_reader: PlateReader,
                state_machine: ParkingStateMachine,
                stop_event: threading.Event):
-    """
-    OCR 전담 스레드.
-    ocr_queue에서 작업을 꺼내 번호판 인식 후
-    결과를 entry 이벤트에 붙여서 send_queue에 넣음.
-    """
     logger.info("[OCR Worker] 시작")
 
     while not stop_event.is_set():
@@ -87,7 +83,6 @@ def ocr_worker(ocr_queue: queue.Queue,
         try:
             zone_name = task.zone_name
 
-            # 스냅샷에서 번호판 인식 (다수결 투표)
             plate = ocr_reader.vote_from_snapshot(
                 snapshot_frame=task.snapshot,
                 bbox=task.car_bbox,
@@ -95,22 +90,16 @@ def ocr_worker(ocr_queue: queue.Queue,
                 plate_bbox=task.plate_bbox,
             )
 
-            # 인식 결과를 구역 상태에 반영
             state_machine.set_plate(zone_name, plate)
             zone = state_machine.zones.get(zone_name)
             ps   = zone.plate_status.value if zone else "null"
 
             logger.info(f"[OCR Worker] {zone_name} 완료: {plate} ({ps})")
 
-            # 입차 이벤트에 번호판 정보 추가
             entry_event                 = task.entry_event
             entry_event["plate"]        = zone.plate if zone else plate
             entry_event["plate_status"] = ps
 
-            # ✅ 추가: OCR 완료 후 null/unreadable이면 오류 플래그 설정
-            # null: OCR 시도했지만 결과 없음
-            # unreadable: OCR 3회 연속 실패
-            # 둘 다 관리자 알림 전송
             if ps in ("null", "unreadable"):
                 entry_event["ocr_error"] = True
                 logger.warning(
@@ -120,7 +109,6 @@ def ocr_worker(ocr_queue: queue.Queue,
             else:
                 entry_event["ocr_error"] = False
 
-            # 입차 이벤트를 우선순위 2로 send_queue에 등록
             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), entry_event))
 
             if zone and zone.plate_status == PlateStatus.UNREADABLE:
@@ -137,11 +125,6 @@ def ocr_worker(ocr_queue: queue.Queue,
 def send_worker(send_queue: queue.PriorityQueue,
                 sender: EventSender,
                 stop_event: threading.Event):
-    """
-    전송 전담 스레드.
-    PriorityQueue에서 우선순위 순으로 꺼내 FastAPI 서버로 전송.
-    출차(1) > 입차(2) > 업데이트(3) 순서 보장.
-    """
     logger.info("[Send Worker] 시작")
 
     while not stop_event.is_set():
@@ -390,10 +373,13 @@ def main():
                 )
                 virtual_cars.append({**car, "vx": vx, "vy": vy})
 
-        # 2칸 주차 판정
+        # ✅ 수정: homography.matrix, map_w, map_h 전달
         _check_multi_zone(
             virtual_cars, homography.zones,
-            state_machine, send_queue, logger
+            state_machine, send_queue, logger,
+            homography_matrix=homography.matrix,
+            map_w=VIRTUAL_MAP_WIDTH,
+            map_h=VIRTUAL_MAP_HEIGHT,
         )
 
         # 구역별 상태 업데이트
@@ -429,27 +415,32 @@ def main():
 
                 # ── 입차 이벤트 처리 ──────────────────────────
                 if event["type"] == "entry":
-                    # 입차 시점 스냅샷 저장
                     snap_path = _save_snapshot(
                         frame, zone_name, event["timestamp"]
                     )
-                    # 기존: car_image 경로 저장
-                    event["car_image"]  = snap_path
 
-                    # ✅ 추가: image_path 키로도 경로 저장
-                    # FastAPI parking.py에서 Spring Boot로 전달할 때 사용
-                    # Spring Boot가 parking_history에 image_path 저장 → 웹에서 조회 가능
+                    quick_event = {
+                        "type":        "entry_quick",
+                        "zone":        zone_name,
+                        "plate":       None,
+                        "park_status": event.get("park_status", "normal"),
+                        "linked_zone": event.get("linked_zone"),
+                        "entry_time":  event.get("entry_time"),
+                        "timestamp":   event["timestamp"],
+                    }
+                    try:
+                        send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), quick_event))
+                        logger.info(f"[ENTRY QUICK] {zone_name} PARKED 상태 먼저 전송")
+                    except queue.Full:
+                        logger.warning(f"[ENTRY QUICK] {zone_name} send_queue 가득참")
+
+                    event["car_image"]  = snap_path
                     event["image_path"] = snap_path
 
-                    # ✅ 추가: OCR 상태 기반 오류 플래그 초기 설정
-                    # OCR 완료 전 시점이라 PENDING일 가능성 높음
-                    # 최종 판단은 ocr_worker에서 덮어씀
                     zone_obj = state_machine.zones.get(zone_name)
                     if zone_obj and zone_obj.plate_status in (
                         PlateStatus.UNREADABLE, PlateStatus.NULL
                     ):
-                        # UNREADABLE: OCR 3회 연속 실패
-                        # NULL: OCR 시도했지만 결과 없음
                         event["ocr_error"] = True
                         logger.warning(
                             f"[OCR ERROR] {zone_name} "
@@ -468,10 +459,8 @@ def main():
                         )
 
                         if not cars_in_zone:
-                            # 차량 bbox가 없으면 null로 즉시 전송
                             event["plate"]        = None
                             event["plate_status"] = PlateStatus.NULL.value
-                            # 차량 없으면 ocr_error True
                             event["ocr_error"]    = True
                             logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
                             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
@@ -509,7 +498,7 @@ def main():
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
                         pending["ocr_error"]    = True
-                        send_queue.put_nowait((PRIORITY_ENTRY, pending))
+                        send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), pending))
 
                     ocr_submitted.pop(zone_name, None)
 
@@ -692,8 +681,14 @@ def _restore_state(state_machine):
         print(f"[Restore] Failed: {e}")
 
 
+# ✅ 수정: homography_matrix, map_w, map_h 파라미터 추가
+#          _calc_bbox_zone_overlap 대신 bbox_overlap_ratio 사용
+#          → 호모그래피로 실제 변환된 bbox 기준 겹침 계산 (원근 왜곡 보정)
 def _check_multi_zone(virtual_cars, zones, state_machine,
-                      send_queue, logger):
+                      send_queue, logger,
+                      homography_matrix=None,
+                      map_w=VIRTUAL_MAP_WIDTH,
+                      map_h=VIRTUAL_MAP_HEIGHT):
     zone_best_car = {}
     for zone_name, zone_pts in zones.items():
         best_car   = None
@@ -701,7 +696,14 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         for car in virtual_cars:
             if not point_in_zone((car["vx"], car["vy"]), zone_pts):
                 continue
-            ratio = _calc_bbox_zone_overlap(car, zone_pts)
+            # ✅ 호모그래피 실제 변환 기반 겹침 계산
+            ratio = bbox_overlap_ratio(
+                bbox=car,
+                zone_polygon=zone_pts,
+                map_w=map_w,
+                map_h=map_h,
+                homography_matrix=homography_matrix,
+            )
             if ratio > best_ratio:
                 best_ratio = ratio
                 best_car   = car
@@ -764,65 +766,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                 }))
             except queue.Full:
                 pass
-
-
-def _calc_bbox_zone_overlap(car, zone_pts) -> float:
-    try:
-        vx, vy    = car["vx"], car["vy"]
-        bw        = (car["x2"] - car["x1"]) * 0.3
-        bh        = (car["y2"] - car["y1"]) * 0.3
-        car_poly  = np.float32([
-            [vx-bw/2, vy-bh], [vx+bw/2, vy-bh],
-            [vx+bw/2, vy   ], [vx-bw/2, vy   ],
-        ])
-        zone_poly = np.float32(zone_pts)
-        zone_area = cv2.contourArea(zone_poly)
-        if zone_area == 0:
-            return 0.0
-        return _polygon_intersection_area(car_poly, zone_poly) / zone_area
-    except Exception:
-        return 0.0
-
-
-def _polygon_intersection_area(poly1, poly2) -> float:
-    def inside(p, a, b):
-        return ((b[0]-a[0])*(p[1]-a[1])) > ((b[1]-a[1])*(p[0]-a[0]))
-
-    def intersect(p1, p2, p3, p4):
-        x1,y1=p1; x2,y2=p2; x3,y3=p3; x4,y4=p4
-        d = (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4)
-        if abs(d) < 1e-10:
-            return p1
-        t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4)) / d
-        return (x1+t*(x2-x1), y1+t*(y2-y1))
-
-    def clip(subj, cpoly):
-        out = list(map(tuple, subj))
-        for i in range(len(cpoly)):
-            if not out:
-                return []
-            inp = out; out = []
-            a = tuple(cpoly[i]); b = tuple(cpoly[(i+1) % len(cpoly)])
-            for k in range(len(inp)):
-                c = inp[k]; p = inp[k-1]
-                if inside(c, a, b):
-                    if not inside(p, a, b):
-                        out.append(intersect(p, c, a, b))
-                    out.append(c)
-                elif inside(p, a, b):
-                    out.append(intersect(p, c, a, b))
-        return out
-
-    clipped = clip(poly1, poly2)
-    if len(clipped) < 3:
-        return 0.0
-
-    n = len(clipped)
-    area = 0.0
-    for i in range(n):
-        j = (i+1) % n
-        area += clipped[i][0]*clipped[j][1] - clipped[j][0]*clipped[i][1]
-    return abs(area) / 2.0
 
 
 def _get_zone_crop(warped_frame, zone_pts):
