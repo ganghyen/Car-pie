@@ -1,1 +1,1 @@
-[{"event": "exit", "zone": "a-b1-009", "exit_time": "2026-06-09 19:20:01"}, {"event": "exit", "zone": "a-b1-004", "exit_time": "2026-06-09 19:32:23"}]
+[{"event": "exit", "zone": "a-b1-009", "exit_time": "2026-06-09 19:20:01"}, {"event": "entry_quick", "zone": "a-b1-003", "plate": null, "park_type": "multi_zone", "linked_zone": "a-b1-004", "entry_time": "2026-06-09 19:40:06", "apartment_no": 1}]

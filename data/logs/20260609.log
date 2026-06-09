@@ -1596,3 +1596,107 @@
 [19:34:11][INFO] [OCR Worker] 종료
 [19:34:11][INFO] [Send Worker] 종료
 [19:34:11][INFO] System stopped
+[19:34:39][INFO] ==================================================
+[19:34:39][INFO] Smart Parking System Start
+[19:34:39][INFO] ==================================================
+[19:34:45][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:34:45][INFO] [Sender] 미전송 2건 복구
+[19:34:45][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:34:50][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:34:50][INFO] [OCR Worker] 시작
+[19:34:50][INFO] [OCR Worker] 시작
+[19:34:50][INFO] [Send Worker] 시작
+[19:34:50][INFO] [Workers] OCR x2, Send x1 시작
+[19:34:51][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:34:53][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:37:09][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:37:15][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (5.6s 정지)
+[19:37:15][INFO] [MULTI OCR] a-b1-003 OCR Queue 제출
+[19:37:15][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:37:16][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:37:23][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.0s 정지)
+[19:37:24][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:37:24][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:37:30][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:37:32][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.5s 정지)
+[19:37:33][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:37:37][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:37:40][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.1s 정지)
+[19:37:41][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:37:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:37:49][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.3s 정지)
+[19:37:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:37:50][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:37:54][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:38:00][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:38:02][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781001469.189548, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-004', 'timestamp': 1781001482.390525}
+[19:38:02][WARNING] [EXIT] a-b1-003 OCR 완료 전 출차 → entry null 전송
+[19:38:02][INFO] [EXIT] a-b1-003 plate=None
+[19:38:02][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-004', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781001469.1895509, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-003', 'timestamp': 1781001482.406557}
+[19:38:02][WARNING] [EXIT] a-b1-004 OCR 완료 전 출차 → entry null 전송
+[19:38:02][INFO] [EXIT] a-b1-004 plate=None
+[19:38:05][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:38:14][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[19:38:20][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:38:20][WARNING] [Sender] 큐 저장 (3건)
+[19:38:30][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:38:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:38:47][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:38:59][INFO] [OCR Worker] a-b1-003 완료: 78호1234 (pending)
+[19:38:59][INFO] [OCR Worker] a-b1-004 완료: 78호1234 (pending)
+[19:39:03][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-004
+[19:39:11][INFO] [Sender] 미전송 1건 재전송 완료
+[19:39:20][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:39:22][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:39:27][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (5.2s 정지)
+[19:39:27][INFO] [MULTI OCR] a-b1-003 OCR Queue 제출
+[19:39:27][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:39:28][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:39:34][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-004
+[19:39:35][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.0s 정지)
+[19:39:36][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:39:41][INFO] [Sender] 미전송 1건 재전송 완료
+[19:39:43][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.6s 정지)
+[19:39:44][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:39:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:39:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:39:51][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.8s 정지)
+[19:39:52][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:39:54][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:39:58][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:39:59][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.7s 정지)
+[19:40:00][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:03][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:40:06][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.7s 정지)
+[19:40:07][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:09][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:40:14][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:40:14][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.7s 정지)
+[19:40:15][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:20][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:40:22][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.7s 정지)
+[19:40:23][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:25][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:40:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:40:30][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.9s 정지)
+[19:40:31][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:38][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.7s 정지)
+[19:40:39][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:41][INFO] [OCR Worker] a-b1-004 완료: 8호1234 (pending)
+[19:40:41][INFO] [OCR Worker] a-b1-003 완료: 8호1234 (confirmed)
+[19:40:41][INFO] [MULTI OCR] a-b1-003 → linked a-b1-004 번호판 8호1234 업데이트
+[19:40:44][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff64a04f30>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[19:40:44][WARNING] [Sender] 큐 저장 (2건)
+[19:40:45][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.0s 정지)
+[19:40:46][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:52][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.2s 정지)
+[19:40:52][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:40:59][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.2s 정지)
+[19:40:59][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:41:04][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (5.1s 정지)
+[19:41:05][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:41:05][INFO] Quit
+[19:41:05][INFO] [Workers] 종료 대기 중...
+[19:41:05][INFO] [OCR Worker] 종료
+[19:41:05][INFO] [OCR Worker] 종료
+[19:41:11][INFO] System stopped

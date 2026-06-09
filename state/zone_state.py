@@ -163,9 +163,13 @@ class ParkingStateMachine:
                 return None
 
             # ✅ linked_zone 차량 있으면 TIMEOUT 취소
+            # ✅ linked_zone 차량 있고 TIMEOUT 3초 미만일 때만 취소
+            # 3초 이상이면 실제 출차로 판단
             if zone.linked_zone:
                 linked = self.zones.get(zone.linked_zone)
-                if linked and linked.status == ZoneStatus.OCCUPIED:
+                if (linked and
+                        linked.status == ZoneStatus.OCCUPIED and
+                        (now - zone.timeout_start) < 3.0):
                     zone.status        = ZoneStatus.OCCUPIED
                     zone.timeout_start = 0.0
                     print(f"[STATE] {zone_name} TIMEOUT 취소 "
