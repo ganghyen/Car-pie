@@ -21,6 +21,10 @@ from config.settings import (
     PIXEL_LIGHTING_UPDATE_INTERVAL,
 )
 
+# OCCUPIED 상태에서 차 없음이 연속 몇 프레임 이상일 때 TIMEOUT 시작
+# FPS 1~2 기준 5프레임 = 약 3~5초
+NO_CAR_FRAMES_BEFORE_TIMEOUT = 5
+
 
 class ZoneStatus(Enum):
     EMPTY    = "empty"
@@ -66,6 +70,9 @@ class ZoneState:
     last_lighting_check:  float = 0.0
     last_mean_brightness: float = -1.0
 
+    # ✅ 차 없음 연속 카운트 (TIMEOUT 시작 조건 강화용)
+    no_car_count: int = 0
+
 
 class ParkingStateMachine:
     def __init__(self, zone_names: list[str]):
@@ -81,7 +88,6 @@ class ParkingStateMachine:
         zone = self.zones.get(zone_name)
         if zone is None:
             return
-        # ✅ PARKED(OCCUPIED/TIMEOUT) 상태면 저장 차단
         if zone.status != ZoneStatus.EMPTY:
             return
         zone.empty_snap           = zone_crop.copy()
@@ -131,8 +137,11 @@ class ParkingStateMachine:
         # ── OCCUPIED ──────────────────────────────────────
         elif zone.status == ZoneStatus.OCCUPIED:
             if car_present:
+                # 차 있음 → 카운트 리셋
                 zone.timeout_start = 0.0
-                # ✅ YOLO는 차 없는데 픽셀만 차 있다고 하면
+                zone.no_car_count  = 0
+
+                # ✅ YOLO는 없는데 픽셀만 차 있다고 하면
                 # empty_snap 오염 의심 → 주기적으로 리셋
                 if not yolo_found and pixel_has_car:
                     if zone_crop is not None:
@@ -149,9 +158,20 @@ class ParkingStateMachine:
                                   f"오염 의심 → empty_snap 강제 리셋")
                 return None
             else:
-                zone.status        = ZoneStatus.TIMEOUT
-                zone.timeout_start = now
-                print(f"[STATE] {zone_name} OCCUPIED→TIMEOUT plate={zone.plate}")
+                # ✅ 차 없음 연속 카운트 증가
+                # NO_CAR_FRAMES_BEFORE_TIMEOUT 프레임 연속 없을 때만 TIMEOUT
+                # 통로 주차로 일시적으로 가려진 경우 오탐 방지
+                zone.no_car_count += 1
+                if zone.no_car_count >= NO_CAR_FRAMES_BEFORE_TIMEOUT:
+                    zone.no_car_count  = 0
+                    zone.status        = ZoneStatus.TIMEOUT
+                    zone.timeout_start = now
+                    print(f"[STATE] {zone_name} OCCUPIED→TIMEOUT "
+                          f"plate={zone.plate} "
+                          f"({NO_CAR_FRAMES_BEFORE_TIMEOUT}프레임 연속 미감지)")
+                else:
+                    print(f"[STATE] {zone_name} 차 없음 "
+                          f"({zone.no_car_count}/{NO_CAR_FRAMES_BEFORE_TIMEOUT})")
                 return None
 
         # ── TIMEOUT ───────────────────────────────────────
@@ -159,12 +179,11 @@ class ParkingStateMachine:
             if car_present:
                 zone.status        = ZoneStatus.OCCUPIED
                 zone.timeout_start = 0.0
+                zone.no_car_count  = 0
                 print(f"[STATE] {zone_name} TIMEOUT→OCCUPIED (재감지)")
                 return None
 
-            # ✅ linked_zone 차량 있으면 TIMEOUT 취소
             # ✅ linked_zone 차량 있고 TIMEOUT 3초 미만일 때만 취소
-            # 3초 이상이면 실제 출차로 판단
             if zone.linked_zone:
                 linked = self.zones.get(zone.linked_zone)
                 if (linked and
@@ -172,6 +191,7 @@ class ParkingStateMachine:
                         (now - zone.timeout_start) < 3.0):
                     zone.status        = ZoneStatus.OCCUPIED
                     zone.timeout_start = 0.0
+                    zone.no_car_count  = 0
                     print(f"[STATE] {zone_name} TIMEOUT 취소 "
                           f"(linked {zone.linked_zone} 차량 있음)")
                     return None
@@ -191,6 +211,7 @@ class ParkingStateMachine:
                 self._reset_zone(zone, zone_crop)
                 print(f"[EVENT] exit | zone={zone_name} "
                       f"plate={old_plate} elapsed={elapsed:.1f}s")
+
                 # ✅ linked_zone도 강제 EXIT 처리
                 if old_linked:
                     linked_zone = self.zones.get(old_linked)
@@ -210,7 +231,6 @@ class ParkingStateMachine:
                     "linked_zone":  old_linked,
                     "timestamp":    now,
                 }
-
             else:
                 print(f"[STATE] {zone_name} TIMEOUT 대기 "
                       f"{elapsed:.1f}/{EXIT_TIMEOUT_SECONDS}s")
@@ -243,9 +263,7 @@ class ParkingStateMachine:
     def _update_snap_if_lighting_changed(self, zone, zone_crop, now):
         """
         ✅ EMPTY 상태에서만 호출되도록 방어 추가
-        조명이 크게 바뀌면 빈 구역 스냅샷을 현재 이미지로 교체.
         """
-        # ✅ EMPTY 상태가 아니면 절대 스냅샷 업데이트 안 함
         if zone.status != ZoneStatus.EMPTY:
             return
         if now - zone.last_lighting_check < PIXEL_LIGHTING_UPDATE_INTERVAL:
@@ -262,7 +280,6 @@ class ParkingStateMachine:
 
             if abs(mean_bright - zone.last_mean_brightness) \
                     > PIXEL_LIGHTING_CHANGE_THRESHOLD:
-                # ✅ 한번 더 EMPTY 확인 후 업데이트
                 if zone.status == ZoneStatus.EMPTY:
                     zone.empty_snap           = zone_crop.copy()
                     zone.last_mean_brightness = mean_bright
@@ -287,6 +304,7 @@ class ParkingStateMachine:
                 zone.plate        = None
                 zone.plate_status = PlateStatus.PENDING
                 zone.entry_time   = now
+                zone.no_car_count = 0
                 zone.park_status  = (
                     ParkStatus.AISLE_BLOCK
                     if zone.name.startswith(AISLE_ZONE_PREFIX)
@@ -331,6 +349,7 @@ class ParkingStateMachine:
                 zone.plate_status = PlateStatus.PENDING
                 zone.park_status  = ParkStatus.MULTI_ZONE
                 zone.entry_time   = time.time()
+                zone.no_car_count = 0
                 zone.linked_zone  = (
                     zone_name_b if zn == zone_name_a else zone_name_a
                 )
@@ -353,11 +372,6 @@ class ParkingStateMachine:
 
     def _reset_zone(self, zone: ZoneState,
                     zone_crop: np.ndarray | None = None):
-        """
-        출차 확정 후 구역 초기화.
-        ✅ zone_crop이 있어도 현재 상태가 EMPTY일 때만 스냅샷 갱신
-        """
-        # 상태 먼저 EMPTY로 초기화
         zone.status                = ZoneStatus.EMPTY
         zone.plate                 = None
         zone.plate_status          = PlateStatus.PENDING
@@ -369,8 +383,8 @@ class ParkingStateMachine:
         zone.double_park_suspected = False
         zone.linked_zone           = None
         zone.entry_time            = 0.0
+        zone.no_car_count          = 0
 
-        # ✅ EMPTY로 바꾼 후에 스냅샷 갱신 (PARKED 상태에서 오염 방지)
         if zone_crop is not None:
             zone.empty_snap           = zone_crop.copy()
             zone.last_mean_brightness = float(
@@ -410,6 +424,7 @@ class ParkingStateMachine:
                 )
                 zone.linked_zone  = info.get("linked_zone")
                 zone.entry_time   = info.get("entry_time", 0.0)
+                zone.no_car_count = 0
                 if zone.status == ZoneStatus.TIMEOUT:
                     zone.status = ZoneStatus.OCCUPIED
                 print(f"[StateRestore] {name}: "
