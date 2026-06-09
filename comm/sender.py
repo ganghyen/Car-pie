@@ -1,5 +1,5 @@
 # ============================================================
-# [통신] FastAPI 서버로 이벤트 전송
+# [통신] FastAPI 서버로 이벤트 전송 2
 # 수정사항:
 #   1. image_path, ocr_error 필드 추가
 #   2. car_image와 image_path 호환 처리
@@ -89,7 +89,7 @@ class EventSender:
                 "linked_zone":  event.get("linked_zone"),
                 "entry_time":   dt_str,
                 "apartment_no": event.get("apartment_no") or APARTMENT_NO,
-                "image_path":   event.get("image_path") or event.get("car_image"),
+                "image_base64":   event.get("image_base64"),
                 "ocr_error":    event.get("ocr_error", False),
             }
 

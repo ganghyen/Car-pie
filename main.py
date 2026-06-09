@@ -1,11 +1,14 @@
 # ============================================================
-# [메인] 스마트 주차 관리 시스템 6
+# [메인] 스마트 주차 관리 시스템 7
 # 수정사항:
 #   1. send_queue → PriorityQueue (출차>입차>업데이트 순서 보장)
 #   2. 번호판 안 보여도 null 즉시 전송 안함 → OCR 시도 후 전송
-#   3. 입차 스냅샷 image_path 추가 전송
+#   3. 2칸주차/통로주차일 때만 스냅샷 찍어서 base64로 전송
 #   4. OCR null/unreadable 시 ocr_error 플래그 설정
-#   5. ✅ 멀티존 겹침 계산 → bbox_overlap_ratio (호모그래피 실제 변환) 으로 교체
+#   5. 멀티존 겹침 계산 → 끝점 기반으로 교체
+#   6. 출차 후 DB 확인/재전송은 FastAPI가 전담
+#   7. 멀티존 확정 시 두 구역 모두 OCR 처리
+#   8. 빈 스냅샷 PARKED 상태에서 업데이트 차단
 # ============================================================
 
 import cv2
@@ -13,11 +16,13 @@ import time
 import sys
 import os
 import json
+import base64
 import threading
 import queue
 import numpy as np
 import itertools
 from datetime import datetime, timedelta
+from config.settings import STILL_SECONDS_REQUIRED
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,7 +43,7 @@ from core.preprocessor import Preprocessor
 from core.detector import VehicleDetector
 from state.overlap import point_in_zone, bbox_overlap_ratio
 from state.zone_state import (
-    ParkingStateMachine, ZoneStatus, PlateStatus
+    ParkingStateMachine, ZoneStatus, PlateStatus, ParkStatus
 )
 from ocr.reader import PlateReader, PLATE_UNREADABLE
 from comm.sender import EventSender
@@ -56,8 +61,26 @@ PRIORITY_UPDATE = 3
 _counter = itertools.count()
 
 
+def _frame_to_base64(frame) -> str | None:
+    try:
+        _, buf = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 85])
+        return base64.b64encode(buf).decode("utf-8")
+    except Exception as e:
+        logger.error(f"[Snapshot] base64 변환 실패: {e}")
+        return None
+
+
+def _ensure_image_base64(event: dict, frame, zone_name: str, reason: str):
+    if event.get("image_base64") or frame is None:
+        return
+
+    image_b64 = _frame_to_base64(frame)
+    if image_b64:
+        event["image_base64"] = image_b64
+        logger.info(f"[Snapshot] {zone_name} {reason} → base64 스냅샷 생성")
+
+
 class OcrTask:
-    """OCR 작업 단위: 구역명, 스냅샷, bbox 정보, 원본 입차 이벤트 묶음."""
     def __init__(self, zone_name, snapshot, car_bbox,
                  plate_bbox, entry_event):
         self.zone_name   = zone_name
@@ -103,6 +126,12 @@ def ocr_worker(ocr_queue: queue.Queue,
 
             if ps in ("null", "unreadable"):
                 entry_event["ocr_error"] = True
+                _ensure_image_base64(
+                    entry_event,
+                    task.snapshot,
+                    zone_name,
+                    "OCR 실패"
+                )
                 logger.warning(
                     f"[OCR ERROR] {zone_name} 번호판 인식 불가 ({ps}) "
                     f"→ 알림 전송 예정"
@@ -111,6 +140,29 @@ def ocr_worker(ocr_queue: queue.Queue,
                 entry_event["ocr_error"] = False
 
             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), entry_event))
+
+            # ✅ 멀티존이고 OCR 성공했으면 linked 구역도 번호판 업데이트
+            if (zone and
+                    zone.park_status.value == "multi_zone" and
+                    zone.linked_zone and
+                    zone.plate):
+                try:
+                    send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
+                        "type":         "plate_update",
+                        "zone":         zone.linked_zone,
+                        "plate":        zone.plate,
+                        "plate_status": "confirmed",
+                        "entry_time":   zone.entry_time,
+                        "park_status":  "multi_zone",
+                        "linked_zone":  zone_name,
+                        "timestamp":    time.time(),
+                    }))
+                    logger.info(
+                        f"[MULTI OCR] {zone_name} → linked {zone.linked_zone} "
+                        f"번호판 {zone.plate} 업데이트"
+                    )
+                except queue.Full:
+                    pass
 
             if zone and zone.plate_status == PlateStatus.UNREADABLE:
                 logger.warning(f"[UNREADABLE] {zone_name} 번호판 인식 불가")
@@ -248,7 +300,6 @@ def main():
 
         now = time.time()
 
-        # 매핑 파일 변경 감지
         if not mapping_mode and now - last_check >= CHECK_INTERVAL:
             last_check = now
             new_mtime  = _get_mtime(ROI_COORDS_PATH)
@@ -262,7 +313,6 @@ def main():
                 empty_snap_initialized = False
                 logger.info(f"Mapping reloaded | zones: {new_keys}")
 
-        # 카메라 흔들림 감지 + 자동 보정
         if (not mapping_mode and homography.is_ready()
                 and now - last_shake_check >= CAMERA_SHAKE_CHECK_INTERVAL):
             last_shake_check = now
@@ -274,14 +324,12 @@ def main():
                 shake_status_msg  = "WARNING: Camera moved! Press M to re-map"
                 shake_status_time = now
 
-        # 오래된 스냅샷 파일 정리
         if now - last_snap_cleanup >= SNAPSHOT_CLEANUP_INTERVAL:
             last_snap_cleanup = now
             deleted = _cleanup_snapshots()
             if deleted > 0:
                 logger.info(f"[Snapshot] {deleted} old files deleted")
 
-        # 주기적 상태 백업
         if now - last_state_backup >= STATE_BACKUP_INTERVAL:
             last_state_backup = now
             _backup_state(state_machine)
@@ -335,7 +383,7 @@ def main():
             continue
 
         # ══════════════════════════════════════════════════
-        # 일반 모드: YOLO 탐지 + 상태 머신 업데이트
+        # 일반 모드
         # ══════════════════════════════════════════════════
 
         enhanced         = preprocessor.apply(frame)
@@ -350,7 +398,6 @@ def main():
                 (VIRTUAL_MAP_WIDTH, VIRTUAL_MAP_HEIGHT)
             )
 
-        # 빈 구역 스냅샷 초기화 (최초 1회)
         if not empty_snap_initialized and warped_frame is not None:
             all_done = True
             for zone_name, zone_pts in homography.zones.items():
@@ -365,7 +412,6 @@ def main():
                 empty_snap_initialized = True
                 logger.info("[PixelCheck] 빈 구역 스냅샷 초기화 완료")
 
-        # 차량 좌표를 가상 평면으로 변환
         virtual_cars = []
         if homography.is_ready():
             for car in cars:
@@ -374,14 +420,55 @@ def main():
                 )
                 virtual_cars.append({**car, "vx": vx, "vy": vy})
 
-        # ✅ 수정: homography.matrix, map_w, map_h 전달
-        _check_multi_zone(
+        # ✅ 멀티존 확정된 pair 반환받아서 OCR 처리
+        confirmed_multi = _check_multi_zone(
             virtual_cars, homography.zones,
             state_machine, send_queue, logger,
             homography_matrix=homography.matrix,
             map_w=VIRTUAL_MAP_WIDTH,
             map_h=VIRTUAL_MAP_HEIGHT,
         )
+
+        # ✅ 멀티존 확정된 구역 OCR 처리
+        for pair in confirmed_multi:
+            za  = pair["za"]
+            zb  = pair["zb"]
+            car = pair["car"]
+
+            for zn in [za, zb]:
+                if ocr_submitted.get(zn, False):
+                    continue
+                z = state_machine.zones.get(zn)
+                if z is None:
+                    continue
+
+                multi_entry_event = {
+                    "type":         "entry",
+                    "zone":         zn,
+                    "plate":        None,
+                    "plate_status": PlateStatus.PENDING.value,
+                    "entry_time":   z.entry_time,
+                    "park_status":  "multi_zone",
+                    "linked_zone":  zb if zn == za else za,
+                    "timestamp":    time.time(),
+                    "image_base64": _frame_to_base64(frame),
+                }
+
+                plate_bbox = detector.find_plate_for_car(car, plates)
+                task = OcrTask(
+                    zone_name   = zn,
+                    snapshot    = frame.copy(),
+                    car_bbox    = car,
+                    plate_bbox  = plate_bbox,
+                    entry_event = multi_entry_event,
+                )
+                try:
+                    ocr_queue.put_nowait(task)
+                    ocr_submitted[zn] = True
+                    pending_entry[zn] = multi_entry_event
+                    logger.info(f"[MULTI OCR] {zn} OCR Queue 제출")
+                except queue.Full:
+                    logger.warning(f"[MULTI OCR] {zn} Queue 가득참")
 
         # 구역별 상태 업데이트
         for zone_name, zone_pts in homography.zones.items():
@@ -414,17 +501,23 @@ def main():
             if event:
                 logger.info(f"[EVENT] {event}")
 
-                # ── 입차 이벤트 처리 ──────────────────────────
                 if event["type"] == "entry":
-                    snap_path = _save_snapshot(
-                        frame, zone_name, event["timestamp"]
-                    )
+                    park_status = event.get("park_status", "normal")
+
+                    image_b64 = None
+                    if park_status in ("multi_zone", "aisle_block"):
+                        image_b64 = _frame_to_base64(frame)
+                        if image_b64:
+                            logger.info(
+                                f"[Snapshot] {zone_name} {park_status} "
+                                f"→ base64 스냅샷 생성"
+                            )
 
                     quick_event = {
                         "type":        "entry_quick",
                         "zone":        zone_name,
                         "plate":       None,
-                        "park_status": event.get("park_status", "normal"),
+                        "park_status": park_status,
                         "linked_zone": event.get("linked_zone"),
                         "entry_time":  event.get("entry_time"),
                         "timestamp":   event["timestamp"],
@@ -435,8 +528,7 @@ def main():
                     except queue.Full:
                         logger.warning(f"[ENTRY QUICK] {zone_name} send_queue 가득참")
 
-                    event["car_image"]  = snap_path
-                    event["image_path"] = snap_path
+                    event["image_base64"] = image_b64
 
                     zone_obj = state_machine.zones.get(zone_name)
                     if zone_obj and zone_obj.plate_status in (
@@ -463,6 +555,12 @@ def main():
                             event["plate"]        = None
                             event["plate_status"] = PlateStatus.NULL.value
                             event["ocr_error"]    = True
+                            _ensure_image_base64(
+                                event,
+                                frame,
+                                zone_name,
+                                "차량 없음 OCR 실패"
+                            )
                             logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
                             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
                         else:
@@ -481,9 +579,14 @@ def main():
                                 event["plate"]        = None
                                 event["plate_status"] = PlateStatus.NULL.value
                                 event["ocr_error"]    = True
+                                _ensure_image_base64(
+                                    event,
+                                    frame,
+                                    zone_name,
+                                    "OCR Queue 실패"
+                                )
                                 send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
 
-                # ── 출차 이벤트 처리 ──────────────────────────
                 elif event["type"] == "exit":
                     exit_snap_path = _save_snapshot(
                         frame, f"{zone_name}_exit", event["timestamp"]
@@ -499,6 +602,12 @@ def main():
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
                         pending["ocr_error"]    = True
+                        _ensure_image_base64(
+                            pending,
+                            frame,
+                            zone_name,
+                            "OCR 완료 전 출차"
+                        )
                         send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), pending))
 
                     ocr_submitted.pop(zone_name, None)
@@ -510,7 +619,24 @@ def main():
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
-            # 번호판 재인식
+                    # ✅ 멀티존이면 linked 구역도 exit 전송
+                    if event.get("linked_zone"):
+                        linked_zn = event["linked_zone"]
+                        ocr_submitted.pop(linked_zn, None)
+                        pending_entry.pop(linked_zn, None)
+                        try:
+                            send_queue.put_nowait((PRIORITY_EXIT, next(_counter), {
+                                "type":      "exit",
+                                "zone":      linked_zn,
+                                "exit_time": datetime.fromtimestamp(
+                                    event["timestamp"]
+                                ).strftime("%Y-%m-%d %H:%M:%S"),
+                                "timestamp": event["timestamp"],
+                            }))
+                            logger.info(f"[EXIT] linked {linked_zn} 동시 출차 처리")
+                        except queue.Full:
+                            pass
+
             if state_machine.needs_recheck(zone_name) and cars_in_zone:
                 cur = state_machine.zones[zone_name]
                 if not ocr_submitted.get(zone_name, False):
@@ -682,91 +808,144 @@ def _restore_state(state_machine):
         print(f"[Restore] Failed: {e}")
 
 
-# ✅ 수정: homography_matrix, map_w, map_h 파라미터 추가
-#          _calc_bbox_zone_overlap 대신 bbox_overlap_ratio 사용
-#          → 호모그래피로 실제 변환된 bbox 기준 겹침 계산 (원근 왜곡 보정)
+# 2칸 주차 후보 정지 시간 추적 (전역)
+_multi_zone_candidates: dict[str, dict] = {}
+_multi_zone_logged: set = set()
+
+
 def _check_multi_zone(virtual_cars, zones, state_machine,
                       send_queue, logger,
                       homography_matrix=None,
                       map_w=VIRTUAL_MAP_WIDTH,
                       map_h=VIRTUAL_MAP_HEIGHT):
-    zone_best_car = {}
+    import cv2 as _cv2
+    import numpy as _np
+
+    def get_foot_ends(car, H):
+        if H is None:
+            return (car["x1"], car["y2"]), (car["x2"], car["y2"])
+        pts = _np.array([[
+            [float(car["x1"]), float(car["y2"])],
+            [float(car["x2"]), float(car["y2"])],
+        ]], dtype=_np.float32)
+        t = _cv2.perspectiveTransform(pts, H)
+        return (float(t[0][0][0]), float(t[0][0][1])), \
+               (float(t[0][1][0]), float(t[0][1][1]))
+
+    global _multi_zone_candidates, _multi_zone_logged
+
+    confirmed_pairs = []  # ✅ 확정된 pair 반환용
+
+    # 1단계: 가운데 점(발바닥)으로 해당 구역 차량 매핑
+    zone_main_car = {}
     for zone_name, zone_pts in zones.items():
-        best_car   = None
-        best_ratio = 0.0
         for car in virtual_cars:
-            if not point_in_zone((car["vx"], car["vy"]), zone_pts):
-                continue
-            # ✅ 호모그래피 실제 변환 기반 겹침 계산
-            ratio = bbox_overlap_ratio(
-                bbox=car,
-                zone_polygon=zone_pts,
-                map_w=map_w,
-                map_h=map_h,
-                homography_matrix=homography_matrix,
-            )
-            if ratio > best_ratio:
-                best_ratio = ratio
-                best_car   = car
-        if best_car is not None and best_ratio >= MULTI_ZONE_OVERLAP_RATIO:
-            zone_best_car[zone_name] = (best_car, best_ratio)
+            if point_in_zone((car["vx"], car["vy"]), zone_pts):
+                zone_main_car[zone_name] = car
+                break
 
-    car_zones = {}
-    for zone_name, (car, ratio) in zone_best_car.items():
-        car_id = id(car)
-        if car_id not in car_zones:
-            car_zones[car_id] = {"car": car, "zones": []}
-        car_zones[car_id]["zones"].append((zone_name, ratio))
+    # 2단계: 끝점이 다른 구역에 들어가면 2칸 후보
+    now = time.time()
+    detected_pairs = set()
 
-    for car_id, info in car_zones.items():
-        car           = info["car"]
-        car_zone_list = info["zones"]
-
-        if len(car_zone_list) < 2:
+    for zone_name, zone_pts in zones.items():
+        if zone_name in zone_main_car:
             continue
+        for car in virtual_cars:
+            foot_left, foot_right = get_foot_ends(car, homography_matrix)
+            if (point_in_zone(foot_left,  zone_pts) or
+                    point_in_zone(foot_right, zone_pts)):
 
-        car_zone_list.sort(key=lambda x: x[1], reverse=True)
-        za = car_zone_list[0][0]
-        zb = car_zone_list[1][0]
+                main_zone = None
+                for mz, mc in zone_main_car.items():
+                    if mc is car:
+                        main_zone = mz
+                        break
+                if main_zone is None:
+                    continue
 
-        state_a = state_machine.zones.get(za)
-        state_b = state_machine.zones.get(zb)
+                pair_key = f"{main_zone}+{zone_name}"
 
-        if state_a is None or state_b is None:
-            continue
+                if pair_key not in _multi_zone_candidates:
+                    _multi_zone_candidates[pair_key] = {
+                        "since":      now,
+                        "main_zone":  main_zone,
+                        "extra_zone": zone_name,
+                        "car":        car,
+                    }
+                    if pair_key not in _multi_zone_logged:
+                        logger.info(
+                            f"[MULTI] {main_zone}+{zone_name} 끝점 감지 시작"
+                        )
+                        _multi_zone_logged.add(pair_key)
 
-        if (state_a.status == ZoneStatus.OCCUPIED and
-                state_b.status == ZoneStatus.OCCUPIED and
-                state_a.linked_zone == zb and
-                state_b.linked_zone == za):
-            continue
+                detected_pairs.add(pair_key)
 
-        if (state_a.status == ZoneStatus.OCCUPIED and
-                state_b.status == ZoneStatus.OCCUPIED):
-            continue
+                elapsed = now - _multi_zone_candidates[pair_key]["since"]
+                if elapsed >= STILL_SECONDS_REQUIRED:
+                    za = main_zone
+                    zb = zone_name
 
-        logger.info(f"[MULTI-ZONE] CONFIRMED: {za}({car_zone_list[0][1]:.2f}) "
-                    f"and {zb}({car_zone_list[1][1]:.2f})")
+                    state_a = state_machine.zones.get(za)
+                    state_b = state_machine.zones.get(zb)
 
-        state_machine.set_multi_zone(za, zb, None)
+                    if state_a is None or state_b is None:
+                        continue
 
-        for zn in [za, zb]:
-            z = state_machine.zones.get(zn)
-            if z is None:
-                continue
-            try:
-                send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), {
-                    "type":         "entry",
-                    "zone":         zn,
-                    "plate":        None,
-                    "plate_status": "null",
-                    "entry_time":   z.entry_time,
-                    "park_status":  "multi_zone",
-                    "linked_zone":  z.linked_zone,
-                    "timestamp":    time.time(),
-                }))
-            except queue.Full:
-                pass
+                    if (state_a.status == ZoneStatus.OCCUPIED and
+                            state_b.status == ZoneStatus.OCCUPIED and
+                            state_a.linked_zone == zb and
+                            state_b.linked_zone == za):
+                        continue
+
+                    if (state_a.status == ZoneStatus.OCCUPIED and
+                            state_b.status == ZoneStatus.OCCUPIED):
+                        continue
+
+                    logger.info(
+                        f"[MULTI-ZONE] CONFIRMED: {za}+{zb} "
+                        f"({elapsed:.1f}s 정지)"
+                    )
+
+                    state_machine.set_multi_zone(za, zb, None)
+
+                    za_zone        = state_machine.zones.get(za)
+                    entry_time_str = datetime.fromtimestamp(
+                        za_zone.entry_time
+                    ).strftime("%Y-%m-%d %H:%M:%S")
+
+                    # entry_quick 전송 (두 구역 모두)
+                    for zn in [za, zb]:
+                        other_zone = zb if zn == za else za
+                        try:
+                            send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), {
+                                "type":        "entry_quick",
+                                "zone":        zn,
+                                "plate":       None,
+                                "park_status": "multi_zone",
+                                "linked_zone": other_zone,
+                                "entry_time":  entry_time_str,
+                                "timestamp":   time.time(),
+                            }))
+                        except queue.Full:
+                            pass
+
+                    # ✅ OCR 처리는 메인 루프에서 담당
+                    confirmed_pairs.append({
+                        "za":  za,
+                        "zb":  zb,
+                        "car": _multi_zone_candidates[pair_key]["car"],
+                    })
+
+                    _multi_zone_candidates.pop(pair_key, None)
+                    _multi_zone_logged.discard(pair_key)
+
+    for key in list(_multi_zone_candidates.keys()):
+        if key not in detected_pairs:
+            _multi_zone_candidates.pop(key, None)
+            _multi_zone_logged.discard(key)
+
+    return confirmed_pairs  # ✅ 확정된 pair 반환
 
 
 def _get_zone_crop(warped_frame, zone_pts):
