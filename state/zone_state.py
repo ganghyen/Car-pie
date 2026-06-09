@@ -132,6 +132,21 @@ class ParkingStateMachine:
         elif zone.status == ZoneStatus.OCCUPIED:
             if car_present:
                 zone.timeout_start = 0.0
+                # ✅ YOLO는 차 없는데 픽셀만 차 있다고 하면
+                # empty_snap 오염 의심 → 주기적으로 리셋
+                if not yolo_found and pixel_has_car:
+                    if zone_crop is not None:
+                        if (now - zone.last_lighting_check
+                                > PIXEL_LIGHTING_UPDATE_INTERVAL * 2):
+                            zone.empty_snap           = zone_crop.copy()
+                            zone.last_mean_brightness = float(
+                                cv2.cvtColor(
+                                    zone_crop, cv2.COLOR_BGR2GRAY
+                                ).mean()
+                            )
+                            zone.last_lighting_check  = now
+                            print(f"[PixelCheck] {zone_name} "
+                                  f"오염 의심 → empty_snap 강제 리셋")
                 return None
             else:
                 zone.status        = ZoneStatus.TIMEOUT

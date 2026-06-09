@@ -1,21 +1,13 @@
 {
-  "saved_at": "2026-06-09 18:42:06",
+  "saved_at": "2026-06-09 19:34:11",
   "zones": {
-    "a-b1-003": {
+    "a-b1-007": {
       "status": "occupied",
       "plate": null,
       "plate_status": "pending",
-      "park_status": "multi_zone",
-      "linked_zone": "a-b1-004",
-      "entry_time": 1780997961.0756238
-    },
-    "a-b1-004": {
-      "status": "occupied",
-      "plate": null,
-      "plate_status": "pending",
-      "park_status": "multi_zone",
-      "linked_zone": "a-b1-003",
-      "entry_time": 1780997961.0756257
+      "park_status": "normal",
+      "linked_zone": null,
+      "entry_time": 1781000502.377611
     }
   }
 }

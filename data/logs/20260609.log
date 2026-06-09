@@ -1325,3 +1325,274 @@
 [18:46:59][INFO] [EXIT] a-b1-003 plate=None
 [18:46:59][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-004', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780997961.0756257, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-003', 'timestamp': 1780998419.8606138}
 [18:46:59][INFO] [EXIT] a-b1-004 plate=None
+[18:47:52][INFO] [Sender] 미전송 10건 재전송 완료
+[18:47:56][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[18:48:06][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[18:48:06][WARNING] [Sender] 큐 저장 (4건)
+[18:49:22][INFO] Quit
+[18:49:22][INFO] [Workers] 종료 대기 중...
+[18:49:23][INFO] [OCR Worker] 종료
+[18:49:23][INFO] [OCR Worker] 종료
+[18:49:23][INFO] [Send Worker] 종료
+[18:49:23][INFO] System stopped
+[18:49:32][INFO] ==================================================
+[18:49:32][INFO] Smart Parking System Start
+[18:49:32][INFO] ==================================================
+[18:49:38][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[18:49:38][INFO] [Sender] 미전송 4건 복구
+[18:49:38][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[18:49:43][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:49:43][INFO] [OCR Worker] 시작
+[18:49:43][INFO] [OCR Worker] 시작
+[18:49:43][INFO] [Send Worker] 시작
+[18:49:43][INFO] [Workers] OCR x2, Send x1 시작
+[18:49:44][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:49:46][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:53:33][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780998813.0264485, 'park_status': 'normal', 'timestamp': 1780998813.0264485}
+[18:53:33][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[18:53:33][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[18:53:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[18:54:18][INFO] [OCR Worker] a-b1-003 완료: None (null)
+[18:54:18][WARNING] [OCR ERROR] a-b1-003 번호판 인식 불가 (null) → 알림 전송 예정
+[18:54:29][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[18:57:10][INFO] Quit
+[18:57:10][INFO] [Workers] 종료 대기 중...
+[18:57:10][INFO] [Send Worker] 종료
+[18:57:10][INFO] [OCR Worker] 종료
+[18:57:11][INFO] [OCR Worker] 종료
+[18:57:11][INFO] System stopped
+[19:01:24][INFO] ==================================================
+[19:01:24][INFO] Smart Parking System Start
+[19:01:24][INFO] ==================================================
+[19:01:30][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:01:30][INFO] [Sender] 미전송 4건 복구
+[19:01:30][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:01:35][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:01:35][INFO] [OCR Worker] 시작
+[19:01:35][INFO] [OCR Worker] 시작
+[19:01:35][INFO] [Send Worker] 시작
+[19:01:35][INFO] [Workers] OCR x2, Send x1 시작
+[19:01:36][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:01:38][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:01:44][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'null', 'entry_time': 1780998813.0264485, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1780999304.069641}
+[19:01:44][INFO] [EXIT] a-b1-003 plate=None
+[19:01:57][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[19:02:09][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780999329.540511, 'park_status': 'normal', 'timestamp': 1780999329.540511}
+[19:02:09][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[19:02:09][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[19:02:09][INFO] [OCR Worker] a-b1-003 완료: None (null)
+[19:02:09][WARNING] [OCR ERROR] a-b1-003 번호판 인식 불가 (null) → 알림 전송 예정
+[19:02:20][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:02:32][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:04:07][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'null', 'entry_time': 1780999329.540511, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1780999447.0625558}
+[19:04:07][WARNING] [EXIT] a-b1-003 OCR 완료 전 출차 → entry null 전송
+[19:04:07][INFO] [EXIT] a-b1-003 plate=None
+[19:04:17][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:04:17][WARNING] [Sender] 큐 저장 (5건)
+[19:04:33][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:10:44][INFO] Quit
+[19:10:44][INFO] [Workers] 종료 대기 중...
+[19:10:44][INFO] [OCR Worker] 종료
+[19:10:44][INFO] [Send Worker] 종료
+[19:10:45][INFO] [OCR Worker] 종료
+[19:10:45][INFO] System stopped
+[19:11:11][INFO] ==================================================
+[19:11:11][INFO] Smart Parking System Start
+[19:11:11][INFO] ==================================================
+[19:11:18][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:11:18][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:11:23][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:11:23][INFO] [OCR Worker] 시작
+[19:11:23][INFO] [OCR Worker] 시작
+[19:11:23][INFO] [Send Worker] 시작
+[19:11:23][INFO] [Workers] OCR x2, Send x1 시작
+[19:11:24][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:11:25][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:12:21][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-008', 'plate': None, 'plate_status': 'pending', 'entry_time': 1780999941.6572683, 'park_status': 'normal', 'timestamp': 1780999941.6572683}
+[19:12:21][INFO] [ENTRY QUICK] a-b1-008 PARKED 상태 먼저 전송
+[19:12:21][INFO] [ENTRY] a-b1-008 OCR Queue 제출 (대기: 1)
+[19:12:25][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-008
+[19:14:11][INFO] [OCR Worker] a-b1-008 완료: None (null)
+[19:14:11][WARNING] [OCR ERROR] a-b1-008 번호판 인식 불가 (null) → 알림 전송 예정
+[19:14:14][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-008
+[19:15:47][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781000147.5863585, 'park_status': 'normal', 'timestamp': 1781000147.5863585}
+[19:15:47][INFO] [ENTRY QUICK] a-b1-009 PARKED 상태 먼저 전송
+[19:15:47][INFO] [ENTRY] a-b1-009 OCR Queue 제출 (대기: 1)
+[19:15:47][INFO] [OCR Worker] a-b1-009 완료: None (null)
+[19:15:47][WARNING] [OCR ERROR] a-b1-009 번호판 인식 불가 (null) → 알림 전송 예정
+[19:15:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-009
+[19:15:56][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[19:15:59][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'null', 'entry_time': 1781000147.5863585, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781000159.4286046}
+[19:15:59][WARNING] [EXIT] a-b1-009 OCR 완료 전 출차 → entry null 전송
+[19:15:59][INFO] [EXIT] a-b1-009 plate=None
+[19:16:03][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-009
+[19:16:09][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[19:16:12][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781000172.5804965, 'park_status': 'normal', 'timestamp': 1781000172.5804965}
+[19:16:12][INFO] [ENTRY QUICK] a-b1-009 PARKED 상태 먼저 전송
+[19:16:12][INFO] [ENTRY] a-b1-009 OCR Queue 제출 (대기: 1)
+[19:16:12][INFO] [OCR Worker] a-b1-009 완료: None (null)
+[19:16:12][WARNING] [OCR ERROR] a-b1-009 번호판 인식 불가 (null) → 알림 전송 예정
+[19:16:14][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-009
+[19:16:17][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[19:17:26][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-008', 'plate': None, 'plate_status': 'null', 'entry_time': 1780999941.6572683, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781000246.8906493}
+[19:17:26][WARNING] [EXIT] a-b1-008 OCR 완료 전 출차 → entry null 전송
+[19:17:26][INFO] [EXIT] a-b1-008 plate=None
+[19:17:30][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-008
+[19:17:35][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-008
+[19:19:33][INFO] Quit
+[19:19:33][INFO] [Workers] 종료 대기 중...
+[19:19:33][INFO] [OCR Worker] 종료
+[19:19:33][INFO] [Send Worker] 종료
+[19:19:33][INFO] [OCR Worker] 종료
+[19:19:33][INFO] System stopped
+[19:19:42][INFO] ==================================================
+[19:19:42][INFO] Smart Parking System Start
+[19:19:42][INFO] ==================================================
+[19:19:48][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:19:48][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:19:53][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:19:53][INFO] [OCR Worker] 시작
+[19:19:53][INFO] [OCR Worker] 시작
+[19:19:53][INFO] [Send Worker] 시작
+[19:19:53][INFO] [Workers] OCR x2, Send x1 시작
+[19:19:55][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:19:56][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:20:01][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'null', 'entry_time': 1781000172.5804965, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781000401.9371185}
+[19:20:01][INFO] [EXIT] a-b1-009 plate=None
+[19:20:03][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:20:03][WARNING] [Sender] 큐 저장 (1건)
+[19:21:16][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:16][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781000476.0826697, 'park_status': 'normal', 'timestamp': 1781000476.0826697}
+[19:21:16][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[19:21:16][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[19:21:21][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (5.5s 정지)
+[19:21:21][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:21:22][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:22][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:26][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:30][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:35][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:42][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.5s 정지)
+[19:21:42][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-007', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781000502.377611, 'park_status': 'normal', 'timestamp': 1781000502.377611}
+[19:21:42][INFO] [ENTRY QUICK] a-b1-007 PARKED 상태 먼저 전송
+[19:21:42][INFO] [ENTRY] a-b1-007 OCR Queue 제출 (대기: 1)
+[19:21:43][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:50][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.7s 정지)
+[19:21:51][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:55][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-007
+[19:21:57][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (6.6s 정지)
+[19:21:58][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:59][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:02][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:06][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:06][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.6s 정지)
+[19:22:08][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:09][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:15][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (7.8s 정지)
+[19:22:16][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:17][INFO] [OCR Worker] a-b1-003 완료: 3195209I (confirmed)
+[19:22:17][INFO] [MULTI OCR] a-b1-003 → linked a-b1-004 번호판 3195209I 업데이트
+[19:22:17][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:21][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:24][INFO] [OCR Worker] a-b1-004 완료: 37니5209 (pending)
+[19:22:25][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:34][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:22:41][WARNING] [Sender] 서버 응답 오류: 409 → 재전송 큐 저장
+[19:22:41][WARNING] [Sender] 큐 저장 (2건)
+[19:22:42][INFO] Quit
+[19:22:42][INFO] [Workers] 종료 대기 중...
+[19:22:42][INFO] [OCR Worker] 종료
+[19:22:52][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:22:52][WARNING] [Sender] 큐 저장 (3건)
+[19:22:52][INFO] [Send Worker] 종료
+[19:22:52][INFO] System stopped
+[19:23:00][INFO] ==================================================
+[19:23:00][INFO] Smart Parking System Start
+[19:23:00][INFO] ==================================================
+[19:23:06][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:23:06][INFO] [Sender] 미전송 3건 복구
+[19:23:06][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:23:11][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:23:11][INFO] [OCR Worker] 시작
+[19:23:11][INFO] [OCR Worker] 시작
+[19:23:11][INFO] [Send Worker] 시작
+[19:23:11][INFO] [Workers] OCR x2, Send x1 시작
+[19:23:13][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:23:14][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:23:19][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': '3195209I', 'plate_status': 'confirmed', 'entry_time': 1781000535.8036494, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-004', 'timestamp': 1781000599.549931}
+[19:23:19][INFO] [EXIT] a-b1-003 plate=3195209I
+[19:23:19][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-004', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781000535.8036585, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-003', 'timestamp': 1781000599.5588791}
+[19:23:19][INFO] [EXIT] a-b1-004 plate=None
+[19:23:36][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[19:23:53][INFO] [Sender] 미전송 2건 재전송 완료
+[19:23:57][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-004
+[19:24:58][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:25:04][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (5.6s 정지)
+[19:25:04][INFO] [MULTI OCR] a-b1-003 OCR Queue 제출
+[19:25:04][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:25:11][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:25:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:25:21][INFO] [OCR Worker] a-b1-004 완료: None (null)
+[19:25:21][WARNING] [OCR ERROR] a-b1-004 번호판 인식 불가 (null) → 알림 전송 예정
+[19:25:21][INFO] [OCR Worker] a-b1-003 완료: None (null)
+[19:25:21][WARNING] [OCR ERROR] a-b1-003 번호판 인식 불가 (null) → 알림 전송 예정
+[19:25:26][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-004
+[19:25:30][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:26:45][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:26:58][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:28:56][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:34][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:30:36][INFO] Quit
+[19:30:36][INFO] [Workers] 종료 대기 중...
+[19:30:36][INFO] [Send Worker] 종료
+[19:30:37][INFO] [OCR Worker] 종료
+[19:30:37][INFO] [OCR Worker] 종료
+[19:30:38][INFO] System stopped
+[19:32:03][INFO] ==================================================
+[19:32:03][INFO] Smart Parking System Start
+[19:32:03][INFO] ==================================================
+[19:32:10][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:32:10][INFO] [Sender] 미전송 1건 복구
+[19:32:10][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:32:15][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:32:15][INFO] [OCR Worker] 시작
+[19:32:15][INFO] [OCR Worker] 시작
+[19:32:15][INFO] [Send Worker] 시작
+[19:32:15][INFO] [Workers] OCR x2, Send x1 시작
+[19:32:16][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:32:17][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:32:23][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'null', 'entry_time': 1781000704.5802224, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-004', 'timestamp': 1781001143.355339}
+[19:32:23][INFO] [EXIT] a-b1-003 plate=None
+[19:32:23][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-004', 'plate': None, 'plate_status': 'null', 'entry_time': 1781000704.5802295, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-003', 'timestamp': 1781001143.364639}
+[19:32:23][INFO] [EXIT] a-b1-004 plate=None
+[19:32:30][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[19:32:33][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:32:33][WARNING] [Sender] 큐 저장 (2건)
+[19:32:47][INFO] Quit
+[19:32:47][INFO] [Workers] 종료 대기 중...
+[19:32:48][INFO] [OCR Worker] 종료
+[19:32:48][INFO] [OCR Worker] 종료
+[19:32:48][INFO] [Send Worker] 종료
+[19:32:49][INFO] System stopped
+[19:33:39][INFO] ==================================================
+[19:33:39][INFO] Smart Parking System Start
+[19:33:39][INFO] ==================================================
+[19:33:45][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[19:33:45][INFO] [Sender] 미전송 2건 복구
+[19:33:45][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[19:33:50][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:33:50][INFO] [OCR Worker] 시작
+[19:33:50][INFO] [OCR Worker] 시작
+[19:33:50][INFO] [Send Worker] 시작
+[19:33:50][INFO] [Workers] OCR x2, Send x1 시작
+[19:33:51][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:33:52][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:34:10][INFO] Quit
+[19:34:10][INFO] [Workers] 종료 대기 중...
+[19:34:11][INFO] [OCR Worker] 종료
+[19:34:11][INFO] [OCR Worker] 종료
+[19:34:11][INFO] [Send Worker] 종료
+[19:34:11][INFO] System stopped
