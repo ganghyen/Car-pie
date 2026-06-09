@@ -832,6 +832,12 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         return (float(t[0][0][0]), float(t[0][0][1])), \
                (float(t[0][1][0]), float(t[0][1][1]))
 
+    def deep_in_zone(pt, zone_pts, min_depth=8):
+        """점이 구역 폴리곤 경계에서 min_depth 픽셀 이상 안쪽에 있으면 True"""
+        poly = _np.array(zone_pts, dtype=_np.float32)
+        dist = _cv2.pointPolygonTest(poly, (float(pt[0]), float(pt[1])), measureDist=True)
+        return dist >= min_depth
+
     global _multi_zone_candidates, _multi_zone_logged
 
     confirmed_pairs = []  # ✅ 확정된 pair 반환용
@@ -853,8 +859,10 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             continue
         for car in virtual_cars:
             foot_left, foot_right = get_foot_ends(car, homography_matrix)
-            if (point_in_zone(foot_left,  zone_pts) or
-                    point_in_zone(foot_right, zone_pts)):
+
+
+            if (deep_in_zone(foot_left,  zone_pts, min_depth=8) or
+                    deep_in_zone(foot_right, zone_pts, min_depth=8)):
 
                 main_zone = None
                 for mz, mc in zone_main_car.items():
