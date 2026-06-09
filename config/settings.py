@@ -43,9 +43,9 @@ CLASS_PLATE       = "plate"
 # 차량 정지 판정 픽셀 임계값 (발바닥 좌표 이동량이 이 값 미만이면 정지로 판단)
 STILL_PIXEL_THRESHOLD  = 8
 # 차량이 정지 상태를 유지해야 입차로 확정하는 시간 (초)
-STILL_SECONDS_REQUIRED = 3.0
+STILL_SECONDS_REQUIRED = 5.0
 # 차가 안 보인 후 출차로 확정하기까지 대기 시간 (초)
-EXIT_TIMEOUT_SECONDS   = 8
+EXIT_TIMEOUT_SECONDS   = 5
 # 번호판 재인식 주기 (초)
 RECHECK_INTERVAL_SEC   = 90
 
@@ -104,7 +104,7 @@ SERVER_URL      = "http://172.20.10.5:8000/api/event"
 # 여러 아파트를 운영하면 장비별로 이 값을 바꿔서 사용
 APARTMENT_NO    = 1
 # HTTP 요청 타임아웃 (초)
-REQUEST_TIMEOUT = 3
+REQUEST_TIMEOUT = 15
 # 전송 실패 시 로컬에 임시 저장하는 큐 파일 경로
 QUEUE_FILE_PATH = os.path.join(BASE_DIR, "data", "pending_queue.json")
 

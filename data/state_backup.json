@@ -1,29 +1,21 @@
 {
-  "saved_at": "2026-06-08 21:06:57",
+  "saved_at": "2026-06-09 18:42:06",
   "zones": {
-    "a-b1-001": {
-      "status": "occupied",
-      "plate": "78931234",
-      "plate_status": "confirmed",
-      "park_status": "normal",
-      "linked_zone": null,
-      "entry_time": 1780919912.6173801
-    },
-    "a-b1-002": {
-      "status": "occupied",
-      "plate": "123가4567",
-      "plate_status": "confirmed",
-      "park_status": "normal",
-      "linked_zone": null,
-      "entry_time": 1780920079.5977664
-    },
-    "a-b1-009": {
+    "a-b1-003": {
       "status": "occupied",
       "plate": null,
-      "plate_status": "null",
-      "park_status": "normal",
-      "linked_zone": null,
-      "entry_time": 1780920178.656542
+      "plate_status": "pending",
+      "park_status": "multi_zone",
+      "linked_zone": "a-b1-004",
+      "entry_time": 1780997961.0756238
+    },
+    "a-b1-004": {
+      "status": "occupied",
+      "plate": null,
+      "plate_status": "pending",
+      "park_status": "multi_zone",
+      "linked_zone": "a-b1-003",
+      "entry_time": 1780997961.0756257
     }
   }
 }
