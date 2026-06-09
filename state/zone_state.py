@@ -191,6 +191,15 @@ class ParkingStateMachine:
                 self._reset_zone(zone, zone_crop)
                 print(f"[EVENT] exit | zone={zone_name} "
                       f"plate={old_plate} elapsed={elapsed:.1f}s")
+                # ✅ linked_zone도 강제 EXIT 처리
+                if old_linked:
+                    linked_zone = self.zones.get(old_linked)
+                    if linked_zone and linked_zone.status in (
+                        ZoneStatus.OCCUPIED, ZoneStatus.TIMEOUT
+                    ):
+                        self._reset_zone(linked_zone, zone_crop)
+                        print(f"[EVENT] linked exit | zone={old_linked}")
+
                 return {
                     "type":         "exit",
                     "zone":         zone_name,
@@ -201,6 +210,7 @@ class ParkingStateMachine:
                     "linked_zone":  old_linked,
                     "timestamp":    now,
                 }
+
             else:
                 print(f"[STATE] {zone_name} TIMEOUT 대기 "
                       f"{elapsed:.1f}/{EXIT_TIMEOUT_SECONDS}s")

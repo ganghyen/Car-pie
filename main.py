@@ -69,6 +69,16 @@ def _frame_to_base64(frame) -> str | None:
         return None
 
 
+def _ensure_image_base64(event: dict, frame, zone_name: str, reason: str):
+    if event.get("image_base64") or frame is None:
+        return
+
+    image_b64 = _frame_to_base64(frame)
+    if image_b64:
+        event["image_base64"] = image_b64
+        logger.info(f"[Snapshot] {zone_name} {reason} → base64 스냅샷 생성")
+
+
 class OcrTask:
     def __init__(self, zone_name, snapshot, car_bbox,
                  plate_bbox, entry_event):
@@ -115,6 +125,12 @@ def ocr_worker(ocr_queue: queue.Queue,
 
             if ps in ("null", "unreadable"):
                 entry_event["ocr_error"] = True
+                _ensure_image_base64(
+                    entry_event,
+                    task.snapshot,
+                    zone_name,
+                    "OCR 실패"
+                )
                 logger.warning(
                     f"[OCR ERROR] {zone_name} 번호판 인식 불가 ({ps}) "
                     f"→ 알림 전송 예정"
@@ -538,6 +554,12 @@ def main():
                             event["plate"]        = None
                             event["plate_status"] = PlateStatus.NULL.value
                             event["ocr_error"]    = True
+                            _ensure_image_base64(
+                                event,
+                                frame,
+                                zone_name,
+                                "차량 없음 OCR 실패"
+                            )
                             logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
                             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
                         else:
@@ -556,6 +578,12 @@ def main():
                                 event["plate"]        = None
                                 event["plate_status"] = PlateStatus.NULL.value
                                 event["ocr_error"]    = True
+                                _ensure_image_base64(
+                                    event,
+                                    frame,
+                                    zone_name,
+                                    "OCR Queue 실패"
+                                )
                                 send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
 
                 elif event["type"] == "exit":
@@ -573,6 +601,12 @@ def main():
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
                         pending["ocr_error"]    = True
+                        _ensure_image_base64(
+                            pending,
+                            frame,
+                            zone_name,
+                            "OCR 완료 전 출차"
+                        )
                         send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), pending))
 
                     ocr_submitted.pop(zone_name, None)
@@ -583,6 +617,24 @@ def main():
                         logger.warning(f"[EXIT] send_queue 가득참")
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
+
+                    # ✅ 멀티존이면 linked 구역도 exit 전송
+                    if event.get("linked_zone"):
+                        linked_zn = event["linked_zone"]
+                        ocr_submitted.pop(linked_zn, None)
+                        pending_entry.pop(linked_zn, None)
+                        try:
+                            send_queue.put_nowait((PRIORITY_EXIT, next(_counter), {
+                                "type":      "exit",
+                                "zone":      linked_zn,
+                                "exit_time": datetime.fromtimestamp(
+                                    event["timestamp"]
+                                ).strftime("%Y-%m-%d %H:%M:%S"),
+                                "timestamp": event["timestamp"],
+                            }))
+                            logger.info(f"[EXIT] linked {linked_zn} 동시 출차 처리")
+                        except queue.Full:
+                            pass
 
             if state_machine.needs_recheck(zone_name) and cars_in_zone:
                 cur = state_machine.zones[zone_name]
