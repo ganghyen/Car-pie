@@ -21,6 +21,7 @@ from datetime import datetime, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+
 from config.settings import (
     CAMERA_INDEX, FRAME_WIDTH, FRAME_HEIGHT, TARGET_FPS,
     ROI_COORDS_PATH, SNAPSHOT_DIR,
