@@ -875,12 +875,19 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                 pair_key = f"{main_zone}+{zone_name}"
 
                 if pair_key not in _multi_zone_candidates:
-                    _multi_zone_candidates[pair_key] = {
-                        "since":      now,
-                        "main_zone":  main_zone,
-                        "extra_zone": zone_name,
-                        "car":        car,
+                     _multi_zone_candidates[pair_key] = {
+                        "since":        now,
+                        "main_zone":    main_zone,
+                        "extra_zone":   zone_name,
+                        "car":          car,
+                        "hit_frames":   0,   # ✅ 감지된 프레임 수
+                        "last_seen":    now, # ✅ 마지막 감지 시각
                     }
+                else:
+                    # ✅ 기존 후보면 hit_frames 증가
+                    _multi_zone_candidates[pair_key]["hit_frames"] += 1
+                    _multi_zone_candidates[pair_key]["last_seen"]   = now
+                    _multi_zone_candidates[pair_key]["car"]         = car
                     if pair_key not in _multi_zone_logged:
                         logger.info(
                             f"[MULTI] {main_zone}+{zone_name} 끝점 감지 시작"
@@ -889,8 +896,10 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
 
                 detected_pairs.add(pair_key)
 
-                elapsed = now - _multi_zone_candidates[pair_key]["since"]
-                if elapsed >= STILL_SECONDS_REQUIRED:
+                hit_frames = _multi_zone_candidates[pair_key].get("hit_frames", 0)
+                elapsed    = now - _multi_zone_candidates[pair_key]["since"]
+                # ✅ 3프레임 이상 감지됐으면 확정 (깜빡임에 강함)
+                if hit_frames >= 3:
                     za = main_zone
                     zb = zone_name
 
@@ -950,8 +959,11 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
 
     for key in list(_multi_zone_candidates.keys()):
         if key not in detected_pairs:
-            _multi_zone_candidates.pop(key, None)
-            _multi_zone_logged.discard(key)
+            # ✅ 마지막 감지로부터 3초 이내면 유지 (깜빡임 허용)
+            last_seen = _multi_zone_candidates[key].get("last_seen", 0)
+            if now - last_seen > 3.0:
+                _multi_zone_candidates.pop(key, None)
+                _multi_zone_logged.discard(key)
 
     return confirmed_pairs  # ✅ 확정된 pair 반환
 
