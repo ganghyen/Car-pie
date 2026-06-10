@@ -1,14 +1,5 @@
 # ============================================================
 # [메인] 스마트 주차 관리 시스템 7
-# 수정사항:
-#   1. send_queue → PriorityQueue (출차>입차>업데이트 순서 보장)
-#   2. 번호판 안 보여도 null 즉시 전송 안함 → OCR 시도 후 전송
-#   3. 2칸주차/통로주차일 때만 스냅샷 찍어서 base64로 전송
-#   4. OCR null/unreadable 시 ocr_error 플래그 설정
-#   5. 멀티존 겹침 계산 → 끝점 기반으로 교체
-#   6. 출차 후 DB 확인/재전송은 FastAPI가 전담
-#   7. 멀티존 확정 시 두 구역 모두 OCR 처리
-#   8. 빈 스냅샷 PARKED 상태에서 업데이트 차단
 # ============================================================
 
 import cv2
@@ -25,7 +16,6 @@ from datetime import datetime, timedelta
 from config.settings import STILL_SECONDS_REQUIRED
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
 
 from config.settings import (
     CAMERA_INDEX, FRAME_WIDTH, FRAME_HEIGHT, TARGET_FPS,
@@ -73,7 +63,6 @@ def _frame_to_base64(frame) -> str | None:
 def _ensure_image_base64(event: dict, frame, zone_name: str, reason: str):
     if event.get("image_base64") or frame is None:
         return
-
     image_b64 = _frame_to_base64(frame)
     if image_b64:
         event["image_base64"] = image_b64
@@ -126,26 +115,15 @@ def ocr_worker(ocr_queue: queue.Queue,
 
             if ps in ("null", "unreadable"):
                 entry_event["ocr_error"] = True
-                _ensure_image_base64(
-                    entry_event,
-                    task.snapshot,
-                    zone_name,
-                    "OCR 실패"
-                )
-                logger.warning(
-                    f"[OCR ERROR] {zone_name} 번호판 인식 불가 ({ps}) "
-                    f"→ 알림 전송 예정"
-                )
+                _ensure_image_base64(entry_event, task.snapshot, zone_name, "OCR 실패")
+                logger.warning(f"[OCR ERROR] {zone_name} 번호판 인식 불가 ({ps})")
             else:
                 entry_event["ocr_error"] = False
 
             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), entry_event))
 
-            # ✅ 멀티존이고 OCR 성공했으면 linked 구역도 번호판 업데이트
-            if (zone and
-                    zone.park_status.value == "multi_zone" and
-                    zone.linked_zone and
-                    zone.plate):
+            # ✅ linked_zone 있으면 같은 번호판 업데이트
+            if zone and zone.linked_zone and zone.plate:
                 try:
                     send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
                         "type":         "plate_update",
@@ -153,14 +131,11 @@ def ocr_worker(ocr_queue: queue.Queue,
                         "plate":        zone.plate,
                         "plate_status": "confirmed",
                         "entry_time":   zone.entry_time,
-                        "park_status":  "multi_zone",
+                        "park_status":  zone.park_status.value,
                         "linked_zone":  zone_name,
                         "timestamp":    time.time(),
                     }))
-                    logger.info(
-                        f"[MULTI OCR] {zone_name} → linked {zone.linked_zone} "
-                        f"번호판 {zone.plate} 업데이트"
-                    )
+                    logger.info(f"[MULTI OCR] {zone_name} → linked {zone.linked_zone} 번호판 {zone.plate} 업데이트")
                 except queue.Full:
                     pass
 
@@ -248,7 +223,7 @@ def main():
         sys.exit(1)
 
     ocr_queue  = queue.Queue(maxsize=20)
-    send_queue = queue.PriorityQueue(maxsize=50)
+    send_queue = queue.PriorityQueue(maxsize=100)  # ✅ 50 → 100
     stop_event = threading.Event()
 
     ocr_workers = []
@@ -337,9 +312,6 @@ def main():
         if not mapping_mode:
             preprocessor.check_blur(frame)
 
-        # ══════════════════════════════════════════════════
-        # 매핑 모드
-        # ══════════════════════════════════════════════════
         if mapping_mode:
             cam_vis = mapper.render_camera(frame)
             cv2.putText(cam_vis, "[ MAPPING MODE ]  E: exit",
@@ -358,10 +330,8 @@ def main():
             key = cv2.waitKey(wait_ms) & 0xFF
             if key == 255:
                 continue
-
             if key in [ord('q'), ord('Q'), 27]:
                 break
-
             if key in [ord('e'), ord('E')]:
                 mapping_mode           = False
                 virt_win_open          = False
@@ -378,13 +348,8 @@ def main():
                 empty_snap_initialized = False
                 logger.info(f"Mapping exit | zones: {new_keys}")
                 continue
-
             mapper.handle_key(key, frame)
             continue
-
-        # ══════════════════════════════════════════════════
-        # 일반 모드
-        # ══════════════════════════════════════════════════
 
         enhanced         = preprocessor.apply(frame)
         detection_result = detector.detect(enhanced)
@@ -420,7 +385,6 @@ def main():
                 )
                 virtual_cars.append({**car, "vx": vx, "vy": vy})
 
-        # ✅ 멀티존 확정된 pair 반환받아서 OCR 처리
         confirmed_multi = _check_multi_zone(
             virtual_cars, homography.zones,
             state_machine, send_queue, logger,
@@ -429,7 +393,6 @@ def main():
             map_h=VIRTUAL_MAP_HEIGHT,
         )
 
-        # ✅ 멀티존 확정된 구역 OCR 처리
         for pair in confirmed_multi:
             za  = pair["za"]
             zb  = pair["zb"]
@@ -470,7 +433,6 @@ def main():
                 except queue.Full:
                     logger.warning(f"[MULTI OCR] {zn} Queue 가득참")
 
-        # 구역별 상태 업데이트
         for zone_name, zone_pts in homography.zones.items():
             cars_in_zone = [
                 c for c in virtual_cars
@@ -483,9 +445,7 @@ def main():
             plate_visible = False
             plate_bbox    = None
             if cars_in_zone:
-                plate_bbox    = detector.find_plate_for_car(
-                    cars_in_zone[0], plates
-                )
+                plate_bbox    = detector.find_plate_for_car(cars_in_zone[0], plates)
                 plate_visible = plate_bbox is not None
 
             zone_crop = _get_zone_crop(warped_frame, zone_pts)
@@ -507,11 +467,6 @@ def main():
                     image_b64 = None
                     if park_status in ("multi_zone", "aisle_block"):
                         image_b64 = _frame_to_base64(frame)
-                        if image_b64:
-                            logger.info(
-                                f"[Snapshot] {zone_name} {park_status} "
-                                f"→ base64 스냅샷 생성"
-                            )
 
                     quick_event = {
                         "type":        "entry_quick",
@@ -535,10 +490,6 @@ def main():
                         PlateStatus.UNREADABLE, PlateStatus.NULL
                     ):
                         event["ocr_error"] = True
-                        logger.warning(
-                            f"[OCR ERROR] {zone_name} "
-                            f"번호판 인식 불가 ({zone_obj.plate_status.value})"
-                        )
                     else:
                         event["ocr_error"] = False
 
@@ -555,60 +506,43 @@ def main():
                             event["plate"]        = None
                             event["plate_status"] = PlateStatus.NULL.value
                             event["ocr_error"]    = True
-                            _ensure_image_base64(
-                                event,
-                                frame,
-                                zone_name,
-                                "차량 없음 OCR 실패"
-                            )
+                            _ensure_image_base64(event, frame, zone_name, "차량 없음")
                             logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
-                            send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
+                            try:
+                                send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
+                            except queue.Full:
+                                logger.warning(f"[ENTRY] {zone_name} send_queue 가득참")
                         else:
                             try:
                                 ocr_queue.put_nowait(task)
                                 ocr_submitted[zone_name] = True
                                 pending_entry[zone_name] = event
-                                logger.info(
-                                    f"[ENTRY] {zone_name} OCR Queue 제출 "
-                                    f"(대기: {ocr_queue.qsize()})"
-                                )
+                                logger.info(f"[ENTRY] {zone_name} OCR Queue 제출 (대기: {ocr_queue.qsize()})")
                             except queue.Full:
-                                logger.warning(
-                                    f"[ENTRY] {zone_name} Queue 가득참 → null"
-                                )
+                                logger.warning(f"[ENTRY] {zone_name} Queue 가득참 → null")
                                 event["plate"]        = None
                                 event["plate_status"] = PlateStatus.NULL.value
                                 event["ocr_error"]    = True
-                                _ensure_image_base64(
-                                    event,
-                                    frame,
-                                    zone_name,
-                                    "OCR Queue 실패"
-                                )
-                                send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
+                                _ensure_image_base64(event, frame, zone_name, "OCR Queue 실패")
+                                try:
+                                    send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
+                                except queue.Full:
+                                    pass
 
                 elif event["type"] == "exit":
-                    exit_snap_path = _save_snapshot(
-                        frame, f"{zone_name}_exit", event["timestamp"]
-                    )
-                    event["exit_image"] = exit_snap_path
+                    _save_snapshot(frame, f"{zone_name}_exit", event["timestamp"])
 
                     pending = pending_entry.pop(zone_name, None)
                     if pending:
-                        logger.warning(
-                            f"[EXIT] {zone_name} OCR 완료 전 출차 "
-                            f"→ entry null 전송"
-                        )
+                        logger.warning(f"[EXIT] {zone_name} OCR 완료 전 출차 → entry null 전송")
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
                         pending["ocr_error"]    = True
-                        _ensure_image_base64(
-                            pending,
-                            frame,
-                            zone_name,
-                            "OCR 완료 전 출차"
-                        )
-                        send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), pending))
+                        _ensure_image_base64(pending, frame, zone_name, "OCR 완료 전 출차")
+                        try:
+                            send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), pending))
+                        except queue.Full:
+                            logger.warning(f"[EXIT] {zone_name} pending 전송 실패 → queue 가득참")
 
                     ocr_submitted.pop(zone_name, None)
 
@@ -652,10 +586,7 @@ def main():
                         state_machine.mark_rechecked(zone_name)
 
                         if new_plate:
-                            logger.info(
-                                f"[RECHECK] {zone_name}: "
-                                f"{cur.plate} -> {new_plate}"
-                            )
+                            logger.info(f"[RECHECK] {zone_name}: {cur.plate} -> {new_plate}")
                             try:
                                 if cur.plate is None:
                                     state_machine.set_plate(zone_name, new_plate)
@@ -669,10 +600,6 @@ def main():
                                         "linked_zone":  cur.linked_zone,
                                         "timestamp":    time.time(),
                                     }))
-                                    logger.info(
-                                        f"[PLATE UPDATE] {zone_name} "
-                                        f"null -> {new_plate}"
-                                    )
                                 else:
                                     send_queue.put_nowait((PRIORITY_EXIT, next(_counter), {
                                         "type":         "exit",
@@ -720,36 +647,24 @@ def main():
         q_ocr  = ocr_queue.qsize()
         q_send = send_queue.qsize()
         if q_ocr > 0 or q_send > 0:
-            cv2.putText(vis_frame,
-                        f"OCR:{q_ocr} Send:{q_send}",
-                        (10, 45),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                        (0, 220, 255), 1)
+            cv2.putText(vis_frame, f"OCR:{q_ocr} Send:{q_send}",
+                        (10, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 220, 255), 1)
 
         if shake_status_msg and now - shake_status_time < STATUS_DISPLAY_SEC:
             is_warn = "WARNING" in shake_status_msg
             color   = (0, 60, 255) if is_warn else (0, 200, 80)
             cv2.putText(vis_frame, shake_status_msg,
-                        (10, 65),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.65, color, 2)
+                        (10, 65), cv2.FONT_HERSHEY_SIMPLEX, 0.65, color, 2)
         elif now - shake_status_time >= STATUS_DISPLAY_SEC:
             shake_status_msg = ""
 
         if preprocessor.camera_blurry:
             warn_txt = "! CAM DIRTY"
-            (tw, th), _ = cv2.getTextSize(
-                warn_txt, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1
-            )
+            (tw, th), _ = cv2.getTextSize(warn_txt, cv2.FONT_HERSHEY_SIMPLEX, 0.45, 1)
             wx = vis_frame.shape[1] - tw - 10
             wy = 45
-            cv2.rectangle(vis_frame,
-                          (wx - 4, wy - th - 4),
-                          (wx + tw + 4, wy + 4),
-                          (0, 0, 180), -1)
-            cv2.putText(vis_frame, warn_txt,
-                        (wx, wy),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.45,
-                        (255, 255, 255), 1)
+            cv2.rectangle(vis_frame, (wx-4, wy-th-4), (wx+tw+4, wy+4), (0, 0, 180), -1)
+            cv2.putText(vis_frame, warn_txt, (wx, wy), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255,255,255), 1)
 
         cv2.imshow(WIN_MAIN, vis_frame)
 
@@ -792,9 +707,7 @@ def _restore_state(state_machine):
     try:
         with open(STATE_BACKUP_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
-        saved_at    = datetime.strptime(
-            data.get("saved_at", ""), "%Y-%m-%d %H:%M:%S"
-        )
+        saved_at    = datetime.strptime(data.get("saved_at", ""), "%Y-%m-%d %H:%M:%S")
         age_minutes = (datetime.now() - saved_at).total_seconds() / 60
         if age_minutes > 60:
             print(f"[Restore] Backup too old ({age_minutes:.0f}min) - skip")
@@ -832,7 +745,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         return (float(t[0][0][0]), float(t[0][0][1])), \
                (float(t[0][1][0]), float(t[0][1][1]))
 
-    def deep_in_zone(pt, zone_pts, min_depth=8):
+    def deep_in_zone(pt, zone_pts, min_depth=12):
         """점이 구역 폴리곤 경계에서 min_depth 픽셀 이상 안쪽에 있으면 True"""
         poly = _np.array(zone_pts, dtype=_np.float32)
         dist = _cv2.pointPolygonTest(poly, (float(pt[0]), float(pt[1])), measureDist=True)
@@ -840,7 +753,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
 
     global _multi_zone_candidates, _multi_zone_logged
 
-    confirmed_pairs = []  # ✅ 확정된 pair 반환용
+    confirmed_pairs = []
 
     # 1단계: 가운데 점(발바닥)으로 해당 구역 차량 매핑
     zone_main_car = {}
@@ -850,7 +763,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                 zone_main_car[zone_name] = car
                 break
 
-    # 2단계: 끝점이 다른 구역에 들어가면 2칸 후보
+    # 2단계: 끝점이 다른 구역에 깊이 들어가면 2칸 후보
     now = time.time()
     detected_pairs = set()
 
@@ -859,10 +772,8 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             continue
         for car in virtual_cars:
             foot_left, foot_right = get_foot_ends(car, homography_matrix)
-
-
-            if (deep_in_zone(foot_left,  zone_pts, min_depth=8) or
-                    deep_in_zone(foot_right, zone_pts, min_depth=8)):
+            if (deep_in_zone(foot_left,  zone_pts, min_depth=20) or
+                    deep_in_zone(foot_right, zone_pts, min_depth=20)):
 
                 main_zone = None
                 for mz, mc in zone_main_car.items():
@@ -875,30 +786,25 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                 pair_key = f"{main_zone}+{zone_name}"
 
                 if pair_key not in _multi_zone_candidates:
-                     _multi_zone_candidates[pair_key] = {
-                        "since":        now,
-                        "main_zone":    main_zone,
-                        "extra_zone":   zone_name,
-                        "car":          car,
-                        "hit_frames":   0,   # ✅ 감지된 프레임 수
-                        "last_seen":    now, # ✅ 마지막 감지 시각
+                    _multi_zone_candidates[pair_key] = {
+                        "since":      now,
+                        "main_zone":  main_zone,
+                        "extra_zone": zone_name,
+                        "car":        car,
+                        "hit_frames": 0,
+                        "last_seen":  now,
                     }
+                    if pair_key not in _multi_zone_logged:
+                        logger.info(f"[MULTI] {main_zone}+{zone_name} 끝점 감지 시작")
+                        _multi_zone_logged.add(pair_key)
                 else:
-                    # ✅ 기존 후보면 hit_frames 증가
                     _multi_zone_candidates[pair_key]["hit_frames"] += 1
                     _multi_zone_candidates[pair_key]["last_seen"]   = now
                     _multi_zone_candidates[pair_key]["car"]         = car
-                    if pair_key not in _multi_zone_logged:
-                        logger.info(
-                            f"[MULTI] {main_zone}+{zone_name} 끝점 감지 시작"
-                        )
-                        _multi_zone_logged.add(pair_key)
 
                 detected_pairs.add(pair_key)
 
                 hit_frames = _multi_zone_candidates[pair_key].get("hit_frames", 0)
-                elapsed    = now - _multi_zone_candidates[pair_key]["since"]
-                # ✅ 3프레임 이상 감지됐으면 확정 (깜빡임에 강함)
                 if hit_frames >= 3:
                     za = main_zone
                     zb = zone_name
@@ -919,10 +825,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                             state_b.status == ZoneStatus.OCCUPIED):
                         continue
 
-                    logger.info(
-                        f"[MULTI-ZONE] CONFIRMED: {za}+{zb} "
-                        f"({elapsed:.1f}s 정지)"
-                    )
+                    logger.info(f"[MULTI-ZONE] CONFIRMED: {za}+{zb} ({hit_frames}프레임)")
 
                     state_machine.set_multi_zone(za, zb, None)
 
@@ -931,7 +834,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                         za_zone.entry_time
                     ).strftime("%Y-%m-%d %H:%M:%S")
 
-                    # entry_quick 전송 (두 구역 모두)
                     for zn in [za, zb]:
                         other_zone = zb if zn == za else za
                         try:
@@ -947,7 +849,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                         except queue.Full:
                             pass
 
-                    # ✅ OCR 처리는 메인 루프에서 담당
                     confirmed_pairs.append({
                         "za":  za,
                         "zb":  zb,
@@ -957,15 +858,15 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                     _multi_zone_candidates.pop(pair_key, None)
                     _multi_zone_logged.discard(pair_key)
 
+    # ✅ 깜빡임 허용: 3초 이내면 후보 유지
     for key in list(_multi_zone_candidates.keys()):
         if key not in detected_pairs:
-            # ✅ 마지막 감지로부터 3초 이내면 유지 (깜빡임 허용)
             last_seen = _multi_zone_candidates[key].get("last_seen", 0)
             if now - last_seen > 3.0:
                 _multi_zone_candidates.pop(key, None)
                 _multi_zone_logged.discard(key)
 
-    return confirmed_pairs  # ✅ 확정된 pair 반환
+    return confirmed_pairs
 
 
 def _get_zone_crop(warped_frame, zone_pts):
@@ -993,8 +894,7 @@ def _cleanup_snapshots() -> int:
                 continue
             fpath = os.path.join(SNAPSHOT_DIR, fname)
             try:
-                if datetime.fromtimestamp(
-                        os.path.getmtime(fpath)) < cutoff:
+                if datetime.fromtimestamp(os.path.getmtime(fpath)) < cutoff:
                     os.remove(fpath)
                     deleted += 1
             except Exception:

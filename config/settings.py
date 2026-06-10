@@ -71,7 +71,7 @@ MULTI_ZONE_OVERLAP_RATIO = 0.15
 
 # ── OCR ────────────────────────────────────────────────────
 # 번호판 인식 샘플 횟수 (투표용)
-OCR_SAMPLE_COUNT         = 5
+OCR_SAMPLE_COUNT         = 2
 # 샘플 간 인식 간격 (초)
 OCR_SAMPLE_INTERVAL      = 0.4
 # OCR 결과 신뢰도 최소 임계값
@@ -85,7 +85,7 @@ PLATE_UPSCALE            = 3.0
 # 동시 실행 OCR 스레드 최대 수
 OCR_MAX_THREADS          = 2
 # 연속 OCR 실패 횟수 한도 (이 횟수 초과 시 UNREADABLE 처리)
-OCR_FAIL_LIMIT           = 3
+OCR_FAIL_LIMIT           = 1
 # UNREADABLE 판정 후 재시도까지 대기 시간 (초)
 OCR_UNREADABLE_RETRY_SEC = 60.0
 
