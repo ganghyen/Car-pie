@@ -61,8 +61,14 @@ class VehicleDetector:
             pcx = (p["x1"] + p["x2"]) // 2
             pcy = (p["y1"] + p["y2"]) // 2
             # 번호판 중심이 차량 bbox 안에 있으면 후보로 추가
-            if cx1 <= pcx <= cx2 and cy1 <= pcy <= cy2:
+            # ✅ 번호판이 차량 위쪽으로 나와도 허용 (세로 여유 크게)
+            # 가로는 차량 bbox 안에 있어야 함
+            y_margin = (cy2 - cy1) * 0.5  # 차량 높이의 50% 여유
+            x_margin = 20
+            if (cx1 - x_margin <= pcx <= cx2 + x_margin and
+                    cy1 - y_margin <= pcy <= cy2):
                 candidates.append(p)
+
 
         if not candidates:
             return None

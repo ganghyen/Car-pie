@@ -571,7 +571,14 @@ def main():
                         except queue.Full:
                             pass
 
-            if state_machine.needs_recheck(zone_name) and cars_in_zone:
+            # ✅ cars_in_zone 없어도 OCCUPIED 상태면 재시도
+            zone_obj = state_machine.zones.get(zone_name)
+            can_recheck = (
+                bool(cars_in_zone) or
+                (zone_obj and zone_obj.status == ZoneStatus.OCCUPIED)
+            )
+            if state_machine.needs_recheck(zone_name) and can_recheck:
+
                 cur = state_machine.zones[zone_name]
                 if not ocr_submitted.get(zone_name, False):
                     if not plate_visible:

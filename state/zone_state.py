@@ -345,7 +345,9 @@ class ParkingStateMachine:
         zone = self.zones.get(zone_name)
         if zone is None or zone.status != ZoneStatus.OCCUPIED:
             return False
-        if zone.plate_status == PlateStatus.UNREADABLE:
+        # ✅ UNREADABLE/NULL 둘 다 3배 주기 후 재시도 허용
+        if (zone.plate_status in (PlateStatus.UNREADABLE, PlateStatus.NULL) and
+                (time.time() - zone.last_recheck_time) < RECHECK_INTERVAL_SEC * 3):
             return False
         now      = time.time()
         periodic = (now - zone.last_recheck_time) >= RECHECK_INTERVAL_SEC

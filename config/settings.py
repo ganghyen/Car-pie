@@ -31,7 +31,7 @@ TARGET_FPS        = 15
 
 # ── YOLO 탐지 ──────────────────────────────────────────────
 # YOLO 탐지 신뢰도 임계값 (이 값 이상만 탐지로 인정)
-YOLO_CONF         = 0.45
+YOLO_CONF         = 0.2
 # YOLO IoU 임계값 (겹치는 박스 제거 기준)
 YOLO_IOU          = 0.4
 # YOLO 클래스 이름: 차량
@@ -47,7 +47,7 @@ STILL_SECONDS_REQUIRED = 5.0
 # 차가 안 보인 후 출차로 확정하기까지 대기 시간 (초)
 EXIT_TIMEOUT_SECONDS   = 5
 # 번호판 재인식 주기 (초)
-RECHECK_INTERVAL_SEC   = 90
+RECHECK_INTERVAL_SEC   = 30
 
 # 통로 구역 정지 판정 시간 (초)
 AISLE_STILL_SECONDS    = 3.0
@@ -71,7 +71,7 @@ MULTI_ZONE_OVERLAP_RATIO = 0.15
 
 # ── OCR ────────────────────────────────────────────────────
 # 번호판 인식 샘플 횟수 (투표용)
-OCR_SAMPLE_COUNT         = 2
+OCR_SAMPLE_COUNT         = 3
 # 샘플 간 인식 간격 (초)
 OCR_SAMPLE_INTERVAL      = 0.4
 # OCR 결과 신뢰도 최소 임계값
@@ -85,7 +85,7 @@ PLATE_UPSCALE            = 3.0
 # 동시 실행 OCR 스레드 최대 수
 OCR_MAX_THREADS          = 2
 # 연속 OCR 실패 횟수 한도 (이 횟수 초과 시 UNREADABLE 처리)
-OCR_FAIL_LIMIT           = 1
+OCR_FAIL_LIMIT           = 2
 # UNREADABLE 판정 후 재시도까지 대기 시간 (초)
 OCR_UNREADABLE_RETRY_SEC = 60.0
 
