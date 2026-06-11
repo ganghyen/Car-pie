@@ -25,7 +25,7 @@ from config.settings import (
 )
 
 # OCCUPIED 상태에서 차 없음이 연속 몇 프레임 이상일 때 TIMEOUT 시작
-NO_CAR_FRAMES_BEFORE_TIMEOUT = 5
+NO_CAR_FRAMES_BEFORE_TIMEOUT = 15
 
 # EXIT 확정 후 재입차 차단 시간 (초)
 # 차가 완전히 빠져나가기 전에 YOLO가 재감지해서 이중 entry 방지

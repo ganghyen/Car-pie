@@ -2240,3 +2240,147 @@
 [21:25:41][INFO] [OCR Worker] 종료
 [21:25:42][INFO] [OCR Worker] 종료
 [21:25:42][INFO] System stopped
+[22:15:03][INFO] ==================================================
+[22:15:03][INFO] Smart Parking System Start
+[22:15:03][INFO] ==================================================
+[22:15:09][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[22:15:09][INFO] [Sender] 미전송 26건 복구
+[22:15:09][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[22:15:15][INFO] [Camera] C920 자동 포커스 설정 완료
+[22:15:15][INFO] [OCR Worker] 시작
+[22:15:15][INFO] [OCR Worker] 시작
+[22:15:15][INFO] [Send Worker] 시작
+[22:15:15][INFO] [Workers] OCR x2, Send x1 시작
+[22:15:17][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:15:19][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:15:27][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'null', 'entry_time': 1781094195.2559924, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781097327.0916843}
+[22:15:27][INFO] [EXIT] a-b1-003 plate=None
+[22:15:57][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff51ce7610>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[22:15:57][WARNING] [Sender] 큐 저장 (27건)
+[22:17:18][INFO] Enter mapping mode
+[22:17:19][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[22:17:20][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:17:21][INFO] Enter mapping mode
+[22:18:01][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[22:18:02][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:18:33][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781097513.0121207, 'park_status': 'normal', 'timestamp': 1781097513.0121207}
+[22:18:33][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[22:18:33][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[22:19:00][INFO] [OCR Worker] a-b1-003 완료: 78호1234 (pending)
+[22:19:03][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff51d1de00>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[22:19:03][WARNING] [Sender] 큐 저장 (28건)
+[22:19:33][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff51d216d0>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[22:19:33][WARNING] [Sender] 큐 저장 (29건)
+[22:20:38][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781097638.334666, 'park_status': 'normal', 'timestamp': 1781097638.334666}
+[22:20:38][INFO] [ENTRY QUICK] a-b1-005 PARKED 상태 먼저 전송
+[22:20:38][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 1)
+[22:21:06][INFO] [OCR Worker] a-b1-005 완료: 21조2426 (pending)
+[22:21:08][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff51e3e250>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[22:21:08][WARNING] [Sender] 큐 저장 (30건)
+[22:21:38][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff51e3cf30>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[22:21:38][WARNING] [Sender] 큐 저장 (31건)
+[22:21:40][INFO] Enter mapping mode
+[22:21:43][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[22:21:44][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:21:45][INFO] Enter mapping mode
+[22:22:30][INFO] [Workers] 종료 대기 중...
+[22:22:31][INFO] [OCR Worker] 종료
+[22:22:31][INFO] [OCR Worker] 종료
+[22:22:31][INFO] [Send Worker] 종료
+[22:22:31][INFO] System stopped
+[22:22:39][INFO] ==================================================
+[22:22:39][INFO] Smart Parking System Start
+[22:22:39][INFO] ==================================================
+[22:22:44][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[22:22:44][INFO] [Sender] 미전송 31건 복구
+[22:22:44][INFO] Mapping loaded | zones: ['a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[22:22:49][INFO] [Camera] C920 자동 포커스 설정 완료
+[22:22:49][INFO] [OCR Worker] 시작
+[22:22:49][INFO] [OCR Worker] 시작
+[22:22:49][INFO] [Send Worker] 시작
+[22:22:49][INFO] [Workers] OCR x2, Send x1 시작
+[22:22:50][INFO] Camera started | M: mapping  Q/ESC: quit
+[22:22:51][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:22:55][INFO] Enter mapping mode
+[22:43:00][INFO] Mapping exit | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[22:43:01][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[22:43:29][INFO] Quit
+[22:43:29][INFO] [Workers] 종료 대기 중...
+[22:43:30][INFO] [OCR Worker] 종료
+[22:43:30][INFO] [OCR Worker] 종료
+[22:43:30][INFO] [Send Worker] 종료
+[22:43:30][INFO] System stopped
+[23:03:41][INFO] ==================================================
+[23:03:41][INFO] Smart Parking System Start
+[23:03:41][INFO] ==================================================
+[23:03:48][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[23:03:48][INFO] [Sender] 미전송 31건 복구
+[23:03:48][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[23:03:53][INFO] [Camera] C920 자동 포커스 설정 완료
+[23:03:53][INFO] [OCR Worker] 시작
+[23:03:53][INFO] [OCR Worker] 시작
+[23:03:53][INFO] [Send Worker] 시작
+[23:03:53][INFO] [Workers] OCR x2, Send x1 시작
+[23:03:55][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:03:57][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:04:15][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781100255.9374409, 'park_status': 'normal', 'timestamp': 1781100255.9374409}
+[23:04:15][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[23:04:15][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[23:04:22][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781100262.5502067, 'park_status': 'normal', 'timestamp': 1781100262.5502067}
+[23:04:22][INFO] [ENTRY QUICK] a-b1-005 PARKED 상태 먼저 전송
+[23:04:22][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 1)
+[23:04:45][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff72893390>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[23:04:46][WARNING] [Sender] 큐 저장 (32건)
+[23:05:01][INFO] Quit
+[23:05:01][INFO] [Workers] 종료 대기 중...
+[23:05:16][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff728d9a70>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[23:05:16][WARNING] [Sender] 큐 저장 (33건)
+[23:05:16][INFO] [Send Worker] 종료
+[23:05:16][INFO] System stopped
+[23:11:09][INFO] ==================================================
+[23:11:09][INFO] Smart Parking System Start
+[23:11:09][INFO] ==================================================
+[23:11:15][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[23:11:15][INFO] [Sender] 미전송 33건 복구
+[23:11:15][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[23:11:20][INFO] [Camera] C920 자동 포커스 설정 완료
+[23:11:20][INFO] [OCR Worker] 시작
+[23:11:20][INFO] [OCR Worker] 시작
+[23:11:20][INFO] [Send Worker] 시작
+[23:11:20][INFO] [Workers] OCR x2, Send x1 시작
+[23:11:21][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:11:23][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:11:45][INFO] [RECHECK] a-b1-003: None -> 24조2126
+[23:12:15][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff2ad97750>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[23:12:15][WARNING] [Sender] 큐 저장 (34건)
+[23:12:19][INFO] [RECHECK] a-b1-005: None -> 112보5273
+[23:12:42][INFO] [RECHECK] a-b1-003: 24조2126 -> 24조2426
+[23:12:49][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='172.20.10.5', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='172.20.10.5', port=8000) at 0x7fff2add9e00>, 'Connection to 172.20.10.5 timed out. (connect timeout=15)'))
+[23:12:49][WARNING] [Sender] 큐 저장 (35건)
+[23:12:55][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': '24조2426', 'plate_status': 'confirmed', 'entry_time': 1781100255.9374409, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781100775.3332267}
+[23:12:55][INFO] [EXIT] a-b1-003 plate=24조2426
+[23:12:55][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-005', 'plate': '112보5273', 'plate_status': 'confirmed', 'entry_time': 1781100262.5502067, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781100775.362018}
+[23:12:55][INFO] [EXIT] a-b1-005 plate=112보5273
+[23:12:57][INFO] Quit
+[23:12:57][INFO] [Workers] 종료 대기 중...
+[23:12:57][INFO] [OCR Worker] 종료
+[23:12:57][INFO] [OCR Worker] 종료
+[23:13:02][INFO] System stopped
+[23:13:12][INFO] ==================================================
+[23:13:12][INFO] Smart Parking System Start
+[23:13:12][INFO] ==================================================
+[23:13:18][INFO] [Sender] 초기화 | 서버: http://172.20.10.5:8000/api/event
+[23:13:18][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[23:13:23][INFO] [Camera] C920 자동 포커스 설정 완료
+[23:13:23][INFO] [OCR Worker] 시작
+[23:13:23][INFO] [OCR Worker] 시작
+[23:13:23][INFO] [Send Worker] 시작
+[23:13:23][INFO] [Workers] OCR x2, Send x1 시작
+[23:13:24][INFO] Camera started | M: mapping  Q/ESC: quit
+[23:13:25][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[23:19:20][INFO] Quit
+[23:19:20][INFO] [Workers] 종료 대기 중...
+[23:19:21][INFO] [OCR Worker] 종료
+[23:19:21][INFO] [Send Worker] 종료
+[23:19:21][INFO] [OCR Worker] 종료
+[23:19:21][INFO] System stopped

@@ -12,6 +12,7 @@ import threading
 import queue
 import numpy as np
 import itertools
+import requests  # ✅ 상태 전송용
 from datetime import datetime, timedelta
 from config.settings import STILL_SECONDS_REQUIRED
 
@@ -26,6 +27,7 @@ from config.settings import (
     OCR_MAX_THREADS,
     MULTI_ZONE_OVERLAP_RATIO,
     STATE_BACKUP_PATH, STATE_BACKUP_INTERVAL,
+    STATUS_REPORT_INTERVAL, STATUS_REPORT_URL,  # ✅ 추가
 )
 from mapping.homography import HomographyTransformer
 from mapping.roi_mapper import ROIMapper
@@ -122,7 +124,7 @@ def ocr_worker(ocr_queue: queue.Queue,
 
             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), entry_event))
 
-            # ✅ linked_zone 있으면 같은 번호판 업데이트
+            # linked_zone 있으면 같은 번호판 업데이트
             if zone and zone.linked_zone and zone.plate:
                 try:
                     send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
@@ -211,7 +213,7 @@ def main():
     cap.set(cv2.CAP_PROP_AUTOFOCUS,     1)
     cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
     cap.set(cv2.CAP_PROP_EXPOSURE,      -3)
-    cap.set(cv2.CAP_PROP_BRIGHTNESS,    100)
+    cap.set(cv2.CAP_PROP_BRIGHTNESS,    140)
     cap.set(cv2.CAP_PROP_CONTRAST,      150)
     cap.set(cv2.CAP_PROP_SHARPNESS,     200)
 
@@ -223,7 +225,7 @@ def main():
         sys.exit(1)
 
     ocr_queue  = queue.Queue(maxsize=20)
-    send_queue = queue.PriorityQueue(maxsize=100)  # ✅ 50 → 100
+    send_queue = queue.PriorityQueue(maxsize=100)
     stop_event = threading.Event()
 
     ocr_workers = []
@@ -254,6 +256,7 @@ def main():
     last_shake_check  = time.time()
     last_snap_cleanup = time.time()
     last_state_backup = time.time()
+    last_status_report = time.time()  # ✅ 상태 전송 타이머
 
     shake_status_msg   = ""
     shake_status_time  = 0.0
@@ -308,6 +311,11 @@ def main():
         if now - last_state_backup >= STATE_BACKUP_INTERVAL:
             last_state_backup = now
             _backup_state(state_machine)
+
+        # ✅ 주기적으로 카메라 상태 FastAPI에 전송 (DB 불일치 감지용)
+        if not mapping_mode and now - last_status_report >= STATUS_REPORT_INTERVAL:
+            last_status_report = now
+            _report_status(state_machine)
 
         if not mapping_mode:
             preprocessor.check_blur(frame)
@@ -553,7 +561,7 @@ def main():
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
-                    # ✅ 멀티존이면 linked 구역도 exit 전송
+                    # 멀티존이면 linked 구역도 exit 전송
                     if event.get("linked_zone"):
                         linked_zn = event["linked_zone"]
                         ocr_submitted.pop(linked_zn, None)
@@ -571,7 +579,7 @@ def main():
                         except queue.Full:
                             pass
 
-            # ✅ cars_in_zone 없어도 OCCUPIED 상태면 재시도
+            # cars_in_zone 없어도 OCCUPIED 상태면 재시도
             zone_obj = state_machine.zones.get(zone_name)
             can_recheck = (
                 bool(cars_in_zone) or
@@ -696,6 +704,31 @@ def main():
     logger.info("System stopped")
 
 
+def _report_status(state_machine: ParkingStateMachine):
+    """
+    현재 전체 구역 상태를 FastAPI에 전송.
+    FastAPI가 DB랑 비교해서 DB는 occupied인데
+    카메라는 empty인 구역 자동 exit 처리.
+    """
+    try:
+        # 전체 구역 상태 구성 (EMPTY 포함)
+        full_status = {}
+        for name, zone in state_machine.zones.items():
+            full_status[name] = {
+                "status": zone.status.value,
+                "plate":  zone.plate,
+            }
+
+        requests.post(
+            STATUS_REPORT_URL,
+            json={"zones": full_status},
+            timeout=10,
+        )
+        logger.info(f"[StatusReport] 상태 전송 완료 ({len(full_status)}개 구역)")
+    except Exception as e:
+        logger.warning(f"[StatusReport] 전송 실패: {e}")
+
+
 def _backup_state(state_machine):
     try:
         data = {
@@ -753,7 +786,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                (float(t[0][1][0]), float(t[0][1][1]))
 
     def deep_in_zone(pt, zone_pts, min_depth=12):
-        """점이 구역 폴리곤 경계에서 min_depth 픽셀 이상 안쪽에 있으면 True"""
         poly = _np.array(zone_pts, dtype=_np.float32)
         dist = _cv2.pointPolygonTest(poly, (float(pt[0]), float(pt[1])), measureDist=True)
         return dist >= min_depth
@@ -762,7 +794,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
 
     confirmed_pairs = []
 
-    # 1단계: 가운데 점(발바닥)으로 해당 구역 차량 매핑
     zone_main_car = {}
     for zone_name, zone_pts in zones.items():
         for car in virtual_cars:
@@ -770,7 +801,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                 zone_main_car[zone_name] = car
                 break
 
-    # 2단계: 끝점이 다른 구역에 깊이 들어가면 2칸 후보
     now = time.time()
     detected_pairs = set()
 
@@ -865,7 +895,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                     _multi_zone_candidates.pop(pair_key, None)
                     _multi_zone_logged.discard(pair_key)
 
-    # ✅ 깜빡임 허용: 3초 이내면 후보 유지
     for key in list(_multi_zone_candidates.keys()):
         if key not in detected_pairs:
             last_seen = _multi_zone_candidates[key].get("last_seen", 0)

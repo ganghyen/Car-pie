@@ -1,13 +1,4 @@
 {
-  "saved_at": "2026-06-10 21:25:42",
-  "zones": {
-    "a-b1-003": {
-      "status": "occupied",
-      "plate": null,
-      "plate_status": "null",
-      "park_status": "normal",
-      "linked_zone": null,
-      "entry_time": 1781094195.2559924
-    }
-  }
+  "saved_at": "2026-06-11 20:09:16",
+  "zones": {}
 }

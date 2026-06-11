@@ -43,11 +43,11 @@ CLASS_PLATE       = "plate"
 # 차량 정지 판정 픽셀 임계값 (발바닥 좌표 이동량이 이 값 미만이면 정지로 판단)
 STILL_PIXEL_THRESHOLD  = 8
 # 차량이 정지 상태를 유지해야 입차로 확정하는 시간 (초)
-STILL_SECONDS_REQUIRED = 5.0
+STILL_SECONDS_REQUIRED = 10
 # 차가 안 보인 후 출차로 확정하기까지 대기 시간 (초)
-EXIT_TIMEOUT_SECONDS   = 5
+EXIT_TIMEOUT_SECONDS   = 10
 # 번호판 재인식 주기 (초)
-RECHECK_INTERVAL_SEC   = 10
+RECHECK_INTERVAL_SEC   = 30
 
 # 통로 구역 정지 판정 시간 (초)
 AISLE_STILL_SECONDS    = 3.0
@@ -81,7 +81,7 @@ OCR_MIN_TEXT_LENGTH      = 4
 # 번호판 crop 시 상하좌우 여백 (픽셀)
 PLATE_PADDING            = 10
 # 번호판 이미지 업스케일 배율
-PLATE_UPSCALE            = 3.0
+PLATE_UPSCALE            = 5.0
 # 동시 실행 OCR 스레드 최대 수
 OCR_MAX_THREADS          = 2
 # 연속 OCR 실패 횟수 한도 (이 횟수 초과 시 UNREADABLE 처리)
@@ -99,7 +99,7 @@ BLUR_CONFIRM_COUNT       = 3
 
 # ── 통신 ──────────────────────────────────────────────────
 # FastAPI 서버 이벤트 수신 엔드포인트 주소
-SERVER_URL      = "http://172.20.10.5:8000/api/event"
+SERVER_URL      = "http://10.69.39.246:8000/api/event"
 # 현재 카메라 장비가 속한 아파트 번호
 # 여러 아파트를 운영하면 장비별로 이 값을 바꿔서 사용
 APARTMENT_NO    = 1
@@ -147,3 +147,8 @@ COLOR_BBOX_CAR    = (255, 200,   0)
 COLOR_BBOX_PLATE  = (0,   200, 255)
 # 통로 경고 색 (빨강)
 COLOR_AISLE_WARN  = (0,    60, 255)
+
+# 카메라 상태 전송 주기 (초)
+STATUS_REPORT_INTERVAL = 30.0
+# FastAPI 상태 보고 엔드포인트
+STATUS_REPORT_URL = "http://10.69.39.246:8000/api/status/report"

@@ -16,7 +16,7 @@ class VehicleDetector:
 
     def detect(self, frame: np.ndarray) -> dict:
         # 프레임에서 차량과 번호판을 탐지하고 결과를 딕셔너리로 반환
-        results = self.model(frame, conf=YOLO_CONF, iou=YOLO_IOU, verbose=False)
+        results = self.model(frame, conf=YOLO_CONF, iou=YOLO_IOU, imgsz=960, verbose=False)
 
         cars   = []   # 탐지된 차량 목록
         plates = []   # 탐지된 번호판 목록
