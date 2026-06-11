@@ -785,7 +785,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         return (float(t[0][0][0]), float(t[0][0][1])), \
                (float(t[0][1][0]), float(t[0][1][1]))
 
-    def deep_in_zone(pt, zone_pts, min_depth=12):
+    def deep_in_zone(pt, zone_pts, min_depth=10):
         poly = _np.array(zone_pts, dtype=_np.float32)
         dist = _cv2.pointPolygonTest(poly, (float(pt[0]), float(pt[1])), measureDist=True)
         return dist >= min_depth
@@ -948,8 +948,7 @@ def _save_snapshot(frame, zone_name, timestamp) -> str | None:
         return path
     except Exception:
         return None
-
-
+        
 def _get_mtime(path):
     try:
         return os.path.getmtime(path)

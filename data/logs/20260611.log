@@ -1079,3 +1079,162 @@
 [21:16:01][INFO] [OCR Worker] 종료
 [21:16:01][INFO] [Send Worker] 종료
 [21:16:02][INFO] System stopped
+[21:21:46][INFO] ==================================================
+[21:21:46][INFO] Smart Parking System Start
+[21:21:46][INFO] ==================================================
+[21:21:51][INFO] [Sender] 초기화 | 서버: http://10.69.39.246:8000/api/event
+[21:21:51][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-002', 'a-b1-003', 'a-b1-004', 'a-b1-005', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009']
+[21:21:57][INFO] [Camera] C920 자동 포커스 설정 완료
+[21:21:57][INFO] [OCR Worker] 시작
+[21:21:57][INFO] [OCR Worker] 시작
+[21:21:57][INFO] [Send Worker] 시작
+[21:21:57][INFO] [Workers] OCR x2, Send x1 시작
+[21:21:59][INFO] Camera started | M: mapping  Q/ESC: quit
+[21:22:01][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[21:22:33][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:23:03][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:23:34][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:24:04][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:24:19][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-008', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781180659.1074066, 'park_status': 'normal', 'timestamp': 1781180659.1074066}
+[21:24:19][INFO] [ENTRY QUICK] a-b1-008 PARKED 상태 먼저 전송
+[21:24:19][INFO] [ENTRY] a-b1-008 OCR Queue 제출 (대기: 1)
+[21:24:19][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-008
+[21:24:34][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:24:42][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781180682.615946, 'park_status': 'normal', 'timestamp': 1781180682.615946}
+[21:24:42][INFO] [ENTRY QUICK] a-b1-009 PARKED 상태 먼저 전송
+[21:24:42][INFO] [ENTRY] a-b1-009 OCR Queue 제출 (대기: 1)
+[21:24:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-009
+[21:25:03][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:25:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:26:04][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:26:06][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-007', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781180766.0730915, 'park_status': 'normal', 'timestamp': 1781180766.0730915}
+[21:26:06][INFO] [ENTRY QUICK] a-b1-007 PARKED 상태 먼저 전송
+[21:26:06][INFO] [ENTRY] a-b1-007 OCR Queue 제출 (대기: 1)
+[21:26:06][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-007
+[21:26:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:27:04][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:27:28][INFO] [OCR Worker] a-b1-008 완료: None (null)
+[21:27:28][INFO] [Snapshot] a-b1-008 OCR 실패 → base64 스냅샷 생성
+[21:27:28][WARNING] [OCR ERROR] a-b1-008 번호판 인식 불가 (null)
+[21:27:30][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-008
+[21:27:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:27:48][INFO] [OCR Worker] a-b1-009 완료: None (null)
+[21:27:48][INFO] [Snapshot] a-b1-009 OCR 실패 → base64 스냅샷 생성
+[21:27:48][WARNING] [OCR ERROR] a-b1-009 번호판 인식 불가 (null)
+[21:27:50][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[21:28:06][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:28:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:28:39][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-008', 'plate': None, 'plate_status': 'null', 'entry_time': 1781180659.1074066, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781180919.0864213}
+[21:28:39][WARNING] [EXIT] a-b1-008 OCR 완료 전 출차 → entry null 전송
+[21:28:39][INFO] [EXIT] a-b1-008 plate=None
+[21:28:39][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-008
+[21:28:39][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'null', 'entry_time': 1781180682.615946, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781180919.9123957}
+[21:28:39][WARNING] [EXIT] a-b1-009 OCR 완료 전 출차 → entry null 전송
+[21:28:39][INFO] [EXIT] a-b1-009 plate=None
+[21:28:41][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-008
+[21:28:42][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-009
+[21:28:44][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[21:29:08][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:29:25][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781180965.0798, 'park_status': 'normal', 'timestamp': 1781180965.0798}
+[21:29:25][INFO] [ENTRY QUICK] a-b1-009 PARKED 상태 먼저 전송
+[21:29:25][INFO] [ENTRY] a-b1-009 OCR Queue 제출 (대기: 1)
+[21:29:25][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-009
+[21:29:39][INFO] [OCR Worker] a-b1-007 완료: None (null)
+[21:29:39][INFO] [Snapshot] a-b1-007 OCR 실패 → base64 스냅샷 생성
+[21:29:39][WARNING] [OCR ERROR] a-b1-007 번호판 인식 불가 (null)
+[21:29:40][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:29:41][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-007
+[21:30:08][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:30:09][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-008', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781181009.0051115, 'park_status': 'normal', 'timestamp': 1781181009.0051115}
+[21:30:09][INFO] [ENTRY QUICK] a-b1-008 PARKED 상태 먼저 전송
+[21:30:09][INFO] [ENTRY] a-b1-008 OCR Queue 제출 (대기: 1)
+[21:30:09][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-008
+[21:30:38][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:31:09][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:31:40][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:31:43][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-009', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781180965.0798, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781181103.5988884}
+[21:31:43][WARNING] [EXIT] a-b1-009 OCR 완료 전 출차 → entry null 전송
+[21:31:43][INFO] [Snapshot] a-b1-009 OCR 완료 전 출차 → base64 스냅샷 생성
+[21:31:43][INFO] [EXIT] a-b1-009 plate=None
+[21:31:44][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-009
+[21:31:46][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[21:32:11][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:32:41][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:33:12][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:33:35][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:33:42][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:33:43][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[21:33:43][INFO] [MULTI OCR] a-b1-005 OCR Queue 제출
+[21:33:43][INFO] [MULTI OCR] a-b1-006 OCR Queue 제출
+[21:33:45][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:33:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:33:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:33:50][INFO] [OCR Worker] a-b1-008 완료: UNREADABLE (unreadable)
+[21:33:50][INFO] [Snapshot] a-b1-008 OCR 실패 → base64 스냅샷 생성
+[21:33:50][WARNING] [OCR ERROR] a-b1-008 번호판 인식 불가 (unreadable)
+[21:33:50][WARNING] [UNREADABLE] a-b1-008 번호판 인식 불가
+[21:33:52][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-008
+[21:34:11][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:34:38][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:34:46][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:34:47][INFO] [OCR Worker] a-b1-009 완료: UNREADABLE (pending)
+[21:34:49][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[21:34:49][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-009
+[21:34:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:34:50][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:34:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:35:13][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:35:15][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:35:19][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[21:35:19][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:35:20][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:35:20][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:35:38][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (14프레임)
+[21:35:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:35:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:35:40][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:35:44][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:35:58][INFO] [OCR Worker] a-b1-005 완료: None (null)
+[21:35:58][WARNING] [OCR ERROR] a-b1-005 번호판 인식 불가 (null)
+[21:35:59][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-005
+[21:36:00][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (14프레임)
+[21:36:00][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:36:00][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:36:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:36:14][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:36:15][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (14프레임)
+[21:36:16][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:36:16][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:36:16][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:36:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (14프레임)
+[21:36:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[21:36:29][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[21:36:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[21:36:42][INFO] [OCR Worker] a-b1-006 완료: None (null)
+[21:36:42][WARNING] [OCR ERROR] a-b1-006 번호판 인식 불가 (null)
+[21:36:45][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-006
+[21:36:45][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:36:59][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-007', 'plate': None, 'plate_status': 'null', 'entry_time': 1781180766.0730915, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781181419.6349654}
+[21:36:59][WARNING] [EXIT] a-b1-007 OCR 완료 전 출차 → entry null 전송
+[21:36:59][INFO] [EXIT] a-b1-007 plate=None
+[21:36:59][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-008', 'plate': None, 'plate_status': 'unreadable', 'entry_time': 1781181009.0051115, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781181419.7718508}
+[21:36:59][WARNING] [EXIT] a-b1-008 OCR 완료 전 출차 → entry null 전송
+[21:36:59][INFO] [EXIT] a-b1-008 plate=None
+[21:37:00][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-007
+[21:37:00][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-008
+[21:37:02][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-007
+[21:37:03][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-006', 'plate': None, 'plate_status': 'null', 'entry_time': 1781181388.851784, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-005', 'timestamp': 1781181423.4074366}
+[21:37:03][WARNING] [EXIT] a-b1-006 OCR 완료 전 출차 → entry null 전송
+[21:37:03][INFO] [EXIT] a-b1-006 plate=None
+[21:37:03][INFO] [EXIT] linked a-b1-005 동시 출차 처리
+[21:37:03][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-008
+[21:37:04][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-006
+[21:37:04][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-005
+[21:37:06][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-006
+[21:37:18][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[21:37:37][INFO] Quit
+[21:37:37][INFO] [Workers] 종료 대기 중...
+[21:37:37][INFO] [OCR Worker] 종료
+[21:37:37][INFO] [Send Worker] 종료
+[21:37:37][INFO] [OCR Worker] 종료
+[21:37:38][INFO] System stopped
