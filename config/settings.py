@@ -47,7 +47,7 @@ STILL_SECONDS_REQUIRED = 5.0
 # 차가 안 보인 후 출차로 확정하기까지 대기 시간 (초)
 EXIT_TIMEOUT_SECONDS   = 5
 # 번호판 재인식 주기 (초)
-RECHECK_INTERVAL_SEC   = 30
+RECHECK_INTERVAL_SEC   = 10
 
 # 통로 구역 정지 판정 시간 (초)
 AISLE_STILL_SECONDS    = 3.0
