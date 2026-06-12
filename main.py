@@ -12,7 +12,7 @@ import threading
 import queue
 import numpy as np
 import itertools
-import requests  # ✅ 상태 전송용
+import requests
 from datetime import datetime, timedelta
 from config.settings import STILL_SECONDS_REQUIRED
 
@@ -27,7 +27,7 @@ from config.settings import (
     OCR_MAX_THREADS,
     MULTI_ZONE_OVERLAP_RATIO,
     STATE_BACKUP_PATH, STATE_BACKUP_INTERVAL,
-    STATUS_REPORT_INTERVAL, STATUS_REPORT_URL,  # ✅ 추가
+    STATUS_REPORT_INTERVAL, STATUS_REPORT_URL,
 )
 from mapping.homography import HomographyTransformer
 from mapping.roi_mapper import ROIMapper
@@ -86,7 +86,8 @@ def ocr_worker(ocr_queue: queue.Queue,
                send_queue: queue.PriorityQueue,
                ocr_reader: PlateReader,
                state_machine: ParkingStateMachine,
-               stop_event: threading.Event):
+               stop_event: threading.Event,
+               ocr_submitted: dict):
     logger.info("[OCR Worker] 시작")
 
     while not stop_event.is_set():
@@ -105,9 +106,27 @@ def ocr_worker(ocr_queue: queue.Queue,
                 plate_bbox=task.plate_bbox,
             )
 
-            state_machine.set_plate(zone_name, plate)
+            # ✅ OCR 완료 후 구역 상태 확인
+            # - zone이 없거나 EMPTY로 리셋됨 (차량 빠짐)
+            # - 또는 entry_time이 바뀜 (다른 차량으로 교체됨)
+            # → OCR 결과 폐기 (전송 안 함)
             zone = state_machine.zones.get(zone_name)
-            ps   = zone.plate_status.value if zone else "null"
+            task_entry_time = task.entry_event.get("entry_time")
+
+            if (zone is None
+                    or zone.status == ZoneStatus.EMPTY
+                    or zone.entry_time != task_entry_time):
+                logger.warning(
+                    f"[OCR Worker] {zone_name} 결과({plate}) 폐기 "
+                    f"(차량 변경/출차됨, "
+                    f"task_entry={task_entry_time}, "
+                    f"zone_entry={zone.entry_time if zone else None})"
+                )
+                ocr_submitted.pop(zone_name, None)
+                continue
+
+            state_machine.set_plate(zone_name, plate)
+            ps = zone.plate_status.value
 
             logger.info(f"[OCR Worker] {zone_name} 완료: {plate} ({ps})")
 
@@ -123,6 +142,7 @@ def ocr_worker(ocr_queue: queue.Queue,
                 entry_event["ocr_error"] = False
 
             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), entry_event))
+            ocr_submitted.pop(zone_name, None)
 
             # linked_zone 있으면 같은 번호판 업데이트
             if zone and zone.linked_zone and zone.plate:
@@ -213,7 +233,7 @@ def main():
     cap.set(cv2.CAP_PROP_AUTOFOCUS,     1)
     cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
     cap.set(cv2.CAP_PROP_EXPOSURE,      -3)
-    cap.set(cv2.CAP_PROP_BRIGHTNESS,    140)
+    cap.set(cv2.CAP_PROP_BRIGHTNESS,    130)
     cap.set(cv2.CAP_PROP_CONTRAST,      150)
     cap.set(cv2.CAP_PROP_SHARPNESS,     200)
 
@@ -229,11 +249,12 @@ def main():
     stop_event = threading.Event()
 
     ocr_workers = []
+    ocr_submitted: dict[str, bool] = {}
     for i in range(OCR_MAX_THREADS):
         t = threading.Thread(
             target=ocr_worker,
             args=(ocr_queue, send_queue, ocr_reader,
-                  state_machine, stop_event),
+                  state_machine, stop_event, ocr_submitted),
             daemon=True,
             name=f"OCR-Worker-{i+1}"
         )
@@ -256,7 +277,7 @@ def main():
     last_shake_check  = time.time()
     last_snap_cleanup = time.time()
     last_state_backup = time.time()
-    last_status_report = time.time()  # ✅ 상태 전송 타이머
+    last_status_report = time.time()
 
     shake_status_msg   = ""
     shake_status_time  = 0.0
@@ -265,6 +286,12 @@ def main():
     empty_snap_initialized = False
     mapping_mode  = False
     virt_win_open = False
+
+    # ✅ YOLO 프레임 스킵용
+    YOLO_SKIP_FRAMES = 2
+    frame_count      = 0
+    last_cars        = []
+    last_plates      = []
 
     cv2.namedWindow(WIN_MAIN)
     prev_time = time.time()
@@ -286,7 +313,6 @@ def main():
                 homography.load()
                 new_keys               = list(homography.zones.keys())
                 state_machine          = ParkingStateMachine(new_keys)
-                ocr_submitted          = {}
                 pending_entry          = {}
                 empty_snap_initialized = False
                 logger.info(f"Mapping reloaded | zones: {new_keys}")
@@ -312,7 +338,6 @@ def main():
             last_state_backup = now
             _backup_state(state_machine)
 
-        # ✅ 주기적으로 카메라 상태 FastAPI에 전송 (DB 불일치 감지용)
         if not mapping_mode and now - last_status_report >= STATUS_REPORT_INTERVAL:
             last_status_report = now
             _report_status(state_machine)
@@ -359,10 +384,20 @@ def main():
             mapper.handle_key(key, frame)
             continue
 
-        enhanced         = preprocessor.apply(frame)
-        detection_result = detector.detect(enhanced)
-        cars             = detection_result["cars"]
-        plates           = detection_result["plates"]
+        # ✅ YOLO 프레임 스킵 적용
+        enhanced = preprocessor.apply(frame)
+
+        frame_count += 1
+        if frame_count % YOLO_SKIP_FRAMES == 0:
+            detection_result = detector.detect(enhanced)
+            cars             = detection_result["cars"]
+            plates           = detection_result["plates"]
+            last_cars        = cars
+            last_plates      = plates
+        else:
+            # YOLO 스킵 → 이전 결과 재사용
+            cars   = last_cars
+            plates = last_plates
 
         warped_frame = None
         if homography.is_ready():
@@ -561,7 +596,6 @@ def main():
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
-                    # 멀티존이면 linked 구역도 exit 전송
                     if event.get("linked_zone"):
                         linked_zn = event["linked_zone"]
                         ocr_submitted.pop(linked_zn, None)
@@ -579,7 +613,6 @@ def main():
                         except queue.Full:
                             pass
 
-            # cars_in_zone 없어도 OCCUPIED 상태면 재시도
             zone_obj = state_machine.zones.get(zone_name)
             can_recheck = (
                 bool(cars_in_zone) or
@@ -705,13 +738,7 @@ def main():
 
 
 def _report_status(state_machine: ParkingStateMachine):
-    """
-    현재 전체 구역 상태를 FastAPI에 전송.
-    FastAPI가 DB랑 비교해서 DB는 occupied인데
-    카메라는 empty인 구역 자동 exit 처리.
-    """
     try:
-        # 전체 구역 상태 구성 (EMPTY 포함)
         full_status = {}
         for name, zone in state_machine.zones.items():
             full_status[name] = {
@@ -761,7 +788,6 @@ def _restore_state(state_machine):
         print(f"[Restore] Failed: {e}")
 
 
-# 2칸 주차 후보 정지 시간 추적 (전역)
 _multi_zone_candidates: dict[str, dict] = {}
 _multi_zone_logged: set = set()
 
@@ -785,7 +811,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         return (float(t[0][0][0]), float(t[0][0][1])), \
                (float(t[0][1][0]), float(t[0][1][1]))
 
-    def deep_in_zone(pt, zone_pts, min_depth=10):
+    def deep_in_zone(pt, zone_pts, min_depth=13):
         poly = _np.array(zone_pts, dtype=_np.float32)
         dist = _cv2.pointPolygonTest(poly, (float(pt[0]), float(pt[1])), measureDist=True)
         return dist >= min_depth
@@ -809,8 +835,8 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             continue
         for car in virtual_cars:
             foot_left, foot_right = get_foot_ends(car, homography_matrix)
-            if (deep_in_zone(foot_left,  zone_pts, min_depth=10) or
-                    deep_in_zone(foot_right, zone_pts, min_depth=10)):
+            if (deep_in_zone(foot_left,  zone_pts, min_depth=13) or
+                    deep_in_zone(foot_right, zone_pts, min_depth=13)):
 
                 main_zone = None
                 for mz, mc in zone_main_car.items():
@@ -948,7 +974,8 @@ def _save_snapshot(frame, zone_name, timestamp) -> str | None:
         return path
     except Exception:
         return None
-        
+
+
 def _get_mtime(path):
     try:
         return os.path.getmtime(path)

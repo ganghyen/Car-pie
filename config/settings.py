@@ -99,8 +99,7 @@ BLUR_CONFIRM_COUNT       = 3
 
 # ── 통신 ──────────────────────────────────────────────────
 # FastAPI 서버 이벤트 수신 엔드포인트 주소
-SERVER_URL      = "http://10.69.39.246:8000/api/event"
-# 현재 카메라 장비가 속한 아파트 번호
+SERVER_URL      = "http://10.14.237.177:8000/api/event"# 현재 카메라 장비가 속한 아파트 번호
 # 여러 아파트를 운영하면 장비별로 이 값을 바꿔서 사용
 APARTMENT_NO    = 1
 # HTTP 요청 타임아웃 (초)
@@ -151,4 +150,7 @@ COLOR_AISLE_WARN  = (0,    60, 255)
 # 카메라 상태 전송 주기 (초)
 STATUS_REPORT_INTERVAL = 30.0
 # FastAPI 상태 보고 엔드포인트
-STATUS_REPORT_URL = "http://10.69.39.246:8000/api/status/report"
+STATUS_REPORT_URL = "http://10.14.237.177:8000/api/status/report"
+
+
+AISLE_ZONES = [ "a-b1-007", "a-b1-008", "a-b1-009"]
