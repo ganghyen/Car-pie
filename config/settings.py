@@ -58,7 +58,7 @@ AISLE_ZONE_PREFIX      = "P"
 # 빈 구역 스냅샷과 현재 이미지 비교 시 픽셀 변화로 인정하는 최소 차이값
 PIXEL_DIFF_THRESHOLD            = 30
 # 변화된 픽셀 비율이 이 값을 넘으면 차가 있다고 판단
-PIXEL_CHECK_OCCUPIED            = 0.35
+PIXEL_CHECK_OCCUPIED            = 0.15
 # 조명 변화로 판단하는 밝기 차이 임계값
 PIXEL_LIGHTING_CHANGE_THRESHOLD = 20
 # 조명 변화 감지 체크 주기 (초)

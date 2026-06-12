@@ -1,5 +1,5 @@
 # ============================================================
-# [메인] 스마트 주차 관리 시스템 7
+# [메인] 스마트 주차 관리 시스템 8
 # ============================================================
 
 import cv2
@@ -809,8 +809,8 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             continue
         for car in virtual_cars:
             foot_left, foot_right = get_foot_ends(car, homography_matrix)
-            if (deep_in_zone(foot_left,  zone_pts, min_depth=20) or
-                    deep_in_zone(foot_right, zone_pts, min_depth=20)):
+            if (deep_in_zone(foot_left,  zone_pts, min_depth=10) or
+                    deep_in_zone(foot_right, zone_pts, min_depth=10)):
 
                 main_zone = None
                 for mz, mc in zone_main_car.items():
