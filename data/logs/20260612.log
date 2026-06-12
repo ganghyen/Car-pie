@@ -2030,3 +2030,767 @@
 [17:59:39][INFO] [OCR Worker] 종료
 [17:59:39][INFO] [Send Worker] 종료
 [17:59:39][INFO] System stopped
+[18:50:11][INFO] ==================================================
+[18:50:11][INFO] Smart Parking System Start
+[18:50:11][INFO] ==================================================
+[18:50:16][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:50:16][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[18:50:22][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:50:22][INFO] [OCR Worker] 시작
+[18:50:22][INFO] [OCR Worker] 시작
+[18:50:22][INFO] [Send Worker] 시작
+[18:50:22][INFO] [Workers] OCR x2, Send x1 시작
+[18:50:23][INFO] Camera started | M: mapping  Q/ESC: quit
+[18:50:24][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[18:50:55][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:51:25][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:51:55][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:52:25][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:52:56][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:53:26][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:53:56][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:53:56][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-001', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781258036.5258572, 'park_status': 'normal', 'timestamp': 1781258036.5258572}
+[18:53:56][INFO] [ENTRY QUICK] a-b1-001 PARKED 상태 먼저 전송
+[18:53:56][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[18:53:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-001
+[18:54:26][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:54:56][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:55:01][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-002', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781258101.020064, 'park_status': 'normal', 'timestamp': 1781258101.020064}
+[18:55:01][INFO] [ENTRY QUICK] a-b1-002 PARKED 상태 먼저 전송
+[18:55:01][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 1)
+[18:55:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-002
+[18:55:09][INFO] [OCR Worker] a-b1-001 완료: 37나5209 (confirmed)
+[18:55:10][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-001
+[18:55:26][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:55:57][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:56:28][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:56:48][INFO] [OCR Worker] a-b1-002 완료: None (null)
+[18:56:48][INFO] [Snapshot] a-b1-002 OCR 실패 → base64 스냅샷 생성
+[18:56:48][WARNING] [OCR ERROR] a-b1-002 번호판 인식 불가 (null)
+[18:56:49][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-002
+[18:56:58][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:57:29][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:57:54][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:57:55][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[18:57:55][INFO] [MULTI OCR] a-b1-005 OCR Queue 제출
+[18:57:55][INFO] [MULTI OCR] a-b1-006 OCR Queue 제출
+[18:57:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[18:57:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[18:57:56][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:58:00][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:58:08][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:58:23][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:58:30][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:58:45][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:58:47][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[18:58:47][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[18:58:47][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[18:58:48][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:59:01][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:59:03][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:59:04][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[18:59:05][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[18:59:05][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[18:59:06][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:59:16][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (14프레임)
+[18:59:16][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:59:16][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[18:59:16][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[18:59:23][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:59:25][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[18:59:26][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[18:59:26][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[18:59:27][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[18:59:30][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[18:59:49][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-006', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781258365.833522, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-005', 'timestamp': 1781258389.4187722}
+[18:59:49][WARNING] [EXIT] a-b1-006 OCR 완료 전 출차 → entry null 전송
+[18:59:49][INFO] [EXIT] a-b1-006 plate=None
+[18:59:49][INFO] [EXIT] linked a-b1-005 동시 출차 처리
+[18:59:50][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-006
+[18:59:50][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-005
+[18:59:51][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-006
+[19:00:02][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:00:13][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[19:00:14][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[19:00:14][INFO] [MULTI OCR] a-b1-005 OCR Queue 제출
+[19:00:14][INFO] [MULTI OCR] a-b1-006 OCR Queue 제출
+[19:00:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:00:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:00:15][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[19:00:26][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[19:00:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[19:00:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:00:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:00:29][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[19:00:31][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:00:41][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[19:00:43][INFO] [MULTI-ZONE] CONFIRMED: a-b1-005+a-b1-006 (3프레임)
+[19:00:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:00:44][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:00:44][INFO] [MULTI] a-b1-005+a-b1-006 끝점 감지 시작
+[19:01:02][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:01:04][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-006', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781258443.4345894, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-005', 'timestamp': 1781258464.4813938}
+[19:01:04][WARNING] [EXIT] a-b1-006 OCR 완료 전 출차 → entry null 전송
+[19:01:04][INFO] [EXIT] a-b1-006 plate=None
+[19:01:04][INFO] [EXIT] linked a-b1-005 동시 출차 처리
+[19:01:04][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:01:04][WARNING] [Sender] 큐 저장 (1건)
+[19:01:05][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:01:05][WARNING] [Sender] 큐 저장 (2건)
+[19:01:07][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-006
+[19:01:33][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:01:47][WARNING] [OCR Worker] a-b1-006 결과(None) 폐기 (차량 변경/출차됨, task_entry=1781258275.4339628, zone_entry=0.0)
+[19:01:47][WARNING] [OCR Worker] a-b1-005 결과(None) 폐기 (차량 변경/출차됨, task_entry=1781258275.4339566, zone_entry=0.0)
+[19:02:04][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:02:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:03:05][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:03:36][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:03:50][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:03:51][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (3프레임)
+[19:03:51][INFO] [MULTI OCR] a-b1-006 OCR Queue 제출
+[19:03:51][INFO] [MULTI OCR] a-b1-005 OCR Queue 제출
+[19:03:52][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:03:52][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:03:53][INFO] [Sender] 미전송 2건 재전송 완료
+[19:03:54][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:04:06][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:04:37][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:04:48][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (78프레임)
+[19:04:48][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:04:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:04:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:04:59][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:00][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:05:01][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:07][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:05:11][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:11][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:12][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:12][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:05:22][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:22][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:22][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:05:23][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:32][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:32][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:05:35][WARNING] [OCR Worker] a-b1-006 결과(UNREADABLE) 폐기 (차량 변경/출차됨, task_entry=1781258414.5845785, zone_entry=1781258732.753324)
+[19:05:35][WARNING] [OCR Worker] a-b1-006 결과(UNREADABLE) 폐기 (차량 변경/출차됨, task_entry=1781258631.4377239, zone_entry=1781258732.753324)
+[19:05:35][WARNING] [OCR Worker] a-b1-005 결과(UNREADABLE) 폐기 (차량 변경/출차됨, task_entry=1781258414.584573, zone_entry=1781258732.7533298)
+[19:05:37][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:05:41][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:42][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:42][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:05:43][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:51][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:51][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:52][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:52][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:05:58][INFO] [MULTI-ZONE] CONFIRMED: a-b1-006+a-b1-005 (14프레임)
+[19:05:59][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:05:59][INFO] [MULTI] a-b1-006+a-b1-005 끝점 감지 시작
+[19:05:59][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:06:08][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:06:39][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:07:09][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:07:21][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781258758.6180968, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-006', 'timestamp': 1781258841.2124846}
+[19:07:21][WARNING] [EXIT] a-b1-005 OCR 완료 전 출차 → entry null 전송
+[19:07:21][INFO] [EXIT] a-b1-005 plate=None
+[19:07:21][INFO] [EXIT] linked a-b1-006 동시 출차 처리
+[19:07:21][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:07:21][WARNING] [Sender] 큐 저장 (1건)
+[19:07:22][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:07:22][WARNING] [Sender] 큐 저장 (2건)
+[19:07:23][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-005
+[19:07:24][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-001', 'plate': '37나5209', 'plate_status': 'confirmed', 'entry_time': 1781258036.5258572, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781258844.0271537}
+[19:07:24][WARNING] [EXIT] a-b1-001 OCR 완료 전 출차 → entry null 전송
+[19:07:24][INFO] [Snapshot] a-b1-001 OCR 완료 전 출차 → base64 스냅샷 생성
+[19:07:24][INFO] [EXIT] a-b1-001 plate=37나5209
+[19:07:24][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-002', 'plate': None, 'plate_status': 'null', 'entry_time': 1781258101.020064, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781258844.057597}
+[19:07:24][WARNING] [EXIT] a-b1-002 OCR 완료 전 출차 → entry null 전송
+[19:07:24][INFO] [EXIT] a-b1-002 plate=None
+[19:07:24][INFO] [Sender] 미전송 1건 재전송 완료
+[19:07:25][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-001
+[19:07:25][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-002
+[19:07:27][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-001
+[19:07:28][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-002
+[19:07:41][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:07:41][INFO] Quit
+[19:07:41][INFO] [Workers] 종료 대기 중...
+[19:07:42][INFO] [Send Worker] 종료
+[19:07:42][INFO] [OCR Worker] 종료
+[19:07:47][INFO] System stopped
+[19:08:21][INFO] ==================================================
+[19:08:21][INFO] Smart Parking System Start
+[19:08:21][INFO] ==================================================
+[19:08:27][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:08:27][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[19:08:32][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:08:32][INFO] [OCR Worker] 시작
+[19:08:32][INFO] [OCR Worker] 시작
+[19:08:32][INFO] [Send Worker] 시작
+[19:08:32][INFO] [Workers] OCR x2, Send x1 시작
+[19:08:35][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:08:35][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:09:05][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:09:29][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-001', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781258969.326762, 'park_status': 'normal', 'timestamp': 1781258969.326762}
+[19:09:29][INFO] [ENTRY QUICK] a-b1-001 PARKED 상태 먼저 전송
+[19:09:29][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[19:09:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-001
+[19:09:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:10:05][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:10:35][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:10:39][INFO] [OCR Worker] a-b1-001 완료: 37나5209 (confirmed)
+[19:10:40][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-001
+[19:11:06][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:11:27][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-002', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781259087.0397542, 'park_status': 'normal', 'timestamp': 1781259087.0397542}
+[19:11:27][INFO] [ENTRY QUICK] a-b1-002 PARKED 상태 먼저 전송
+[19:11:27][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 1)
+[19:11:27][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-002
+[19:11:36][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:12:06][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:12:36][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:13:01][INFO] [OCR Worker] a-b1-002 완료: 42바3579 (confirmed)
+[19:13:02][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-002
+[19:13:06][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:13:37][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:13:39][INFO] [MULTI] a-b1-004+a-b1-003 끝점 감지 시작
+[19:13:40][INFO] [MULTI-ZONE] CONFIRMED: a-b1-004+a-b1-003 (3프레임)
+[19:13:40][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:13:40][INFO] [MULTI OCR] a-b1-003 OCR Queue 제출
+[19:13:41][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:13:41][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:13:41][INFO] [MULTI] a-b1-004+a-b1-003 끝점 감지 시작
+[19:13:50][INFO] [MULTI-ZONE] CONFIRMED: a-b1-004+a-b1-003 (14프레임)
+[19:13:50][INFO] [MULTI] a-b1-004+a-b1-003 끝점 감지 시작
+[19:13:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:13:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:14:06][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:14:37][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:14:58][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781259230.397243, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-004', 'timestamp': 1781259298.611607}
+[19:14:58][WARNING] [EXIT] a-b1-003 OCR 완료 전 출차 → entry null 전송
+[19:14:58][INFO] [EXIT] a-b1-003 plate=None
+[19:14:58][INFO] [EXIT] linked a-b1-004 동시 출차 처리
+[19:14:58][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[19:14:59][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-004
+[19:15:00][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:15:08][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:15:23][WARNING] [OCR Worker] a-b1-003 결과(24조2426) 폐기 (차량 변경/출차됨, task_entry=1781259220.540855, zone_entry=0.0)
+[19:15:23][WARNING] [OCR Worker] a-b1-004 결과(24조2426) 폐기 (차량 변경/출차됨, task_entry=1781259220.5408504, zone_entry=0.0)
+[19:15:38][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:16:09][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:16:13][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:16:14][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (3프레임)
+[19:16:14][INFO] [MULTI OCR] a-b1-003 OCR Queue 제출
+[19:16:14][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:16:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:16:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:16:15][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:16:38][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:17:09][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:17:12][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (84프레임)
+[19:17:12][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:12][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:21][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:22][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:22][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:22][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:31][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:31][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:32][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:32][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:32][WARNING] [OCR Worker] a-b1-004 결과(None) 폐기 (차량 변경/출차됨, task_entry=1781259374.5036707, zone_entry=1781259451.6977916)
+[19:17:33][WARNING] [OCR Worker] a-b1-003 결과(None) 폐기 (차량 변경/출차됨, task_entry=1781259374.5036683, zone_entry=1781259451.6977775)
+[19:17:37][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:37][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:37][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:37][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:40][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:17:44][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:44][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:44][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:44][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:48][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:49][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:54][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:54][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:54][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:54][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:17:59][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:17:59][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:17:59][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:17:59][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:18:10][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:18:40][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:19:07][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (190프레임)
+[19:19:07][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:07][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:07][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:10][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:19:13][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:14][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:14][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:19][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:19][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:19][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:19][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:23][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:24][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:24][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:24][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:29][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:29][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:34][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:34][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:34][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:34][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:39][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:40][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:40][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:41][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:19:41][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:46][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:47][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:47][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:51][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:51][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:52][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:52][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:19:56][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:19:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:19:57][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:19:57][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:01][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:02][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:02][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:02][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:06][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:07][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:07][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:07][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:11][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:20:13][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:13][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:14][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:14][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:18][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:19][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:19][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:19][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:24][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:24][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:24][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:24][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:29][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:34][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:34][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:34][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:35][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:39][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:39][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:41][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:20:46][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:46][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:50][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:51][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:20:56][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:20:56][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:20:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:20:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:01][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:01][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:06][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:06][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:06][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:07][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:11][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:21:12][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:13][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:18][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:18][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:23][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:23][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:28][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:33][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:33][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:38][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:38][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:41][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:21:45][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:45][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:50][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:50][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:21:55][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:21:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:21:56][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:21:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:01][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:01][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:05][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:06][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:06][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:06][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:12][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:22:12][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:12][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:13][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:17][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:17][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:18][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:23][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:23][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:27][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:28][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:33][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:33][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:38][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:38][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:38][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:38][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:42][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:22:44][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:44][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:49][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:50][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:55][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:22:55][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:22:55][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:22:55][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:22:57][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-006', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781259777.1854749, 'park_status': 'normal', 'timestamp': 1781259777.1854749}
+[19:22:57][INFO] [ENTRY QUICK] a-b1-006 PARKED 상태 먼저 전송
+[19:22:57][INFO] [ENTRY] a-b1-006 OCR Queue 제출 (대기: 1)
+[19:22:57][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-006
+[19:23:00][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:01][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:07][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:07][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:08][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:08][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:11][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:23:15][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:15][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:16][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:22][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:22][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:22][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:29][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:35][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:36][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:36][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:36][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:42][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:23:43][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:44][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:44][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:50][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:50][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:23:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:51][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:56][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:23:57][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:23:57][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:23:57][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:04][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:04][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:04][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:04][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:10][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:10][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:11][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:11][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:12][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:24:14][INFO] [OCR Worker] a-b1-006 완료: 123가1567 (confirmed)
+[19:24:14][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-006
+[19:24:17][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:17][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:22][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:23][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:23][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:28][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:33][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:33][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:33][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:38][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:38][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:38][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:43][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:24:44][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:44][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:45][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:45][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:50][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:50][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:50][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:24:54][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:24:55][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:24:55][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:24:55][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:25:00][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:25:00][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:25:00][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:25:01][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:25:09][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:25:13][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:25:30][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-007', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781259930.8532538, 'park_status': 'normal', 'timestamp': 1781259930.8532538}
+[19:25:30][INFO] [ENTRY QUICK] a-b1-007 PARKED 상태 먼저 전송
+[19:25:30][INFO] [ENTRY] a-b1-007 OCR Queue 제출 (대기: 1)
+[19:25:31][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-007
+[19:25:44][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:26:11][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (146프레임)
+[19:26:11][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:26:11][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:26:11][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:26:14][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:26:17][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:26:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:26:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:26:18][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:26:25][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:26:25][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:26:26][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:26:26][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:26:36][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (23프레임)
+[19:26:36][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:26:36][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:26:36][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:26:42][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:26:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:26:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:26:43][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:26:44][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:26:46][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781260006.2685454, 'park_status': 'normal', 'timestamp': 1781260006.2685454}
+[19:26:46][INFO] [ENTRY QUICK] a-b1-005 PARKED 상태 먼저 전송
+[19:26:46][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 1)
+[19:26:46][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:26:48][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-007', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781259930.8532538, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781260008.796188}
+[19:26:48][WARNING] [EXIT] a-b1-007 OCR 완료 전 출차 → entry null 전송
+[19:26:48][INFO] [Snapshot] a-b1-007 OCR 완료 전 출차 → base64 스냅샷 생성
+[19:26:48][INFO] [EXIT] a-b1-007 plate=None
+[19:26:49][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-007
+[19:26:50][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-007
+[19:26:55][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:26:55][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:26:56][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:26:56][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:27:29][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:28:08][INFO] ==================================================
+[19:28:08][INFO] Smart Parking System Start
+[19:28:08][INFO] ==================================================
+[19:28:14][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:28:14][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[19:28:19][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:28:19][INFO] [OCR Worker] 시작
+[19:28:19][INFO] [OCR Worker] 시작
+[19:28:19][INFO] [Send Worker] 시작
+[19:28:19][INFO] [Workers] OCR x2, Send x1 시작
+[19:28:22][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:28:23][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:28:24][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:28:29][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:28:29][INFO] [MULTI OCR] a-b1-003 OCR Queue 제출
+[19:28:29][INFO] [MULTI OCR] a-b1-004 OCR Queue 제출
+[19:28:29][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:28:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:28:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:28:35][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781260115.2360935, 'park_status': 'normal', 'timestamp': 1781260115.2360935}
+[19:28:35][INFO] [ENTRY QUICK] a-b1-005 PARKED 상태 먼저 전송
+[19:28:35][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 1)
+[19:28:35][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-005
+[19:28:38][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:28:38][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:28:39][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:28:39][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:28:39][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-007', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781259930.8532538, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781260119.3169177}
+[19:28:39][INFO] [EXIT] a-b1-007 plate=None
+[19:28:39][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:28:39][WARNING] [Sender] 큐 저장 (1건)
+[19:28:48][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:28:48][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:28:48][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:28:49][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:28:50][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:28:58][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:28:58][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:28:59][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:28:59][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:29:08][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:29:08][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:08][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:29:09][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:29:17][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:29:17][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:29:18][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:18][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:29:20][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:29:28][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:29:28][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:28][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:29:29][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:29:37][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:29:37][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:29:38][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:38][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:29:47][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:29:47][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:47][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:29:48][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:29:50][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:29:55][WARNING] [OCR Worker] a-b1-004 결과(None) 폐기 (차량 변경/출차됨, task_entry=1781260109.0313601, zone_entry=1781260187.0741694)
+[19:29:55][WARNING] [OCR Worker] a-b1-003 결과(None) 폐기 (차량 변경/출차됨, task_entry=1781260109.031355, zone_entry=1781260187.0741632)
+[19:29:56][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:29:57][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:29:57][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:29:58][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:30:07][INFO] [MULTI-ZONE] CONFIRMED: a-b1-003+a-b1-004 (14프레임)
+[19:30:07][INFO] [MULTI] a-b1-003+a-b1-004 끝점 감지 시작
+[19:30:08][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:30:09][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-004
+[19:30:21][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:30:28][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-004', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781260207.5754316, 'park_status': 'multi_zone', 'linked_zone': 'a-b1-003', 'timestamp': 1781260228.5438752}
+[19:30:28][WARNING] [EXIT] a-b1-004 OCR 완료 전 출차 → entry null 전송
+[19:30:28][INFO] [EXIT] a-b1-004 plate=None
+[19:30:28][INFO] [EXIT] linked a-b1-003 동시 출차 처리
+[19:30:29][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-004
+[19:30:30][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-003
+[19:30:31][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-004
+[19:30:53][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:31:23][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:32:23][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:32:53][INFO] [RECHECK] a-b1-006: 123가1567 -> 12374567
+[19:32:54][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-006
+[19:32:56][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:32:56][WARNING] [Sender] 큐 저장 (2건)
+[19:32:57][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:33:16][INFO] ==================================================
+[19:33:16][INFO] Smart Parking System Start
+[19:33:16][INFO] ==================================================
+[19:33:22][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:33:22][INFO] [Sender] 미전송 2건 복구
+[19:33:22][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[19:33:27][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:33:27][INFO] [OCR Worker] 시작
+[19:33:27][INFO] [OCR Worker] 시작
+[19:33:27][INFO] [Send Worker] 시작
+[19:33:27][INFO] [Workers] OCR x2, Send x1 시작
+[19:33:30][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:33:30][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:33:42][INFO] [EVENT] {'type': 'entry', 'zone': 'a-b1-003', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781260422.5077214, 'park_status': 'normal', 'timestamp': 1781260422.5077214}
+[19:33:42][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[19:33:42][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[19:33:43][INFO] [Sender] 전송 성공 | event:entry_quick zone:a-b1-003
+[19:33:46][INFO] [EVENT] {'type': 'exit', 'zone': 'a-b1-005', 'plate': None, 'plate_status': 'pending', 'entry_time': 1781260115.2360935, 'park_status': 'normal', 'linked_zone': None, 'timestamp': 1781260426.3184373}
+[19:33:46][INFO] [EXIT] a-b1-005 plate=None
+[19:33:47][INFO] [Sender] 전송 성공 | event:exit zone:a-b1-005
+[19:33:58][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:34:51][INFO] [RECHECK] a-b1-006: 123가1567 -> 123가4567
+[19:34:53][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:34:53][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:34:53][WARNING] [Sender] 큐 저장 (3건)
+[19:34:55][WARNING] [Sender] 서버 응답 오류: 404 → 재전송 큐 저장
+[19:34:55][WARNING] [Sender] 큐 저장 (4건)
+[19:35:12][INFO] [OCR Worker] a-b1-003 완료: 78호1234 (confirmed)
+[19:35:15][INFO] [Sender] 전송 성공 | event:entry zone:a-b1-003
+[19:35:43][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:36:29][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:37:15][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:38:01][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:38:23][INFO] Quit
+[19:38:23][INFO] [Workers] 종료 대기 중...
+[19:38:24][INFO] [Send Worker] 종료
+[19:38:24][INFO] [OCR Worker] 종료
+[19:38:24][INFO] [OCR Worker] 종료
+[19:38:24][INFO] System stopped
+[19:49:26][INFO] ==================================================
+[19:49:26][INFO] Smart Parking System Start
+[19:49:26][INFO] ==================================================
+[19:49:31][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:49:31][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[19:49:36][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:49:36][ERROR] Camera 0 open failed
+[19:49:41][INFO] ==================================================
+[19:49:41][INFO] Smart Parking System Start
+[19:49:41][INFO] ==================================================
+[19:49:46][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:49:46][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[19:49:51][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:49:51][INFO] [OCR Worker] 시작
+[19:49:51][INFO] [OCR Worker] 시작
+[19:49:51][INFO] [Send Worker] 시작
+[19:49:51][INFO] [Workers] OCR x2, Send x1 시작
+[19:49:52][INFO] Camera started | M: mapping  Q/ESC: quit
+[19:49:53][INFO] [PixelCheck] 빈 구역 스냅샷 초기화 완료
+[19:50:33][INFO] [StatusReport] 상태 전송 완료 (9개 구역)
+[19:51:23][INFO] Quit
+[19:51:23][INFO] [Workers] 종료 대기 중...
+[19:51:23][INFO] [OCR Worker] 종료
+[19:51:23][INFO] [Send Worker] 종료
+[19:51:23][INFO] [OCR Worker] 종료
+[19:51:23][INFO] System stopped
