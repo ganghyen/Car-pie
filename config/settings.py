@@ -154,3 +154,6 @@ STATUS_REPORT_URL = "http://10.14.237.177:8000/api/status/report"
 
 
 AISLE_ZONES = [ "a-b1-007", "a-b1-008", "a-b1-009"]
+
+# SEND FAIL QUEUE RETURN
+MAX_PENDING_QUEUE = 20

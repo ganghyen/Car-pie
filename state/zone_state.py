@@ -17,6 +17,7 @@ from config.settings import (
     RECHECK_INTERVAL_SEC,
     AISLE_STILL_SECONDS,
     AISLE_ZONE_PREFIX,
+    AISLE_ZONES,
     PIXEL_DIFF_THRESHOLD,
     PIXEL_CHECK_OCCUPIED,
     PIXEL_LIGHTING_CHANGE_THRESHOLD,
@@ -321,6 +322,13 @@ class ParkingStateMachine:
         zone = self.zones.get(zone_name)
         if zone is None or zone.status != ZoneStatus.OCCUPIED:
             return False
+
+        if zone.plate_status == PlateStatus.CONFIRMED:
+            return False
+
+        if zone_name in AISLE_ZONES:
+            return False
+
         if (zone.plate_status in (PlateStatus.UNREADABLE, PlateStatus.NULL) and
                 (time.time() - zone.last_recheck_time) < RECHECK_INTERVAL_SEC * 3):
             return False

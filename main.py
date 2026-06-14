@@ -16,6 +16,9 @@ import requests
 from datetime import datetime, timedelta
 from config.settings import STILL_SECONDS_REQUIRED
 
+#==========
+#from utils.visualizer import Visualizer
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from config.settings import (
@@ -230,6 +233,9 @@ def main():
     detector     = VehicleDetector()
     ocr_reader   = PlateReader()
     sender       = EventSender()
+    
+    #===
+ #   visualizer = Visualizer()
 
     homography.load()
 
@@ -300,6 +306,22 @@ def main():
     try:
         while True:
             ret, frame = cap.read()
+           # # ===== TEMP: 매핑 확인용 (확인 후 삭제) =====
+            #if homography.is_ready():
+             #   warped_debug = cv2.warpPerspective(
+              #      frame, homography.matrix,
+               #     (VIRTUAL_MAP_WIDTH, VIRTUAL_MAP_HEIGHT)
+               # )
+                #for zn, zpts in homography.zones.items():
+                 #   pts = np.array(zpts, dtype=np.int32)
+                  #  cv2.polylines(warped_debug, [pts], True, (0, 255, 0), 2)
+                  #  cx, cy = pts.mean(axis=0).astype(int)
+                   # cv2.putText(warped_debug, zn, (cx - 30, cy),
+                  #              cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1)
+               # cv2.imshow("Mapping Check", warped_debug)
+               # if cv2.waitKey(1) & 0xFF == ord('q'):
+                #    break
+            # ===== TEMP END =====
             if not ret:
                 time.sleep(0.03)
                 continue
@@ -426,8 +448,12 @@ def main():
                     c for c in virtual_cars
                     if point_in_zone((c["vx"], c["vy"]), zone_pts)
                 ]
-                detect_status[zone_name] = bool(cars_in_zone)
-
+                zone_obj_for_detect = state_machine.zones.get(zone_name)
+                detect_status[zone_name] = (
+                bool(cars_in_zone)
+                or (zone_obj_for_detect is not None
+                and zone_obj_for_detect.status == ZoneStatus.OCCUPIED)
+                )
                 foot = (cars_in_zone[0]["vx"], cars_in_zone[0]["vy"]) \
                        if cars_in_zone else None
 
@@ -515,7 +541,7 @@ def main():
                                         pass
 
                     elif event["type"] == "exit":
-                        _save_snapshot(frame, f"{zone_name}_exit", event["timestamp"])
+                        
 
                         pending = pending_entry.pop(zone_name, None)
                         if pending:
@@ -585,12 +611,29 @@ def main():
 
             # ✅ 구역별 중앙점 감지 확인 로그 (DETECT_LOG_INTERVAL마다 1줄)
             if now - last_detect_log >= DETECT_LOG_INTERVAL:
+                
                 last_detect_log = now
                 status_str = " ".join(
                     f"{zn}:{'O' if det else 'X'}"
                     for zn, det in detect_status.items()
                 )
                 logger.info(f"[DETECT] {status_str}")
+                
+                # ===== TEMP: 화면 표시 (확인 후 삭제) =====
+     #       fps_temp = 1.0 / max(time.time() - now, 1e-6)
+     #       vis_frame = visualizer.draw_frame(
+     #           frame=frame,
+     #           cars=cars,
+     #           plates=plates,
+     #           zone_statuses=state_machine.get_all_status(),
+     #           homography_transformer=homography,
+     #           fps=fps_temp,
+     #           state_machine=state_machine,
+     #       )
+     #       cv2.imshow("Parking View", vis_frame)
+     #       if cv2.waitKey(1) & 0xFF == ord('q'):
+     #           break
+            # ===== TEMP END =====
 
     except KeyboardInterrupt:
         pass

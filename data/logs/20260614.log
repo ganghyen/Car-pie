@@ -1,0 +1,744 @@
+[17:46:49][INFO] ==================================================
+[17:46:49][INFO] Smart Parking System Start
+[17:46:49][INFO] ==================================================
+[17:46:54][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:46:54][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:46:59][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:46:59][ERROR] Camera 0 open failed
+[17:47:09][INFO] ==================================================
+[17:47:09][INFO] Smart Parking System Start
+[17:47:09][INFO] ==================================================
+[17:47:13][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:47:13][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:47:18][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:47:18][ERROR] Camera 0 open failed
+[17:47:28][INFO] ==================================================
+[17:47:28][INFO] Smart Parking System Start
+[17:47:28][INFO] ==================================================
+[17:47:32][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:47:32][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:47:37][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:47:37][ERROR] Camera 0 open failed
+[17:47:47][INFO] ==================================================
+[17:47:47][INFO] Smart Parking System Start
+[17:47:47][INFO] ==================================================
+[17:47:51][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:47:51][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:47:56][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:47:56][ERROR] Camera 0 open failed
+[17:48:05][INFO] ==================================================
+[17:48:05][INFO] Smart Parking System Start
+[17:48:05][INFO] ==================================================
+[17:48:09][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:48:09][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:48:14][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:48:14][ERROR] Camera 0 open failed
+[17:48:23][INFO] ==================================================
+[17:48:23][INFO] Smart Parking System Start
+[17:48:23][INFO] ==================================================
+[17:48:28][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:48:28][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:48:33][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:48:33][ERROR] Camera 0 open failed
+[17:48:42][INFO] ==================================================
+[17:48:42][INFO] Smart Parking System Start
+[17:48:42][INFO] ==================================================
+[17:48:46][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:48:46][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:48:51][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:48:51][ERROR] Camera 0 open failed
+[17:49:00][INFO] ==================================================
+[17:49:00][INFO] Smart Parking System Start
+[17:49:00][INFO] ==================================================
+[17:49:04][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:49:04][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:49:09][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:49:09][ERROR] Camera 0 open failed
+[17:49:18][INFO] ==================================================
+[17:49:18][INFO] Smart Parking System Start
+[17:49:18][INFO] ==================================================
+[17:49:23][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:49:23][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:49:28][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:49:28][ERROR] Camera 0 open failed
+[17:49:36][INFO] ==================================================
+[17:49:36][INFO] Smart Parking System Start
+[17:49:36][INFO] ==================================================
+[17:49:41][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:49:41][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:49:46][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:49:46][ERROR] Camera 0 open failed
+[17:49:55][INFO] ==================================================
+[17:49:55][INFO] Smart Parking System Start
+[17:49:55][INFO] ==================================================
+[17:49:59][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:49:59][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:50:04][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:50:04][ERROR] Camera 0 open failed
+[17:50:13][INFO] ==================================================
+[17:50:13][INFO] Smart Parking System Start
+[17:50:13][INFO] ==================================================
+[17:50:17][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:50:17][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:50:23][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:50:23][ERROR] Camera 0 open failed
+[17:50:31][INFO] ==================================================
+[17:50:31][INFO] Smart Parking System Start
+[17:50:31][INFO] ==================================================
+[17:50:36][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:50:36][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:50:41][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:50:41][ERROR] Camera 0 open failed
+[17:51:14][INFO] ==================================================
+[17:51:14][INFO] Smart Parking System Start
+[17:51:14][INFO] ==================================================
+[17:51:20][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:51:20][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:51:25][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:51:25][ERROR] Camera 0 open failed
+[17:51:34][INFO] ==================================================
+[17:51:34][INFO] Smart Parking System Start
+[17:51:34][INFO] ==================================================
+[17:51:39][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:51:39][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:51:44][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:51:44][ERROR] Camera 0 open failed
+[17:51:53][INFO] ==================================================
+[17:51:53][INFO] Smart Parking System Start
+[17:51:53][INFO] ==================================================
+[17:51:57][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:51:57][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:52:02][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:52:02][ERROR] Camera 0 open failed
+[17:52:11][INFO] ==================================================
+[17:52:11][INFO] Smart Parking System Start
+[17:52:11][INFO] ==================================================
+[17:52:15][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:52:15][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:52:20][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:52:20][ERROR] Camera 0 open failed
+[17:52:29][INFO] ==================================================
+[17:52:29][INFO] Smart Parking System Start
+[17:52:29][INFO] ==================================================
+[17:52:34][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:52:34][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:52:39][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:52:39][ERROR] Camera 0 open failed
+[17:52:48][INFO] ==================================================
+[17:52:48][INFO] Smart Parking System Start
+[17:52:48][INFO] ==================================================
+[17:52:52][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:52:52][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:52:57][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:52:57][ERROR] Camera 0 open failed
+[17:53:06][INFO] ==================================================
+[17:53:06][INFO] Smart Parking System Start
+[17:53:06][INFO] ==================================================
+[17:53:11][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:53:11][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:53:16][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:53:16][ERROR] Camera 0 open failed
+[17:53:25][INFO] ==================================================
+[17:53:25][INFO] Smart Parking System Start
+[17:53:25][INFO] ==================================================
+[17:53:29][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:53:29][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:53:34][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:53:34][ERROR] Camera 0 open failed
+[17:53:43][INFO] ==================================================
+[17:53:43][INFO] Smart Parking System Start
+[17:53:43][INFO] ==================================================
+[17:53:48][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:53:48][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:53:53][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:53:53][ERROR] Camera 0 open failed
+[17:54:02][INFO] ==================================================
+[17:54:02][INFO] Smart Parking System Start
+[17:54:02][INFO] ==================================================
+[17:54:06][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:54:06][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:54:11][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:54:11][ERROR] Camera 0 open failed
+[17:54:20][INFO] ==================================================
+[17:54:20][INFO] Smart Parking System Start
+[17:54:20][INFO] ==================================================
+[17:54:25][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:54:25][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:54:30][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:54:30][ERROR] Camera 0 open failed
+[17:54:38][INFO] ==================================================
+[17:54:38][INFO] Smart Parking System Start
+[17:54:38][INFO] ==================================================
+[17:54:43][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:54:43][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:54:48][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:54:48][ERROR] Camera 0 open failed
+[17:54:57][INFO] ==================================================
+[17:54:57][INFO] Smart Parking System Start
+[17:54:57][INFO] ==================================================
+[17:55:01][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:55:01][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:55:06][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:55:06][ERROR] Camera 0 open failed
+[17:55:15][INFO] ==================================================
+[17:55:15][INFO] Smart Parking System Start
+[17:55:15][INFO] ==================================================
+[17:55:20][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:55:20][INFO] Mapping loaded | zones: ['a-b1-001', 'a-b1-006', 'a-b1-007', 'a-b1-008', 'a-b1-009', 'a-b1-002', 'a-b1-005', 'a-b1-003', 'a-b1-004']
+[17:55:25][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:55:25][ERROR] Camera 0 open failed
+[17:55:38][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:55:43][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:55:56][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:56:01][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:56:15][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:56:20][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:56:33][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:56:38][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:56:52][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:56:57][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:57:10][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:57:15][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:57:28][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:57:33][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:57:47][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:57:52][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:58:05][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:58:10][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:58:23][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:58:28][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:58:42][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:59:06][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:59:11][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:59:25][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:59:30][INFO] [Camera] C920 자동 포커스 설정 완료
+[17:59:43][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[17:59:48][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:00:01][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:00:06][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:00:24][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:00:29][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:00:43][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:00:48][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:01:01][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:01:06][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:01:19][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:01:24][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:01:38][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:01:43][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:01:56][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:02:01][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:02:14][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:02:19][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:02:32][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:02:37][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:02:51][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:02:56][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:03:09][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:03:14][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:03:27][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:03:32][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:03:46][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:03:51][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:04:04][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:04:09][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:04:22][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:04:27][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:04:41][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:04:46][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:04:59][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:05:04][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:05:17][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:05:22][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:05:35][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:05:40][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:05:54][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:05:59][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:06:12][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:06:17][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:06:30][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:06:35][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:06:48][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:06:53][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:07:07][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:07:12][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:07:25][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:07:30][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:07:44][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:07:49][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:08:02][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:08:07][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:22:02][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:22:08][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:22:13][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:19][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:24][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:29][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:34][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:49][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:54][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:22:59][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:04][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:19][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:24][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:30][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:35][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:50][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:23:54][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:00][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:05][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:20][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:25][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:30][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:35][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:50][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:24:55][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:00][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:06][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:20][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:25][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:30][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:36][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:51][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:25:56][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:01][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:07][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:21][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:26][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:31][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:37][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:51][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:26:56][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:02][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:07][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:22][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:26][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:32][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:37][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:52][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:27:57][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:02][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:07][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:22][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:27][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:32][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:37][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:52][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:28:57][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:02][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:07][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:22][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:27][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:32][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:37][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:29:52][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:48:51][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:48:56][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:49:01][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:49:07][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:49:12][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:49:17][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:49:23][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:49:37][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[18:49:55][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7ffef9143110>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[18:49:55][WARNING] [Sender] 큐 저장 (1건)
+[18:50:07][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:50:07][INFO] [Sender] 미전송 1건 복구
+[18:50:12][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:50:27][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:50:27][INFO] [Sender] 미전송 1건 복구
+[18:55:51][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:55:51][INFO] [Sender] 미전송 1건 복구
+[18:56:02][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[18:56:02][INFO] [Sender] 미전송 1건 복구
+[18:56:07][INFO] [Camera] C920 자동 포커스 설정 완료
+[18:56:12][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:18][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:19][INFO] [ENTRY QUICK] a-b1-001 PARKED 상태 먼저 전송
+[18:56:19][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[18:56:19][INFO] [ENTRY QUICK] a-b1-006 PARKED 상태 먼저 전송
+[18:56:19][INFO] [ENTRY] a-b1-006 OCR Queue 제출 (대기: 2)
+[18:56:19][INFO] [ENTRY QUICK] a-b1-002 PARKED 상태 먼저 전송
+[18:56:19][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 3)
+[18:56:19][INFO] [ENTRY QUICK] a-b1-005 PARKED 상태 먼저 전송
+[18:56:19][INFO] [ENTRY] a-b1-005 OCR Queue 제출 (대기: 4)
+[18:56:24][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:29][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:34][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:43][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff730eead0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[18:56:43][WARNING] [Sender] 큐 저장 (2건)
+[18:56:48][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:53][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:56:58][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:03][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:13][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff73115350>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[18:57:13][WARNING] [Sender] 큐 저장 (3건)
+[18:57:19][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:23][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:28][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:33][INFO] [OCR Worker] a-b1-006 완료: 123가4567 (confirmed)
+[18:57:34][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:35][INFO] [OCR Worker] a-b1-001 완료: 사마357 (confirmed)
+[18:57:43][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff757dff00>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[18:57:43][WARNING] [Sender] 큐 저장 (4건)
+[18:57:49][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:53][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:57:59][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:03][INFO] [OCR Worker] a-b1-002 완료: 78호1234 (confirmed)
+[18:58:04][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:13][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff732a8490>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[18:58:13][WARNING] [Sender] 큐 저장 (5건)
+[18:58:16][INFO] [OCR Worker] a-b1-005 완료: 37나5209 (confirmed)
+[18:58:19][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:23][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:29][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:34][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:43][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff732a8c00>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[18:58:43][WARNING] [Sender] 큐 저장 (6건)
+[18:58:49][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[18:58:54][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:O
+[18:59:00][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:O
+[18:59:05][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:O
+[19:01:07][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:01:07][INFO] [Sender] 미전송 6건 복구
+[19:01:12][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:01:17][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:O
+[19:01:23][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:O
+[19:01:29][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:O
+[19:01:34][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:01:39][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:X
+[19:01:48][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff366af250>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:01:48][WARNING] [Sender] 큐 저장 (7건)
+[19:01:52][INFO] [EXIT] a-b1-003 plate=None
+[19:01:53][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:X
+[19:01:58][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[19:02:03][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:X
+[19:03:36][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:03:36][INFO] [Sender] 미전송 7건 복구
+[19:03:41][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:03:47][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:03:52][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:03:56][INFO] [EXIT] a-b1-006 plate=123가4567
+[19:03:56][INFO] [EXIT] a-b1-005 plate=37나5209
+[19:03:56][INFO] [EXIT] a-b1-003 plate=None
+[19:03:58][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:04:03][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:04:08][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:04:17][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff302df250>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:04:17][WARNING] [Sender] 큐 저장 (8건)
+[19:04:23][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:04:28][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:04:33][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:04:38][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:04:47][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff30304e90>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:04:47][WARNING] [Sender] 큐 저장 (9건)
+[19:04:52][INFO] [OCR Worker] a-b1-003 완료: None (null)
+[19:04:52][INFO] [OCR Worker] a-b1-004 완료: None (null)
+[19:04:53][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:04:58][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:05:04][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:05:09][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:05:17][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff329cfce0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:05:17][WARNING] [Sender] 큐 저장 (10건)
+[19:05:24][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:05:29][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:05:33][INFO] [OCR Worker] a-b1-003 완료: UNREADABLE (unreadable)
+[19:05:33][INFO] [OCR Worker] a-b1-004 완료: UNREADABLE (unreadable)
+[19:05:34][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:X
+[19:05:38][INFO] [OCR Worker] a-b1-003 완료: UNREADABLE (unreadable)
+[19:05:38][INFO] [OCR Worker] a-b1-004 완료: UNREADABLE (unreadable)
+[19:05:39][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:05:47][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff30498160>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:05:47][WARNING] [Sender] 큐 저장 (11건)
+[19:05:54][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:05:59][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:06:05][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:06:07][INFO] [EXIT] a-b1-001 plate=None
+[19:06:10][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:06:12][INFO] [EXIT] a-b1-004 plate=None
+[19:06:17][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff30499040>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:06:17][WARNING] [Sender] 큐 저장 (12건)
+[19:06:25][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:06:30][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:06:35][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:06:40][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:17:35][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:17:35][INFO] [Sender] 미전송 12건 복구
+[19:17:40][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:17:46][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:17:51][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:17:56][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:18:02][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:18:07][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:18:09][INFO] [ENTRY QUICK] a-b1-001 PARKED 상태 먼저 전송
+[19:18:09][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[19:18:21][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:18:26][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:18:31][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:18:35][INFO] [ENTRY QUICK] a-b1-002 PARKED 상태 먼저 전송
+[19:18:35][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 1)
+[19:18:36][INFO] [OCR Worker] a-b1-001 완료: 42비3579 (confirmed)
+[19:18:36][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:O
+[19:18:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5b95f9d0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:18:39][WARNING] [Sender] 큐 저장 (13건)
+[19:18:51][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:18:57][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:02][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:03][INFO] [OCR Worker] a-b1-004 완료: None (null)
+[19:19:07][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5b980710>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:19:09][WARNING] [Sender] 큐 저장 (14건)
+[19:19:13][INFO] [OCR Worker] a-b1-002 완료: 795209 (confirmed)
+[19:19:21][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:26][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:26][INFO] [OCR Worker] a-b1-003 완료: None (null)
+[19:19:32][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:37][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb18490>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:19:39][WARNING] [Sender] 큐 저장 (15건)
+[19:19:52][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:57][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:19:57][INFO] [OCR Worker] a-b1-004 완료: UNREADABLE (unreadable)
+[19:19:57][INFO] [OCR Worker] a-b1-003 완료: UNREADABLE (unreadable)
+[19:20:02][INFO] [ENTRY QUICK] a-b1-006 PARKED 상태 먼저 전송
+[19:20:02][INFO] [ENTRY] a-b1-006 OCR Queue 제출 (대기: 1)
+[19:20:03][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:08][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb18160>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:20:09][WARNING] [Sender] 큐 저장 (16건)
+[19:20:23][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:27][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:33][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:35][INFO] [OCR Worker] a-b1-005 완료: 112보5273 (confirmed)
+[19:20:35][INFO] [OCR Worker] a-b1-004 완료: UNREADABLE (unreadable)
+[19:20:35][INFO] [OCR Worker] a-b1-003 완료: UNREADABLE (unreadable)
+[19:20:38][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb1a250>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:20:39][WARNING] [Sender] 큐 저장 (17건)
+[19:20:40][INFO] [OCR Worker] a-b1-004 완료: UNREADABLE (unreadable)
+[19:20:40][INFO] [OCR Worker] a-b1-003 완료: UNREADABLE (unreadable)
+[19:20:53][INFO] [ENTRY QUICK] a-b1-007 PARKED 상태 먼저 전송
+[19:20:53][INFO] [ENTRY] a-b1-007 OCR Queue 제출 (대기: 1)
+[19:20:53][INFO] [EXIT] a-b1-002 plate=795209
+[19:20:54][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:20:58][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:21:04][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:21:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb198c0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:21:09][WARNING] [Sender] 큐 저장 (18건)
+[19:21:09][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:21:24][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:21:28][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:21:34][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:O a-b1-004:O
+[19:21:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb188d0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:21:39][WARNING] [Sender] 큐 저장 (19건)
+[19:21:40][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:O a-b1-004:X
+[19:21:54][INFO] [EXIT] a-b1-006 plate=None
+[19:21:54][INFO] [EXIT] a-b1-007 plate=None
+[19:21:54][INFO] [EXIT] a-b1-004 plate=None
+[19:21:55][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:22:00][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:05][INFO] [EXIT] a-b1-001 plate=42비3579
+[19:22:05][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb19e10>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:22:09][WARNING] [Sender] 큐 저장 (20건)
+[19:22:11][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:25][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:29][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:34][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb18e20>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:22:39][WARNING] [Sender] 큐 저장 (20건)
+[19:22:40][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:55][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:O a-b1-003:X a-b1-004:X
+[19:22:59][INFO] [DETECT] a-b1-001:X a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:O a-b1-003:X a-b1-004:X
+[19:23:00][INFO] [OCR Worker] a-b1-006 완료: 112보5273 (confirmed)
+[19:23:05][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:23:09][INFO] [ENTRY QUICK] a-b1-002 PARKED 상태 먼저 전송
+[19:23:09][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 1)
+[19:23:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb19e10>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:23:09][WARNING] [Sender] 큐 저장 (20건)
+[19:23:10][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:23:13][INFO] [EXIT] a-b1-006 plate=112보5273
+[19:23:25][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:23:30][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:23:36][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:23:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb1a250>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:23:39][WARNING] [Sender] 큐 저장 (20건)
+[19:23:41][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:23:55][INFO] [ENTRY QUICK] a-b1-001 PARKED 상태 먼저 전송
+[19:23:55][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[19:23:56][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:00][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:06][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb198c0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:24:09][WARNING] [Sender] 큐 저장 (20건)
+[19:24:12][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:26][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:31][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:36][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:39][INFO] [OCR Worker] a-b1-001 완료: None (null)
+[19:24:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb19bf0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:24:39][WARNING] [Sender] 큐 저장 (20건)
+[19:24:42][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:24:56][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:01][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:06][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb197b0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:25:09][WARNING] [Sender] 큐 저장 (20건)
+[19:25:12][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:26][INFO] [ENTRY QUICK] a-b1-007 PARKED 상태 먼저 전송
+[19:25:26][INFO] [ENTRY] a-b1-007 OCR Queue 제출 (대기: 1)
+[19:25:27][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:32][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:37][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb18d10>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:25:39][WARNING] [Sender] 큐 저장 (20건)
+[19:25:43][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:25:58][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:02][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:08][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb19ae0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:26:09][WARNING] [Sender] 큐 저장 (20건)
+[19:26:13][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:28][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:33][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:39][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb18270>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:26:39][WARNING] [Sender] 큐 저장 (20건)
+[19:26:44][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:26:51][INFO] [OCR Worker] a-b1-007 완료: UNREADABLE (unreadable)
+[19:26:56][INFO] [OCR Worker] a-b1-002 완료: 조2426 (confirmed)
+[19:26:58][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:03][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:08][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:09][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb188d0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:27:09][WARNING] [Sender] 큐 저장 (20건)
+[19:27:13][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:28][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:33][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:39][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:39][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff5bb18160>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:27:39][WARNING] [Sender] 큐 저장 (20건)
+[19:27:44][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:27:59][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:28:15][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:28:15][INFO] [Sender] 미전송 20건 복구
+[19:28:20][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:28:25][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:28:30][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:28:36][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:28:41][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:28:46][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:29:01][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:29:06][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:29:11][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:29:52][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:29:52][INFO] [Sender] 미전송 20건 복구
+[19:29:57][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:30:02][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:30:07][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:30:13][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:30:18][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:30:23][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:34:27][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:34:27][INFO] [Sender] 미전송 20건 복구
+[19:34:33][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:34:38][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:34:43][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:34:48][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:34:54][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:34:59][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:14][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:18][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:23][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:28][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:30][INFO] [EXIT] a-b1-007 plate=None
+[19:35:43][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:44][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:49][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:54][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:35:59][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:36:00][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff20aa5e00>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:36:00][WARNING] [Sender] 큐 저장 (20건)
+[19:43:59][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:43:59][INFO] [Sender] 미전송 20건 복구
+[19:44:04][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:44:09][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:14][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:20][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:25][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:29][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:32][INFO] [ENTRY QUICK] a-b1-007 PARKED 상태 먼저 전송
+[19:44:32][INFO] [ENTRY] a-b1-007 OCR Queue 제출 (대기: 1)
+[19:44:45][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:50][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:44:55][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:45:00][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:45:02][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff0039b9d0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:45:02][WARNING] [Sender] 큐 저장 (20건)
+[19:45:15][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:50:36][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:50:36][INFO] [Sender] 미전송 20건 복구
+[19:50:42][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:50:47][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:O a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:X a-b1-004:X
+[19:50:52][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:50:57][INFO] [EXIT] a-b1-001 plate=None
+[19:50:57][INFO] [EXIT] a-b1-007 plate=None
+[19:50:57][INFO] [EXIT] a-b1-002 plate=조2426
+[19:50:58][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:51:03][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:51:08][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:52:22][INFO] [Sender] 초기화 | 서버: http://10.14.237.177:8000/api/event
+[19:52:27][INFO] [Camera] C920 자동 포커스 설정 완료
+[19:52:33][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:52:38][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:52:43][INFO] [EXIT] a-b1-001 plate=None
+[19:52:43][INFO] [EXIT] a-b1-007 plate=None
+[19:52:43][INFO] [EXIT] a-b1-002 plate=조2426
+[19:52:43][INFO] [DETECT] a-b1-001:X a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:X a-b1-005:X a-b1-003:X a-b1-004:X
+[19:52:49][INFO] [DETECT] a-b1-001:O a-b1-006:X a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:52:54][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:52:56][INFO] [ENTRY QUICK] a-b1-003 PARKED 상태 먼저 전송
+[19:52:56][INFO] [ENTRY] a-b1-003 OCR Queue 제출 (대기: 1)
+[19:52:58][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff33a9eba0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:52:58][WARNING] [Sender] 큐 저장 (1건)
+[19:53:08][INFO] [ENTRY QUICK] a-b1-001 PARKED 상태 먼저 전송
+[19:53:08][INFO] [ENTRY] a-b1-001 OCR Queue 제출 (대기: 1)
+[19:53:08][INFO] [ENTRY QUICK] a-b1-006 PARKED 상태 먼저 전송
+[19:53:08][INFO] [ENTRY] a-b1-006 OCR Queue 제출 (대기: 1)
+[19:53:08][INFO] [ENTRY QUICK] a-b1-002 PARKED 상태 먼저 전송
+[19:53:08][INFO] [ENTRY] a-b1-002 OCR Queue 제출 (대기: 2)
+[19:53:08][INFO] [ENTRY QUICK] a-b1-004 PARKED 상태 먼저 전송
+[19:53:08][INFO] [ENTRY] a-b1-004 OCR Queue 제출 (대기: 3)
+[19:53:09][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:14][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:20][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:25][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:28][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff33ab5ba0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:53:28][WARNING] [Sender] 큐 저장 (2건)
+[19:53:40][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:44][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:50][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:51][INFO] [OCR Worker] a-b1-001 완료: None (null)
+[19:53:56][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:53:58][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff33c4c6b0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:53:58][WARNING] [Sender] 큐 저장 (3건)
+[19:54:11][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:16][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:21][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:27][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:28][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff33c4c490>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:54:28][WARNING] [Sender] 큐 저장 (4건)
+[19:54:31][INFO] [OCR Worker] a-b1-006 완료: 78호1234 (confirmed)
+[19:54:41][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:45][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:51][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:56][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:54:58][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff33c4c5a0>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:54:58][WARNING] [Sender] 큐 저장 (5건)
+[19:55:05][INFO] [OCR Worker] a-b1-002 완료: None (null)
+[19:55:12][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:55:16][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:55:22][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:55:27][INFO] [DETECT] a-b1-001:O a-b1-006:O a-b1-007:X a-b1-008:X a-b1-009:X a-b1-002:O a-b1-005:X a-b1-003:O a-b1-004:O
+[19:55:28][ERROR] [Sender] 전송 실패: HTTPConnectionPool(host='10.14.237.177', port=8000): Max retries exceeded with url: /api/event (Caused by ConnectTimeoutError(<HTTPConnection(host='10.14.237.177', port=8000) at 0x7fff33c4dd00>, 'Connection to 10.14.237.177 timed out. (connect timeout=15)'))
+[19:55:28][WARNING] [Sender] 큐 저장 (6건)

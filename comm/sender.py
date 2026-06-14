@@ -15,6 +15,7 @@ from config.settings import (
     REQUEST_TIMEOUT,
     QUEUE_FILE_PATH,
     APARTMENT_NO,
+    MAX_PENDING_QUEUE,
 )
 from utils.logger import get_logger
 
@@ -115,6 +116,8 @@ class EventSender:
 
     def _enqueue(self, payload: dict):
         self._pending.append(payload)
+        if len(self._pending) > MAX_PENDING_QUEUE:
+            self._pending = self._pending[-MAX_PENDING_QUEUE:]
         self._save_queue()
         logger.warning(f"[Sender] 큐 저장 ({len(self._pending)}건)")
 
