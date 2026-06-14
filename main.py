@@ -52,13 +52,16 @@ PRIORITY_ENTRY  = 2
 PRIORITY_UPDATE = 3
 _counter = itertools.count()
 
+# ✅ OCR 큐 우선순위
+OCR_PRIORITY_ENTRY   = 0   # 최초 입차 OCR (1순위)
+OCR_PRIORITY_RECHECK = 1   # 재인식 OCR (2순위)
+
 
 def _frame_to_base64(frame) -> str | None:
     try:
         _, buf = cv2.imencode(".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 85])
         return base64.b64encode(buf).decode("utf-8")
-    except Exception as e:
-        logger.error(f"[Snapshot] base64 변환 실패: {e}")
+    except Exception:
         return None
 
 
@@ -68,31 +71,30 @@ def _ensure_image_base64(event: dict, frame, zone_name: str, reason: str):
     image_b64 = _frame_to_base64(frame)
     if image_b64:
         event["image_base64"] = image_b64
-        logger.info(f"[Snapshot] {zone_name} {reason} → base64 스냅샷 생성")
 
 
 class OcrTask:
     def __init__(self, zone_name, snapshot, car_bbox,
-                 plate_bbox, entry_event):
+                 plate_bbox, entry_event, is_recheck=False):
         self.zone_name   = zone_name
         self.snapshot    = snapshot
         self.car_bbox    = car_bbox
         self.plate_bbox  = plate_bbox
         self.entry_event = entry_event
         self.queued_at   = time.time()
+        self.is_recheck  = is_recheck
 
 
-def ocr_worker(ocr_queue: queue.Queue,
+def ocr_worker(ocr_queue: queue.PriorityQueue,
                send_queue: queue.PriorityQueue,
                ocr_reader: PlateReader,
                state_machine: ParkingStateMachine,
                stop_event: threading.Event,
                ocr_submitted: dict):
-    logger.info("[OCR Worker] 시작")
 
     while not stop_event.is_set():
         try:
-            task: OcrTask = ocr_queue.get(timeout=1.0)
+            _, _, task = ocr_queue.get(timeout=1.0)
         except queue.Empty:
             continue
 
@@ -106,22 +108,63 @@ def ocr_worker(ocr_queue: queue.Queue,
                 plate_bbox=task.plate_bbox,
             )
 
-            # ✅ OCR 완료 후 구역 상태 확인
-            # - zone이 없거나 EMPTY로 리셋됨 (차량 빠짐)
-            # - 또는 entry_time이 바뀜 (다른 차량으로 교체됨)
-            # → OCR 결과 폐기 (전송 안 함)
+            # ✅ 재인식(recheck) 작업이면 별도 처리
+            if task.is_recheck:
+                zone = state_machine.zones.get(zone_name)
+                if zone is None or zone.status == ZoneStatus.EMPTY:
+                    ocr_submitted.pop(zone_name, None)
+                    continue
+
+                prev_plate = task.entry_event.get("prev_plate")
+                if plate and plate != PLATE_UNREADABLE and plate != prev_plate:
+                    try:
+                        if prev_plate is None:
+                            state_machine.set_plate(zone_name, plate)
+                            send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
+                                "type":         "plate_update",
+                                "zone":         zone_name,
+                                "plate":        plate,
+                                "plate_status": "confirmed",
+                                "entry_time":   zone.entry_time,
+                                "park_status":  zone.park_status.value,
+                                "linked_zone":  zone.linked_zone,
+                                "timestamp":    time.time(),
+                            }))
+                        else:
+                            send_queue.put_nowait((PRIORITY_EXIT, next(_counter), {
+                                "type":         "exit",
+                                "zone":         zone_name,
+                                "plate":        prev_plate,
+                                "plate_status": zone.plate_status.value,
+                                "entry_time":   zone.entry_time,
+                                "park_status":  zone.park_status.value,
+                                "linked_zone":  zone.linked_zone,
+                                "timestamp":    time.time(),
+                            }))
+                            state_machine.set_plate(zone_name, plate)
+                            send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
+                                "type":         "plate_changed",
+                                "zone":         zone_name,
+                                "plate":        plate,
+                                "plate_status": "confirmed",
+                                "entry_time":   zone.entry_time,
+                                "park_status":  zone.park_status.value,
+                                "linked_zone":  zone.linked_zone,
+                                "timestamp":    time.time(),
+                            }))
+                    except queue.Full:
+                        pass
+
+                ocr_submitted.pop(zone_name, None)
+                continue
+
+            # ── 이하 기존 일반 entry OCR 처리 ──
             zone = state_machine.zones.get(zone_name)
             task_entry_time = task.entry_event.get("entry_time")
 
             if (zone is None
                     or zone.status == ZoneStatus.EMPTY
                     or zone.entry_time != task_entry_time):
-                logger.warning(
-                    f"[OCR Worker] {zone_name} 결과({plate}) 폐기 "
-                    f"(차량 변경/출차됨, "
-                    f"task_entry={task_entry_time}, "
-                    f"zone_entry={zone.entry_time if zone else None})"
-                )
                 ocr_submitted.pop(zone_name, None)
                 continue
 
@@ -137,7 +180,6 @@ def ocr_worker(ocr_queue: queue.Queue,
             if ps in ("null", "unreadable"):
                 entry_event["ocr_error"] = True
                 _ensure_image_base64(entry_event, task.snapshot, zone_name, "OCR 실패")
-                logger.warning(f"[OCR ERROR] {zone_name} 번호판 인식 불가 ({ps})")
             else:
                 entry_event["ocr_error"] = False
 
@@ -157,25 +199,18 @@ def ocr_worker(ocr_queue: queue.Queue,
                         "linked_zone":  zone_name,
                         "timestamp":    time.time(),
                     }))
-                    logger.info(f"[MULTI OCR] {zone_name} → linked {zone.linked_zone} 번호판 {zone.plate} 업데이트")
                 except queue.Full:
                     pass
 
-            if zone and zone.plate_status == PlateStatus.UNREADABLE:
-                logger.warning(f"[UNREADABLE] {zone_name} 번호판 인식 불가")
-
-        except Exception as e:
-            logger.error(f"[OCR Worker] {task.zone_name} 오류: {e}")
+        except Exception:
+            pass
         finally:
             ocr_queue.task_done()
-
-    logger.info("[OCR Worker] 종료")
 
 
 def send_worker(send_queue: queue.PriorityQueue,
                 sender: EventSender,
                 stop_event: threading.Event):
-    logger.info("[Send Worker] 시작")
 
     while not stop_event.is_set():
         try:
@@ -185,19 +220,13 @@ def send_worker(send_queue: queue.PriorityQueue,
 
         try:
             sender.send(event)
-        except Exception as e:
-            logger.error(f"[Send Worker] 전송 오류: {e}")
+        except Exception:
+            pass
         finally:
             send_queue.task_done()
 
-    logger.info("[Send Worker] 종료")
-
 
 def main():
-    logger.info("=" * 50)
-    logger.info("Smart Parking System Start")
-    logger.info("=" * 50)
-
     os.makedirs(SNAPSHOT_DIR, exist_ok=True)
     os.makedirs(os.path.dirname(STATE_BACKUP_PATH), exist_ok=True)
 
@@ -211,11 +240,6 @@ def main():
 
     homography.load()
     mapper.load_existing()
-
-    if not homography.is_ready():
-        logger.warning("No mapping - Press M to enter mapping mode")
-    else:
-        logger.info(f"Mapping loaded | zones: {list(homography.zones.keys())}")
 
     zone_keys     = list(homography.zones.keys()) if homography.zones else []
     state_machine = ParkingStateMachine(zone_keys)
@@ -241,10 +265,10 @@ def main():
     logger.info("[Camera] C920 자동 포커스 설정 완료")
 
     if not cap.isOpened():
-        logger.error(f"Camera {CAMERA_INDEX} open failed")
         sys.exit(1)
 
-    ocr_queue  = queue.Queue(maxsize=20)
+    # ✅ 1순위(0): 최초 입차 OCR / 2순위(1): 재인식(recheck)
+    ocr_queue  = queue.PriorityQueue(maxsize=20)
     send_queue = queue.PriorityQueue(maxsize=100)
     stop_event = threading.Event()
 
@@ -269,8 +293,6 @@ def main():
     )
     send_thread.start()
 
-    logger.info(f"[Workers] OCR x{OCR_MAX_THREADS}, Send x1 시작")
-
     pending_entry: dict[str, dict] = {}
 
     last_shake_check  = time.time()
@@ -294,7 +316,6 @@ def main():
 
     cv2.namedWindow(WIN_MAIN)
     prev_time = time.time()
-    logger.info("Camera started | M: mapping  Q/ESC: quit")
 
     while True:
         ret, frame = cap.read()
@@ -314,7 +335,6 @@ def main():
                 state_machine          = ParkingStateMachine(new_keys)
                 pending_entry          = {}
                 empty_snap_initialized = False
-                logger.info(f"Mapping reloaded | zones: {new_keys}")
 
         if (not mapping_mode and homography.is_ready()
                 and now - last_shake_check >= CAMERA_SHAKE_CHECK_INTERVAL):
@@ -329,9 +349,7 @@ def main():
 
         if now - last_snap_cleanup >= SNAPSHOT_CLEANUP_INTERVAL:
             last_snap_cleanup = now
-            deleted = _cleanup_snapshots()
-            if deleted > 0:
-                logger.info(f"[Snapshot] {deleted} old files deleted")
+            _cleanup_snapshots()
 
         if now - last_state_backup >= STATE_BACKUP_INTERVAL:
             last_state_backup = now
@@ -378,7 +396,6 @@ def main():
                 shake_status_msg       = "Re-mapping done."
                 shake_status_time      = now
                 empty_snap_initialized = False
-                logger.info(f"Mapping exit | zones: {new_keys}")
                 continue
             mapper.handle_key(key, frame)
             continue
@@ -417,7 +434,6 @@ def main():
                         all_done = False
             if all_done:
                 empty_snap_initialized = True
-                logger.info("[PixelCheck] 빈 구역 스냅샷 초기화 완료")
 
         virtual_cars = []
         if homography.is_ready():
@@ -468,12 +484,11 @@ def main():
                     entry_event = multi_entry_event,
                 )
                 try:
-                    ocr_queue.put_nowait(task)
+                    ocr_queue.put_nowait((OCR_PRIORITY_ENTRY, next(_counter), task))
                     ocr_submitted[zn] = True
                     pending_entry[zn] = multi_entry_event
-                    logger.info(f"[MULTI OCR] {zn} OCR Queue 제출")
                 except queue.Full:
-                    logger.warning(f"[MULTI OCR] {zn} Queue 가득참")
+                    pass
 
         for zone_name, zone_pts in homography.zones.items():
             cars_in_zone = [
@@ -501,8 +516,6 @@ def main():
             )
 
             if event:
-                logger.info(f"[EVENT] {event}")
-
                 if event["type"] == "entry":
                     park_status = event.get("park_status", "normal")
 
@@ -523,7 +536,7 @@ def main():
                         send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), quick_event))
                         logger.info(f"[ENTRY QUICK] {zone_name} PARKED 상태 먼저 전송")
                     except queue.Full:
-                        logger.warning(f"[ENTRY QUICK] {zone_name} send_queue 가득참")
+                        pass
 
                     event["image_base64"] = image_b64
 
@@ -549,19 +562,17 @@ def main():
                             event["plate_status"] = PlateStatus.NULL.value
                             event["ocr_error"]    = True
                             _ensure_image_base64(event, frame, zone_name, "차량 없음")
-                            logger.info(f"[ENTRY] {zone_name} 차량 없음 → null 전송")
                             try:
                                 send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), event))
                             except queue.Full:
-                                logger.warning(f"[ENTRY] {zone_name} send_queue 가득참")
+                                pass
                         else:
                             try:
-                                ocr_queue.put_nowait(task)
+                                ocr_queue.put_nowait((OCR_PRIORITY_ENTRY, next(_counter), task))
                                 ocr_submitted[zone_name] = True
                                 pending_entry[zone_name] = event
                                 logger.info(f"[ENTRY] {zone_name} OCR Queue 제출 (대기: {ocr_queue.qsize()})")
                             except queue.Full:
-                                logger.warning(f"[ENTRY] {zone_name} Queue 가득참 → null")
                                 event["plate"]        = None
                                 event["plate_status"] = PlateStatus.NULL.value
                                 event["ocr_error"]    = True
@@ -576,7 +587,6 @@ def main():
 
                     pending = pending_entry.pop(zone_name, None)
                     if pending:
-                        logger.warning(f"[EXIT] {zone_name} OCR 완료 전 출차 → entry null 전송")
                         pending["plate"]        = None
                         pending["plate_status"] = PlateStatus.NULL.value
                         pending["ocr_error"]    = True
@@ -584,14 +594,14 @@ def main():
                         try:
                             send_queue.put_nowait((PRIORITY_ENTRY, next(_counter), pending))
                         except queue.Full:
-                            logger.warning(f"[EXIT] {zone_name} pending 전송 실패 → queue 가득참")
+                            pass
 
                     ocr_submitted.pop(zone_name, None)
 
                     try:
                         send_queue.put_nowait((PRIORITY_EXIT, next(_counter), event))
                     except queue.Full:
-                        logger.warning(f"[EXIT] send_queue 가득참")
+                        pass
 
                     logger.info(f"[EXIT] {zone_name} plate={event['plate']}")
 
@@ -608,7 +618,6 @@ def main():
                                 ).strftime("%Y-%m-%d %H:%M:%S"),
                                 "timestamp": event["timestamp"],
                             }))
-                            logger.info(f"[EXIT] linked {linked_zn} 동시 출차 처리")
                         except queue.Full:
                             pass
 
@@ -624,53 +633,24 @@ def main():
                     if not plate_visible:
                         state_machine.mark_rechecked(zone_name)
                     else:
-                        new_plate = ocr_reader.recheck(
-                            frame=frame,
-                            bbox=cars_in_zone[0],
-                            zone_name=zone_name,
-                            prev_plate=cur.plate,
+                        recheck_event = {
+                            "prev_plate": cur.plate,
+                        }
+                        task = OcrTask(
+                            zone_name   = zone_name,
+                            snapshot    = frame.copy(),
+                            car_bbox    = cars_in_zone[0],
+                            plate_bbox  = plate_bbox,
+                            entry_event = recheck_event,
+                            is_recheck  = True,
                         )
-                        state_machine.mark_rechecked(zone_name)
-
-                        if new_plate:
-                            logger.info(f"[RECHECK] {zone_name}: {cur.plate} -> {new_plate}")
-                            try:
-                                if cur.plate is None:
-                                    state_machine.set_plate(zone_name, new_plate)
-                                    send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
-                                        "type":         "plate_update",
-                                        "zone":         zone_name,
-                                        "plate":        new_plate,
-                                        "plate_status": "confirmed",
-                                        "entry_time":   cur.entry_time,
-                                        "park_status":  cur.park_status.value,
-                                        "linked_zone":  cur.linked_zone,
-                                        "timestamp":    time.time(),
-                                    }))
-                                else:
-                                    send_queue.put_nowait((PRIORITY_EXIT, next(_counter), {
-                                        "type":         "exit",
-                                        "zone":         zone_name,
-                                        "plate":        cur.plate,
-                                        "plate_status": cur.plate_status.value,
-                                        "entry_time":   cur.entry_time,
-                                        "park_status":  cur.park_status.value,
-                                        "linked_zone":  cur.linked_zone,
-                                        "timestamp":    time.time(),
-                                    }))
-                                    state_machine.set_plate(zone_name, new_plate)
-                                    send_queue.put_nowait((PRIORITY_UPDATE, next(_counter), {
-                                        "type":         "plate_changed",
-                                        "zone":         zone_name,
-                                        "plate":        new_plate,
-                                        "plate_status": "confirmed",
-                                        "entry_time":   cur.entry_time,
-                                        "park_status":  cur.park_status.value,
-                                        "linked_zone":  cur.linked_zone,
-                                        "timestamp":    time.time(),
-                                    }))
-                            except queue.Full:
-                                pass
+                        try:
+                            # ✅ 2순위로 OCR 큐에 제출 (최초 입차 OCR이 우선)
+                            ocr_queue.put_nowait((OCR_PRIORITY_RECHECK, next(_counter), task))
+                            ocr_submitted[zone_name] = True
+                            state_machine.mark_rechecked(zone_name)
+                        except queue.Full:
+                            state_machine.mark_rechecked(zone_name)
 
         fps       = 1.0 / max(now - prev_time, 1e-6)
         prev_time = now
@@ -717,14 +697,11 @@ def main():
 
         key = cv2.waitKey(1) & 0xFF
         if key in [ord('q'), ord('Q'), 27]:
-            logger.info("Quit")
             break
         elif key in [ord('m'), ord('M')]:
-            logger.info("Enter mapping mode")
             mapping_mode = True
             mapper.load_existing()
 
-    logger.info("[Workers] 종료 대기 중...")
     stop_event.set()
     for t in ocr_workers:
         t.join(timeout=5.0)
@@ -733,7 +710,6 @@ def main():
     _backup_state(state_machine)
     cap.release()
     cv2.destroyAllWindows()
-    logger.info("System stopped")
 
 
 def _report_status(state_machine: ParkingStateMachine):
@@ -750,9 +726,8 @@ def _report_status(state_machine: ParkingStateMachine):
             json={"zones": full_status},
             timeout=10,
         )
-        logger.info(f"[StatusReport] 상태 전송 완료 ({len(full_status)}개 구역)")
-    except Exception as e:
-        logger.warning(f"[StatusReport] 전송 실패: {e}")
+    except Exception:
+        pass
 
 
 def _backup_state(state_machine):
@@ -763,8 +738,8 @@ def _backup_state(state_machine):
         }
         with open(STATE_BACKUP_PATH, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"[Backup] Save failed: {e}")
+    except Exception:
+        pass
 
 
 def _restore_state(state_machine):
@@ -776,15 +751,13 @@ def _restore_state(state_machine):
         saved_at    = datetime.strptime(data.get("saved_at", ""), "%Y-%m-%d %H:%M:%S")
         age_minutes = (datetime.now() - saved_at).total_seconds() / 60
         if age_minutes > 60:
-            print(f"[Restore] Backup too old ({age_minutes:.0f}min) - skip")
             return
         zones_data = data.get("zones", {})
         if not zones_data:
             return
         state_machine.from_dict(zones_data)
-        print(f"[Restore] State restored ({age_minutes:.1f}min ago)")
-    except Exception as e:
-        print(f"[Restore] Failed: {e}")
+    except Exception:
+        pass
 
 
 _multi_zone_candidates: dict[str, dict] = {}
@@ -856,9 +829,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                         "hit_frames": 0,
                         "last_seen":  now,
                     }
-                    if pair_key not in _multi_zone_logged:
-                        logger.info(f"[MULTI] {main_zone}+{zone_name} 끝점 감지 시작")
-                        _multi_zone_logged.add(pair_key)
+                    _multi_zone_logged.add(pair_key)
                 else:
                     _multi_zone_candidates[pair_key]["hit_frames"] += 1
                     _multi_zone_candidates[pair_key]["last_seen"]   = now
@@ -886,8 +857,6 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
                     if (state_a.status == ZoneStatus.OCCUPIED and
                             state_b.status == ZoneStatus.OCCUPIED):
                         continue
-
-                    logger.info(f"[MULTI-ZONE] CONFIRMED: {za}+{zb} ({hit_frames}프레임)")
 
                     state_machine.set_multi_zone(za, zb, None)
 
