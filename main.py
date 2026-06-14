@@ -1,5 +1,5 @@
 # ============================================================
-# [메인] 스마트 주차 관리 시스템 8
+# [메인] 스마트 주차 관리 시스템 9
 # ============================================================
 
 import cv2
@@ -271,7 +271,6 @@ def main():
 
     logger.info(f"[Workers] OCR x{OCR_MAX_THREADS}, Send x1 시작")
 
-    ocr_submitted: dict[str, bool] = {}
     pending_entry: dict[str, dict] = {}
 
     last_shake_check  = time.time()

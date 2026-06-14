@@ -81,7 +81,7 @@ OCR_MIN_TEXT_LENGTH      = 4
 # 번호판 crop 시 상하좌우 여백 (픽셀)
 PLATE_PADDING            = 10
 # 번호판 이미지 업스케일 배율
-PLATE_UPSCALE            = 5.0
+PLATE_UPSCALE            = 3.0
 # 동시 실행 OCR 스레드 최대 수
 OCR_MAX_THREADS          = 2
 # 연속 OCR 실패 횟수 한도 (이 횟수 초과 시 UNREADABLE 처리)
