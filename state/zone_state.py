@@ -17,6 +17,7 @@ from config.settings import (
     RECHECK_INTERVAL_SEC,
     AISLE_STILL_SECONDS,
     AISLE_ZONE_PREFIX,
+    AISLE_ZONES,
     PIXEL_DIFF_THRESHOLD,
     PIXEL_CHECK_OCCUPIED,
     PIXEL_LIGHTING_CHANGE_THRESHOLD,
@@ -321,12 +322,20 @@ class ParkingStateMachine:
         zone = self.zones.get(zone_name)
         if zone is None or zone.status != ZoneStatus.OCCUPIED:
             return False
+
+        # 번호판 확정되면 출차 전까지 재인식 안 함
+        if zone.plate_status == PlateStatus.CONFIRMED:
+            return False
+
+        # 통로구역은 역추적으로 번호판 부여되므로 재OCR 안 함
+        if zone_name in AISLE_ZONES:
+            return False
+
+        # NULL/UNREADABLE → 90초마다 재시도
         if (zone.plate_status in (PlateStatus.UNREADABLE, PlateStatus.NULL) and
                 (time.time() - zone.last_recheck_time) < RECHECK_INTERVAL_SEC * 3):
             return False
-        now      = time.time()
-        periodic = (now - zone.last_recheck_time) >= RECHECK_INTERVAL_SEC
-        return periodic or zone.double_park_suspected
+        return (time.time() - zone.last_recheck_time) >= RECHECK_INTERVAL_SEC
 
     def mark_rechecked(self, zone_name: str):
         zone = self.zones.get(zone_name)

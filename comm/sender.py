@@ -1,19 +1,12 @@
 # ============================================================
-# [통신] FastAPI 서버로 이벤트 전송 2
-# 수정사항:
-#   1. image_path, ocr_error 필드 추가
-#   2. car_image와 image_path 호환 처리
-#   3. ✅ 추가: entry_quick 이벤트 (번호판 없이 PARKED 상태만 먼저 전송)
+# [통신] FastAPI 서버로 이벤트 전송 (큐 없음 - 실패 시 버림)
 # ============================================================
 
 import requests
-import json
-import os
 from datetime import datetime
 from config.settings import (
     SERVER_URL,
     REQUEST_TIMEOUT,
-    QUEUE_FILE_PATH,
     APARTMENT_NO,
 )
 from utils.logger import get_logger
@@ -23,18 +16,12 @@ logger = get_logger("sender")
 
 class EventSender:
     def __init__(self):
-        self._pending = self._load_queue()
         logger.info(f"[Sender] 초기화 | 서버: {SERVER_URL}")
-        if self._pending:
-            logger.info(f"[Sender] 미전송 {len(self._pending)}건 복구")
 
     def send(self, event: dict):
         payload = self._build_payload(event)
         if payload is None:
             return
-
-        if self._pending:
-            self._flush_pending()
 
         try:
             response = requests.post(
@@ -49,14 +36,11 @@ class EventSender:
                 )
             else:
                 logger.warning(
-                    f"[Sender] 서버 응답 오류: {response.status_code} "
-                    f"→ 재전송 큐 저장"
+                    f"[Sender] 서버 응답 오류: {response.status_code} (버림)"
                 )
-                self._enqueue(payload)
 
         except Exception as e:
-            logger.error(f"[Sender] 전송 실패: {e}")
-            self._enqueue(payload)
+            logger.error(f"[Sender] 전송 실패: {e} (버림)")
 
     def _build_payload(self, event: dict) -> dict | None:
         event_type = event.get("type")
@@ -66,8 +50,6 @@ class EventSender:
             "%Y-%m-%d %H:%M:%S"
         ) if timestamp else datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # ✅ 추가: entry_quick - 번호판 없이 PARKED 상태만 먼저 전송
-        # 입차 판정 즉시 DB에 주차중 상태로 먼저 업데이트
         if event_type == "entry_quick":
             return {
                 "event":        "entry_quick",
@@ -79,7 +61,6 @@ class EventSender:
                 "apartment_no": event.get("apartment_no") or APARTMENT_NO,
             }
 
-        # ── 입차 이벤트 (OCR 완료 후 번호판 포함해서 전송) ──
         if event_type == "entry":
             return {
                 "event":        "entry",
@@ -89,11 +70,10 @@ class EventSender:
                 "linked_zone":  event.get("linked_zone"),
                 "entry_time":   dt_str,
                 "apartment_no": event.get("apartment_no") or APARTMENT_NO,
-                "image_base64":   event.get("image_base64"),
+                "image_base64": event.get("image_base64"),
                 "ocr_error":    event.get("ocr_error", False),
             }
 
-        # ── 출차 이벤트 ───────────────────────────────────
         elif event_type == "exit":
             return {
                 "event":     "exit",
@@ -101,7 +81,6 @@ class EventSender:
                 "exit_time": dt_str,
             }
 
-        # ── 번호판 업데이트 이벤트 ────────────────────────
         elif event_type in ("plate_update", "plate_changed"):
             return {
                 "event": "update",
@@ -112,44 +91,3 @@ class EventSender:
         else:
             logger.warning(f"[Sender] 알 수 없는 이벤트: {event_type}")
             return None
-
-    def _enqueue(self, payload: dict):
-        self._pending.append(payload)
-        self._save_queue()
-        logger.warning(f"[Sender] 큐 저장 ({len(self._pending)}건)")
-
-    def _flush_pending(self):
-        success = []
-        for payload in self._pending:
-            try:
-                r = requests.post(
-                    SERVER_URL,
-                    json=payload,
-                    timeout=REQUEST_TIMEOUT,
-                )
-                if r.status_code == 200:
-                    success.append(payload)
-            except Exception:
-                break
-        for p in success:
-            self._pending.remove(p)
-        if success:
-            self._save_queue()
-            logger.info(f"[Sender] 미전송 {len(success)}건 재전송 완료")
-
-    def _save_queue(self):
-        try:
-            os.makedirs(os.path.dirname(QUEUE_FILE_PATH), exist_ok=True)
-            with open(QUEUE_FILE_PATH, "w", encoding="utf-8") as f:
-                json.dump(self._pending, f, ensure_ascii=False)
-        except Exception as e:
-            logger.error(f"[Sender] 큐 저장 실패: {e}")
-
-    def _load_queue(self) -> list:
-        if not os.path.exists(QUEUE_FILE_PATH):
-            return []
-        try:
-            with open(QUEUE_FILE_PATH, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return []

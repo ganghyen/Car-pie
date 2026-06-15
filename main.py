@@ -47,11 +47,11 @@ PRIORITY_ENTRY  = 2
 PRIORITY_UPDATE = 3
 _counter = itertools.count()
 
-# ✅ OCR 큐 우선순위
+# OCR 큐 우선순위
 OCR_PRIORITY_ENTRY   = 0
 OCR_PRIORITY_RECHECK = 1
 
-# ✅ 구역별 중앙점 감지 확인 로그 주기 (초)
+# 구역별 중앙점 감지 확인 로그 주기 (초)
 DETECT_LOG_INTERVAL = 5.0
 
 
@@ -335,7 +335,6 @@ def main():
 
             preprocessor.check_blur(frame)
 
-            # ✅ YOLO 프레임 스킵 적용
             enhanced = preprocessor.apply(frame)
 
             frame_count += 1
@@ -418,7 +417,7 @@ def main():
                     except queue.Full:
                         pass
 
-            # ✅ 구역별 중앙점 감지 결과 (5초마다 1줄 로그용)
+            # 구역별 중앙점 감지 결과 (5초마다 1줄 로그용)
             detect_status = {}
 
             for zone_name, zone_pts in homography.zones.items():
@@ -426,7 +425,13 @@ def main():
                     c for c in virtual_cars
                     if point_in_zone((c["vx"], c["vy"]), zone_pts)
                 ]
-                detect_status[zone_name] = bool(cars_in_zone)
+
+                zone_obj_for_detect = state_machine.zones.get(zone_name)
+                detect_status[zone_name] = (
+                    bool(cars_in_zone)
+                    or (zone_obj_for_detect is not None
+                        and zone_obj_for_detect.status == ZoneStatus.OCCUPIED)
+                )
 
                 foot = (cars_in_zone[0]["vx"], cars_in_zone[0]["vy"]) \
                        if cars_in_zone else None
@@ -515,8 +520,6 @@ def main():
                                         pass
 
                     elif event["type"] == "exit":
-                        _save_snapshot(frame, f"{zone_name}_exit", event["timestamp"])
-
                         pending = pending_entry.pop(zone_name, None)
                         if pending:
                             pending["plate"]        = None
@@ -583,7 +586,7 @@ def main():
                             except queue.Full:
                                 state_machine.mark_rechecked(zone_name)
 
-            # ✅ 구역별 중앙점 감지 확인 로그 (DETECT_LOG_INTERVAL마다 1줄)
+            # 구역별 중앙점 감지 확인 로그 (DETECT_LOG_INTERVAL마다 1줄)
             if now - last_detect_log >= DETECT_LOG_INTERVAL:
                 last_detect_log = now
                 status_str = " ".join(
@@ -675,7 +678,7 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
         return (float(t[0][0][0]), float(t[0][0][1])), \
                (float(t[0][1][0]), float(t[0][1][1]))
 
-    def deep_in_zone(pt, zone_pts, min_depth=13):
+    def deep_in_zone(pt, zone_pts, min_depth=5):
         poly = _np.array(zone_pts, dtype=_np.float32)
         dist = _cv2.pointPolygonTest(poly, (float(pt[0]), float(pt[1])), measureDist=True)
         return dist >= min_depth
@@ -699,8 +702,8 @@ def _check_multi_zone(virtual_cars, zones, state_machine,
             continue
         for car in virtual_cars:
             foot_left, foot_right = get_foot_ends(car, homography_matrix)
-            if (deep_in_zone(foot_left,  zone_pts, min_depth=13) or
-                    deep_in_zone(foot_right, zone_pts, min_depth=13)):
+            if (deep_in_zone(foot_left,  zone_pts, min_depth=5) or
+                    deep_in_zone(foot_right, zone_pts, min_depth=5)):
 
                 main_zone = None
                 for mz, mc in zone_main_car.items():
@@ -824,16 +827,6 @@ def _cleanup_snapshots() -> int:
     except Exception:
         pass
     return deleted
-
-
-def _save_snapshot(frame, zone_name, timestamp) -> str | None:
-    try:
-        dt   = datetime.fromtimestamp(timestamp).strftime("%Y%m%d_%H%M%S")
-        path = os.path.join(SNAPSHOT_DIR, f"{zone_name}_{dt}.jpg")
-        cv2.imwrite(path, frame)
-        return path
-    except Exception:
-        return None
 
 
 def _get_mtime(path):
